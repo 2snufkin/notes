@@ -1,0 +1,31 @@
+all commands are run in the project's folder aka working directory
+git init: connect the project to git. create an hidden folder named git when git store every version of every file in the working directory
+git config __global init.defaultBranchName: change the init brunch name from master to whenever I want in all the projects
+git branch -m branchName: change the master branch name 
+git add: Stage.copy files from the working dir. to the staging area. 
+#arg: what to copy. if I use . as an argument it will copy all files
+git commit: move files from the staging area to the git repository and creating the corresponding git objects and commit object
+giit checkout: it's like go to commend. it allow you to jump between diffrent versions of the project
+git status: show you on which branch you are at. If your are on a commit or not on a branch (HEAD detached), have you commited? untracked files etc..
+git config --list: see the list of setting. I can see the authore name and email only if they were configurated before
+git config --global user.name "Name FamilyName": set the authore's name globally
+git config --global user.email Email: set the authore's email globally (the email that I use as username at github)
+git commit -m "description": commit a staged file or files
+# args:
+-a: stage and commit
+git branch: list of the branches
+git log: show list of commits to the current branch
+--graph: will show a graph of the commit tree
+git restore --staged <file> : unstage a file
+git chackout <hash number of the commit>: update the working directory to the moment in time of this commit, can delete files and can add files
+git chackout branchname: update the working directory to a specific branch, go to this branch
+git switch -c <branchname>: create new branch
+git branch <name> : create a new branch; 
+-d: delte the branch
+git merge <branch>: I must be on the reciving branch to run it (with checkout). Will merge the branch in the arg to the reciving branch
+git remote add origin <url>: connect to an exisiting repo in gitub
+git remote -v: show if I am connected to a remote repo. if connected I should see the fetch and push files
+git push -u origin <branchname>: push changes to github, the remote branch is the remote branch I want to push to it. The -u is for create a new branch
+git pull: take changes from remote repository
+
+
