@@ -1,3 +1,6 @@
+ ssh-keygen -o: create a SSH file on your disk, later to be used in github. It will ask you where to save
+ cat <savefolder>/id_rsa.pub:will show the SSH string
+
 all commands are run in the project's folder aka working directory
 git init: connect the project to git. create an hidden folder named git when git store every version of every file in the working directory
 git config __global init.defaultBranchName: change the init brunch name from master to whenever I want in all the projects
@@ -10,6 +13,8 @@ git status: show you on which branch you are at. If your are on a commit or not 
 git config --list: see the list of setting. I can see the authore name and email only if they were configurated before
 git config --global user.name "Name FamilyName": set the authore's name globally
 git config --global user.email Email: set the authore's email globally (the email that I use as username at github)
+cat ~/.gitconfig: wil ldisplay you username and email
+
 git commit -m "description": commit a staged file or files
 # args:
 -a: stage and commit
