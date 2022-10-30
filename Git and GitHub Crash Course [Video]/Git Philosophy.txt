@@ -1,5 +1,5 @@
 Git Philosophy
-
+---------------
 
 It is important to contrast the design philosophy of git with the philosophy of a more traditional source control tool like SVN.
 
