@@ -8,7 +8,7 @@ GIT:
 Init Git Project:
 git init: connect the project to git. create an hidden folder named git when git store every version of every file in the working directory
 git config --global init.defaultBranchName: change the init brunch name from master to whenever I want in all the projects
-git branch -m branchName: change the current branch name, if you want to change another branch name, use the git checkout <branchname> command
+
 
 Staging
 git add: Stage a file/files.Copy files from the working dir. to the staging area. 
@@ -40,6 +40,7 @@ git log: show list of commits to the current branch
 Branchs:
 git switch -c <branchname>: create new branch
 git branch <name> : create a new branch
+-m <branchName>: change the current branch name, if you want to change another branch name, use the git checkout <branchname> command
 -d: delte the branch
 git merge <branch>: I must be on the reciving branch to run it (with checkout). Will merge the branch in the arg to the reciving branch 
 
@@ -60,6 +61,6 @@ Copy:
 git clone <http link/ssh link>: will copy from a remote repo to a local repo (your pc)
 
 Merge:  *always do git pull before!
-1.git merge <branch>: locally
+1.git merge <branch>: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe)
 2. git push origin <branch>
 
