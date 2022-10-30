@@ -36,6 +36,10 @@ cat ~/.gitconfig: wil ldisplay you username and email
 git branch: list of the branches
 git log: show list of commits to the current branch
 --graph: will show a graph of the commit tree
+--oneline --graph --decorate --all: show the entire tree. good to use after git fetch
+quit: If I want o quit the log screen I need to click on q
+ 
+
 
 Branchs:
 git switch -c <branchname>: create new branch
@@ -54,13 +58,19 @@ git remote -v: show if I am connected to a remote repo. if connected I should se
 git push origin <branchname>: push changes to github (origin), the branchname is the remote branch, the destination branch.
 -?? :is for create a new branch and then <branchname>. If I want to create a remote branch and  then push to it.
 
-Update:
-git pull origin <branchName>: take changes from remote repository
+Examining changes from remote:
+git fetch origin <branchname>: download the changes but not applay them to your local working folder
+
+
+Update: 
+* before running it make sure you are sitting on the branch that you want it to recive the update
+git pull origin <branchName>: take changes from remote repository with branchName.
 
 Copy:
 git clone <http link/ssh link>: will copy from a remote repo to a local repo (your pc)
 
-Merge:  *always do git pull before!
+Merge: 
+ *always do git pull before!
 1.git merge <branch>: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe)
 2. git push origin <branch>
 
