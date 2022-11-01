@@ -10,10 +10,13 @@ Init Git Project:
 git init: connect the project to git. create an hidden folder named git when git store every version of every file in the working directory
 git config --global init.defaultBranchName: change the init brunch name from master to whenever I want in all the projects
 git config alias.<name> "what it does": add a alias  
-Staging
+
+Staging and Unstaging
 git add: Stage a file/files.Copy files from the working dir. to the staging area. 
 git add .: will copy all files
 git restore --staged <file> : unstage a file
+git reset <filename>: unstage a file
+
 
 Commiting changes:
 git commit: copy files from the staging area to the git repository and creating the corresponding git objects and commit object
@@ -21,6 +24,12 @@ git commit
 -m <description>: commit a staged file or files
 -a: stage and commit. it's git add + git commit
 --amend: modify the last commit message
+
+Uncommiting:
+git reset: can be soft or hard
+--soft: delete the last commit but not it's files
+--hard: delete the last commit and its files
+
 
 
 Checkout
@@ -51,7 +60,7 @@ git branch <name> : create a new branch
 -m <branchName>: change the current branch name, if you want to change another branch name, use the git checkout <branchname> command
 -d: delte the branch
 git merge <branch>: I must be on the reciving branch to run it (with checkout). Will merge the branch in the arg to the reciving branch 
-
+git rebase <branch>: rebase a branch
 ------------------------------------------------------------------
 GITHUB:
 ------------------------------------------------------------------
@@ -78,7 +87,8 @@ Merge:
 1.git merge <branch>: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe)
 2. git push origin <branch>
 
-
+Confilcts:
+git rebase --continue: after trying to rebase, having a confilct, resolving it- run this command
 
 alias:
 log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'
