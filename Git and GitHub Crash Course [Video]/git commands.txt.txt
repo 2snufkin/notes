@@ -1,0 +1,84 @@
+
+ssh-keygen -o: create a SSH file on your disk, later to be used in github. It will ask you where to save
+cat <savefolder>/id_rsa.pub:will show the SSH string
+
+all commands are run in the project's folder aka working directory
+--------------------------------------------------------------------
+GIT:
+--------------------------------------------------------------------
+Init Git Project:
+git init: connect the project to git. create an hidden folder named git when git store every version of every file in the working directory
+git config --global init.defaultBranchName: change the init brunch name from master to whenever I want in all the projects
+git config alias.<name> "what it does": add a alias  
+Staging
+git add: Stage a file/files.Copy files from the working dir. to the staging area. 
+git add .: will copy all files
+git restore --staged <file> : unstage a file
+
+Commiting changes:
+git commit: copy files from the staging area to the git repository and creating the corresponding git objects and commit object
+git commit 
+-m <description>: commit a staged file or files
+-a: stage and commit. it's git add + git commit
+--amend: modify the last commit message
+
+
+Checkout
+git checkout: it's like switch to commend. it allow you to jump between diffrent versions of the project
+git chackout <hash number of the commit>: update the working directory to the moment in time of this commit, can delete files and can add files
+git chackout branchname: update the working directory to a specific branch, go to this branch
+git checkout -- <filename>: Undeltete a file. After deleting a file from the workig directory,it's possible to restore it to the working directory if it wasn't unstaged
+(in this case, running git add . / git add filename after the delete)
+git checkout -b branchname: create a new branch and switch to it. It's git branch <branch> + git checkout <branch>
+
+Info:
+git status: show you on which branch you are at. If your are on a commit or not on a branch (HEAD detached), have you commited? untracked files etc..
+git config --list: see the list of setting. I can see the authore name and email only if they were configurated before
+git config --global user.name "Name FamilyName": set the authore's name globally
+git config --global user.email Email: set the authore's email globally (the email that I use as username at github)
+cat ~/.gitconfig: wil ldisplay you username and email
+git branch: list of the branches
+git log: show list of commits to the current branch
+--graph: will show a graph of the commit tree
+--oneline --graph --decorate --all: show the entire tree. good to use after git fetch
+quit: If I want o quit the log screen I need to click on q
+ 
+
+
+Branchs:
+git switch -c <branchname>: create new branch
+git branch <name> : create a new branch
+-m <branchName>: change the current branch name, if you want to change another branch name, use the git checkout <branchname> command
+-d: delte the branch
+git merge <branch>: I must be on the reciving branch to run it (with checkout). Will merge the branch in the arg to the reciving branch 
+
+------------------------------------------------------------------
+GITHUB:
+------------------------------------------------------------------
+Connecting remote with local:
+git remote add origin <url>: connect to an exisiting repo in gitub
+git remote -v: show if I am connected to a remote repo. if connected I should see the fetch and push files
+
+git push origin <branchname>: push changes to github (origin), the branchname is the remote branch, the destination branch.
+-?? :is for create a new branch and then <branchname>. If I want to create a remote branch and  then push to it.
+
+Examining changes from remote:
+git fetch origin <branchname>: download the changes but not applay them to your local working folder
+
+
+Update: 
+* before running it make sure you are sitting on the branch that you want it to recive the update
+git pull origin <branchName>: take changes from remote repository with branchName.
+
+Copy:
+git clone <http link/ssh link>: will copy from a remote repo to a local repo (your pc)
+
+Merge: 
+ *always do git pull before!
+1.git merge <branch>: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe)
+2. git push origin <branch>
+
+
+
+alias:
+log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'
