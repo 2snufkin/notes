@@ -1,11 +1,11 @@
 # Git Hub
-## Features
+## What's Inside:
 
 - CheatSheet: as downloaded from the   [ATLASIAN](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet) website
 - Git Commands: a list of git commands 
 - Git philosophy: as fetched from Stackoverflow
 - Git: a pdf file containing all the notes* I've taken
-- Master And Main To Edit.txt
+- Master And Main To Edit: found in Stackoverflow. A lot info. Need to be edited
 
 from the following courses: 
 * Git Essentials: Become a Git and GitHub Ninja: By [Kalob taulien](https://kalob.io/)
