@@ -1,0 +1,31 @@
+Installing
+**********
+npm install @angular/flex-layout --save
+add to imports: FlexLayoutModule
+
+API
+***
+there is static API and reactive API
+StaticAPI: doesn't take in consideration responsivness, reacting to diffrent screen sizes
+Reactive: react to diffrent screen size. Does not contains directives but count on the existing StaticAPI
+
+
+STATIC API:
+***********
+fxLayout: define the container as flexbox
+fxFlex: the container take all avaliable width (for row) and not only the min. width nesscery for it's components
+fxLayoutAlign:  define the aligment of the elements. the first arg is along the axis, the second arg is the cross axis (axis == x or y)
+	won't work?: to center along the y axis make sure that the element you want to center has a highet (try 100%) and to canter along the x axis make sure it has a defined width. En plus, it will center it in realtion to the warping element not in realtion to the page
+
+fxLayoutGap: define the padding between one children and another.
+
+for Elements:
+fxFlex: used on elements within a fxLayout container and identifies the resizing of that element within the flexbox container flow. Can be use also on a container
+
+RESPONSIVE API:
+***************
+in this examples I will use small devices ==xs as example. Replace it with the device code that serve your purpose
+
+hide element on a small devices: fxHide.xs
+hide elemnet of the screen is greater than xs: fxHide.gt-xs
+show elemenet of the screen is lesser than md: fxHide.lt-md
