@@ -1,4 +1,4 @@
-#Git + GitHub
+# Git + GitHub
 all commands are run in the project's folder aka working directory
 
 ## GIT
@@ -35,7 +35,7 @@ quit: If I want o quit the log screen I need to click on q
 `--hard` delete the last commit and its files
 
 
-###Checkout
+### Checkout
 `git checkout` it's like switch to commend. it allow you to jump between diffrent versions of the project
 `git chackout <$hashNoOfcommit ` update the working directory to the moment in time of this commit, can delete files and can add files
 `git switch $branchname` update the working directory to a specific branch, go to this branch
@@ -43,7 +43,7 @@ quit: If I want o quit the log screen I need to click on q
 `git checkout -- $filename`: Undeltete a file. After deleting a file from the working directory,it's possible to restore it to the working directory if it wasn't unstaged
 (in this case, running git add . / git add filename after the delete)
 
-###Branchs
+### Branchs
 `git branch` list of the branches
 `git switch -c $branchname`: create new branch and witch to it
 `git branch $branchname` : create a new branch
@@ -53,29 +53,30 @@ quit: If I want o quit the log screen I need to click on q
 `git rebase $branchname`: rebase a branch
 
 
-##GITHUB:
+## GITHUB:
 
 
-###SSH KEYS
+### SSH KEYS
 `ssh-keygen -o`: create a SSH file on your disk, later to be used in github. It will ask you where to save
 `cat <savefolder>/id_rsa.pub`: will show the SSH string
 
-####Communicating to remote:
+### Communicating to remote:
 `git remote add origin $url`: connect to an exisiting repo in gitub
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files
 `git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.
 
-####Communicating from remote:
-
-`git fetch origin $branchname`: download the changes but not applay them to your local working folder. You can examine them
-
-`git pull origin $branchname`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to recive the update
-`git clone $url`: will copy from a remote repo to a local repo (your pc)
-
-#####merge
+#### Merge
  !Always do git pull before merge!
 1.`git merge $branchname`: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe).
 2. `git push origin $branchname`
+
+### Communicating from remote:
+
+`git fetch origin $branchname`: download the changes but not applay them to your local working folder. You can examine them
+`git pull origin $branchname`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to recive the update
+`git clone $url`: will copy from a remote repo to a local repo (your pc)
+
+
 
 
 
