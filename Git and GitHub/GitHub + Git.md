@@ -17,7 +17,11 @@ connect the project to git. create an hidden folder named git when git store eve
 `--graph`: will show a graph of the commit tree\
 `--oneline --graph --decorate --all`: show the entire tree. good to use after git fetch\
 `git log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'` : nice presentation of the \
-quit: If I want o quit the log screen I need to click on q
+quit: If I want o quit the log screen I need to click on q \
+`gitk --simplify-by-decoration --all`: open a window with a compact grapcial representation \
+`gitk --all` : open a window with more detailed grapcial representation \
+`git log --oneline --graph --color --all --decorate`: compact branch represntation in the terminal(only part of the commit name)\
+`git log --pretty=oneline --graph --decorate --all`:  branch represntation in the terminal with full commit number
 
 
 ### Staging  && Unstaging
