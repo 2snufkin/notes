@@ -68,7 +68,7 @@ quit: If I want o quit the log screen I need to click on q \
 ### Communicating to remote:
 `git remote add origin $url`: connect to an exisiting repo in gitub\
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files\
-`git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.
+`git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.\
 `git push origin --delete $remoteBranchName`: delete remote branch
 
 #### Merge
