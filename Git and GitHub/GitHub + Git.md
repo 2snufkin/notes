@@ -51,6 +51,7 @@ quit: If I want o quit the log screen I need to click on q \
 `git branch`: list of the branches\
 `git switch -c $branchname`: create new branch and witch to it\
 `git branch $branchname` : create a new branch\
+`git branch -d $branchname`: delete a branch
 `-m $branchname`: change the current branch name, if you want to change another branch name, move to it before\
 `-d:` delete the branch\
 `git merge $branchname`: I must be on the reciving branch to run it (with checkout). Will merge the branch in the arg to the reciving branch \
@@ -68,6 +69,7 @@ quit: If I want o quit the log screen I need to click on q \
 `git remote add origin $url`: connect to an exisiting repo in gitub\
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files\
 `git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.
+`git push origin --delete $remoteBranchName`: delete remote branch
 
 #### Merge
  !Always do git pull before merge!
