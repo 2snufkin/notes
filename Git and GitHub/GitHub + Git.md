@@ -69,6 +69,9 @@ quit: If I want o quit the log screen I need to click on q \
 `git remote add origin $url`: connect to an exisiting repo in gitub\
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files\
 `git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.\
+-u: define this branch as the default upstream branch.
+upstream branch or the tracked remote branch = the branch you will interact with by default when using git pull and git push commands.
+`git push --set-upstream-to origin/the_branch`: set upstream branch
 `git push origin --delete $remoteBranchName`: delete remote branch
 
 #### Merge
