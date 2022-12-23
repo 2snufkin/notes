@@ -24,10 +24,11 @@ quit: If I want o quit the log screen I need to click on q \
 `git log --pretty=oneline --graph --decorate --all`:  branch represntation in the terminal with full commit number
 
 
-### Staging  && Unstaging
+### Staging, Unstaging And Ignoring
 `git add`:  Stage a file/files.Copy files from the working dir. to the staging area. \
 `git add`: will copy all files\
 `git restore --staged $file` or `git reset $filename`: unstage a file
+`git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream:
 
 ### Commiting && Uncommiting
 `git commit`: copy files from the staging area to the git repository and creating the corresponding git objects and commit object\
