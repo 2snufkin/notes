@@ -1,8 +1,8 @@
-## How to force element into focus
+# Angular
 
-Verify that the element has focus att.
-create a template ref in the html. let's say its name is inp <input #inp>
-
+##how to force element into [focus](https://stackblitz.com/edit/angular-epj91y?file=src/app/select-overview-example.ts)
+- verify that the element has focus att. 
+- create a template ref in the html. let's say it's name is inp
 ```ts
   @ViewChild('inp') inputEle: any; 
 
@@ -11,3 +11,4 @@ create a template ref in the html. let's say its name is inp <input #inp>
            this.inputEle.nativeElement.focus();
       }
 ```
+
