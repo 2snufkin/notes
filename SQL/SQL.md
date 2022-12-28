@@ -23,7 +23,8 @@ path sperators: windows =>
 
 ## Info
 `SELECT user,host FROM mysql.user;`: show the users
-`SHOW DATABASES;`
+`SHOW DATABASES;`: Show a list of all the databases
+`SELECT * FROM INFORMATION_SCHEMA.TABLES  where TABLE_SCHEMA = '{db_name}' and TABLE_NAME like '{name%}';`: find a table that start with a name
 
 
 ## Actions
