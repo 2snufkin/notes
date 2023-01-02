@@ -1,0 +1,882 @@
+
+Creating the HTTP API
+
+In this chapter, we will create the HTTP API that will be consumed by the frontend of our task manager. We’ll start by learning about how to write HTTP REST endpoints in Quarkus. Then, we’ll define the services that will encapsulate the business logic of our application and make use of the data layer we implemented in Chapter 2, Adding Persistence. Next, we will implement the endpoints that will expose the functionality of the different services to the frontend application.
+
+By the end of this chapter, you should be able to implement HTTP and representational state transfer (REST) endpoints in Quarkus. You should also be able to create singleton services and use dependency injection to provide their instances to the endpoint implementation classes.
+
+We will be covering the following topics in this chapter:
+
+    Writing HTTP REST endpoints in Quarkus
+    Implementing the task manager business logic
+    Exposing the task manager to the frontend
+    Dealing with service exceptions
+
+Technical requirements
+
+You will need the latest Java JDK LTS version (at the time of writing, Java 17). In this book, we will be using Fedora Linux, but you can use Windows or macOS as well.
+
+You will need a working Docker environment to take advantage of Quarkus Dev Services. There are Docker packages available for most Linux distributions. If you are on a Windows or macOS machine, you can install Docker Desktop.
+
+If you’re not using IntelliJ IDEA Ultimate, you’ll need a tool such as cURL or Postman to interact with the HTTP endpoints implemented.
+
+You can download the full source code for this chapter from https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/tree/main/chapter-03.
+Writing HTTP REST endpoints in Quarkus
+
+Quarkus provides several ways to implement HTTP and REST endpoints. In Chapter 1, Bootstrapping the Project, we learned about the imperative and reactive paradigms and how Quarkus can be used for both approaches. In this book, we are following the reactive approach to take advantage of its improved performance.
+
+In the Bootstrapping a Quarkus application section of Chapter 1, Bootstrapping the Project, we initialized the project and added RESTEasy Reactive to the list of dependencies. This dependency is what will allow us to implement the reactive HTTP endpoints. As we learned, RESTEasy provides an implementation of JAX-RS based on Vert.x. One of the major advantages of RESTEasy Reactive compared to the regular RESTEasy alternatives is that it allows us to implement both blocking and non-blocking endpoints.
+
+Although we already have the RESTEasy dependency, we’ll need additional dependencies to be able to serialize our database entities into JSON so that they can be consumed by the HTTP API clients.
+Adding the required dependencies to our project
+
+To add the missing dependencies, we can use the quarkus:add-extension Maven goal, which will automatically insert the required code in the project’s pom.xml file. Running the following command in the project’s root will add the dependencies for you:
+
+./mvnw quarkus:add-extension -Dextensions=resteasy-reactive-jackson
+
+Once executed, you should see the following message:
+Figure 3.1 – A screenshot of the execution result of the quarkus:add-extension command
+
+Figure 3.1 – A screenshot of the execution result of the quarkus:add-extension command
+
+In this case, we’ve only added a single dependency, quarkus-resteasy-reactive-jackson, which provides serialization support for RESTEasy Reactive using the Jackson library. Our pom.xml file should now contain an additional entry in the dependencies section:
+
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-resteasy-reactive-jackson
+  </artifactId>
+</dependency>
+
+Now that the project is ready, let us see how we can implement both blocking and non-blocking endpoints with RESTEasy Reactive.
+
+Jackson
+
+Jackson is one of the most popular Java libraries, commonly known for its JSON data format serialization and deserialization features. However, Jackson is much more than that and offers a complete suite of data processing tools with support for many other data formats and encodings.
+Writing a blocking synchronous endpoint
+
+To implement a blocking endpoint, you just need to follow the regular JAX-RS convention and use the annotations provided. You can write the following code snippet to define a blocking endpoint in Quarkus:
+
+@Path("blocking-endpoint")
+public class BlockingEndpoint {
+  @GET
+  public String hello() {
+    return "Hello World";
+  }
+}
+
+We start by defining the HTTP path using the @Path annotation – in this case, blocking-endpoint. This annotation will also allow Quarkus to discover the class and expose its JAX-RS-annotated methods as HTTP endpoints.
+
+The next annotation, @GET, is used to indicate that the annotated method should be used to respond to HTTP GET requests. This annotation is used on a hello() method that returns a String instance. Note that the return type of the method is what will dictate whether Quarkus treats this as a blocking or a non-blocking endpoint. In this case, once the application is started, an HTTP request to localhost:8080/blocking-endpoint will return a text/plain response with a simple body, Hello World.
+
+If you are already familiar with JAX-RS, there’s nothing new here – you should already be familiar with this code. Now, let us see how to implement the same endpoint in a non-blocking, more performant way.
+Writing a non-blocking asynchronous endpoint
+
+The implementation of the non-blocking version of the endpoint just requires a minor change to the return type of the method signature. You can use the following code snippet to define a non-blocking endpoint in Quarkus:
+
+@Path("non-blocking-endpoint")
+public class NonBlockingEndpoint {
+  @GET
+  public Uni<String> hello() {
+    return Uni.createFrom().item("Hello").onItem().
+      transform(s -> s + " World");
+  }
+}
+
+In this case, we’ve defined the endpoint using a different path: non-blocking-endpoint. Regarding the JAX-RS annotations, nothing has changed – both the class and the method keep the annotations we used for the blocking-endpoint snippet.
+
+However, the method return type and its implementation have changed. Now, instead of returning a regular String instance, the method returns a Uni<String> object. Uni is part of Mutiny, an event-driven reactive programming library for Java. Mutiny is integrated into Quarkus and is the primary model used when dealing with reactive types.
+
+Mutiny types
+
+In Mutiny, Uni represents a lazy asynchronous action that emits a single event. This event can either be an item or a failure. Mutiny provides two types, the Uni type and the Multi type. Multi is an asynchronous action, just like Uni, but emits multiple events instead. Both types are used as the starting point and input for a Mutiny pipeline. Users can then perform asynchronous operations on the items emitted by the pipeline in the processing part and, finally, subscribe to them.
+
+In the code snippet, we use the following code to create a Uni object: Uni.createFrom().item("Hello"). This is something that you wouldn’t generally do since we are just creating an asynchronous pipeline for an item that is already available. When we dive into the endpoint implementations, we’ll see how these events can be consumed directly from the asynchronous events that a database emits when you perform a query. In the snippet, we’re also applying a transformation to append " World" to the item provided. The method returns the resulting transformed Uni; Quarkus will then take care of subscribing to the pipeline and convert it to an applicable HTTP response. Just as in the blocking example, an HTTP request to localhost:8080/non-blocking-endpoint will return a text/plain response with a simple body, Hello World.
+
+Now that we know how to implement non-blocking endpoints in Quarkus, taking advantage of the reactive paradigm, let us see how to implement the business logic that we’ll later expose as HTTP endpoints.
+Implementing the task manager business logic
+
+In Chapter 2, Adding Persistence, we created the persistence layer for the application. We created entities for users, projects, and tasks following the active record pattern. In this chapter, we’re creating the HTTP API that will be consumed by the frontend of our task manager application. However, before implementing the HTTP endpoints, it’s a good practice to encapsulate the business logic of the application within different service classes. We can expose the operations provided by these services later by implementing the non-blocking JAX-RS annotated classes and methods.
+
+We are going to implement three services: UserService, TaskService, and ProjectService. Let us start by analyzing UserService since it contains some methods that will be reused by the rest of the services.
+UserService
+
+The user service will be used to encapsulate all the required business logic for managing the application’s users. Later on, when we implement the task manager’s security, we will also use this service to retrieve the currently logged-in user.
+
+We’ll start by creating a new class, UserService, by right-clicking on the com.example.fullstack.user package and clicking on the New submenu and the Java Class menu entry:
+Figure 3.2 – A screenshot of the Java Class menu entry in IntelliJ
+
+Figure 3.2 – A screenshot of the Java Class menu entry in IntelliJ
+
+We can now type the name of the new Java class where we’ll implement the user service business logic.
+Figure 3.3 – A screenshot of the New Java Class dialog in IntelliJ
+
+Figure 3.3 – A screenshot of the New Java Class dialog in IntelliJ
+
+In the following code snippet, you will find the relevant source code for the class declaration (you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/blob/main/chapter-03/src/main/java/com/example/fullstack/user/UserService.java):
+
+@ApplicationScoped
+public class UserService {
+  // …
+}
+
+In Chapter 1, Bootstrapping the Project, we learned that Quarkus uses ArC, a CDI implementation to provide dependency injection. There are several ways to declare beans in Quarkus, the easiest being the use of bean-defining annotations. In the UserService code snippet, you’ll notice that we’ve annotated the class with the @ApplicationScoped annotation. This is a bean-defining annotation that declares a singleton instance of the Java class, which will be shared in a single application context. Whenever UserService gets injected into other beans, the CDI container will inject the same instance to each of these dependent beans.
+
+Bean
+
+A bean is just an object managed by a CDI container that supports a set of services such as life cycle callbacks, dependency injection, and interceptors. The CDI container is the environment where the application runs. It’s responsible for the creation and destruction of bean instances and the injection of these instances into other beans. You can learn more about the different CDI scopes in the official Quarkus guide here: https://quarkus.io/guides/cdi.
+
+Now, let us continue by implementing and analyzing the methods that the UserService class will provide:
+
+    findById(long id):
+
+    public Uni<User> findById(long id) {
+
+  return User.<User>findById(id)
+
+    .onItem().ifNull().failWith(() -> new
+
+     ObjectNotFoundException(id, "User"));
+
+}
+
+This method will return a Uni object that will either emit a User entity for the ID provided if the user exists in the database or fail with an exception if it doesn’t. The implementation starts by calling the User.findById static method, which is part of the active record pattern methods provided by the PanacheEntity base class. As we saw in Chapter 2, Adding Persistence, the PanacheEntity class provided many convenient features to improve our development experience. In this case, we’re taking advantage of one of the several provided static methods to perform operations on the entity. In addition, we don’t need to inject anything into the service class since all these methods can be accessed statically.
+
+The User.findById method call returns a Uni object that emits an item containing either the found user or null if it doesn’t exist. However, in this case, we don’t want to emit a null value. We asynchronously process the result of the findById method call to check for the null value, onItem().ifNull(), and throw a Hibernate ObjectNotFoundException with the ID of the missing user. If a user subscribes to this Uni and nothing is found, the subscription will fail instead of emitting a null value.
+
+    findByName(String name):
+
+    public Uni<User> findByName(String name) {
+
+  return User.find("name", name).firstResult();
+
+}
+
+This method returns a Uni object that emits a User entity for the matching name or null if no user matches the criteria. In the method implementation, we’re once again taking advantage of one of the static query methods provided by PanacheEntity: User.find("name", name). The first argument is the Hibernate Query Language (HQL) query and the second is the parameter to be passed to the query. However, in this case, we’re not even providing a complete HQL query but one of the simplified forms that Quarkus supports. This query is the equivalent of the HQL: from User where name = ?.
+
+You’ll also notice that we’re returning the first available result. The firstResult method call produces a Uni instance that either emits the first User entity matching the criteria or null. We can be sure there will either be a single result or none since we declared the name field as unique in its @Column definition within the User class.
+
+Unlike with the previous findById method, we are not checking for a null item to fail with an exception. This method will be consumed by the authorization service that we’ll implement in Chapter 4, Securing the Application; the null value processing will be done there instead.
+
+    list():
+
+    public Uni<List<User>> list() {
+
+  return User.listAll();
+
+}
+
+This will return a Uni object that emits a list containing all of the available entities in the database. The method implementation returns the result of the delegated call to the User.listAll() method provided by PanacheEntity.
+
+    create(User user):
+
+    @ReactiveTransactional
+
+public Uni<User> create(User user) {
+
+  user.password = BcryptUtil.bcryptHash
+
+    (user.password);
+
+  return user.persistAndFlush();
+
+}
+
+This method persists a new user entity in the database with the data from the provided User object instance and returns a Uni object with a single item containing the updated User object. Before persisting the object, we update the password value in the provided object with a bcrypt hash. For this purpose, we will use the BcryptUtil.bcryptHash method using the originally provided plaintext password as input.
+
+Once the hashed password is set, we are ready to persist the new instance by invoking the persistAndFlush() method. This is another of the methods provided by the PanacheEntity base class.
+
+The method is annotated with a @ReactiveTransactional annotation that indicates that the executed method should be run within a reactive Mutiny transaction to persist in the database. We will configure all of the service methods that perform write or delete operations with this annotation to make sure that the data is only persisted in the case that the complete service logic covered by the transaction is successful.
+
+bcrypt
+
+bcrypt is a password-hashing function based on the Blowfish cipher. bcrypt is especially recommended for hashing passwords because it is a slow and expensive algorithm. The slowness of the function makes it ideal to store passwords because it helps mitigate brute-force attacks by reducing the number of hashes per second an attacker can use when performing a dictionary attack.
+
+    update(User user):
+
+    @ReactiveTransactional
+
+public Uni<User> update(User user) {
+
+  return findById(user.id)
+
+    .chain(u -> User.getSession())
+
+    .chain(s -> s.merge(user));
+
+}
+
+This method will update the data of the user entity in the database with the values from the provided user entity input argument. Since this is a write operation, the method is also annotated with the @ReactiveTransactional annotation we already covered.
+
+The supplied user argument will most likely come from a deserialized user entity from an HTTP request body. So, in this case, since the entity will be in a detached state and we want to update it, we can’t call the user.persistAndFlush() method we used for the create method.
+
+The method implementation starts by calling the findById method we implemented previously, so if the user doesn’t exist, the Uni instance will emit a failure.
+
+The method implementation continues by chaining the Uni instance and mapping the emitted item to the underlying Hibernate session, .chain(u -> User.getSession()). The chain method is how Mutiny chains asynchronous operations and maps their result. It expects a lambda expression that accepts the resolved item and should return a new Uni instance with the mapped value. In this case, we are ignoring the received user and returning a Uni<Session> object.
+
+Next, we invoke the merge method of the now available Hibernate session. The merge operation will copy the state of the provided detached user instance onto a managed instance of the same entity. Internally, Hibernate will retrieve the user from the database first and then copy all the attribute values of the detached version. In addition, Hibernate will check the @Version field to enforce optimistic locking and prevent a more recent version of the entity from being overwritten. The method returns the updated, managed entity and makes it available to the Uni subscriber.
+
+Note that right now, this method will allow the user’s password to be updated from the API consumer. In Chapter 4, Securing the Application, we’ll add another service method to provide the user password update functionalities and modify this one to ignore the provided password field if present.
+
+    delete(long id):
+
+    @ReactiveTransactional
+
+public Uni<Void> delete(long id) {
+
+  return findById(id)
+
+    .chain(u -> Uni.combine().all().unis(
+
+          Task.delete("user.id", u.id),
+
+          Project.delete("user.id", u.id)
+
+        ).asTuple()
+
+        .chain(t -> u.delete())
+
+    );
+
+}
+
+This method deletes the user with the id provided by the database and all of its owned tasks and projects and returns a Uni object that will emit a null item if it completes successfully. Just as with the update method, the implementation starts by calling the findById method we implemented previously so that we can reuse the “not found” logic. The user deletion should also be covered by a transaction since it will perform a persistent delete operation in the database – we must annotate the method with @ReactiveTransactional too.
+
+The Uni instance returning the found user is then chained to a more complex lambda expression that performs asynchronous deletions of the associated tasks and projects. To delete all tasks and projects, we’re performing two different batch deletions: Task.delete("user.id", u.id) and Project.delete("user.id", u.id). In both cases, we’re issuing a batch delete operation bound to an HQL query that filters out entities that have a user ID that matches the one provided. To make sure that the user is only deleted once every related task and project is deleted, we are combining both delete operations into a single Uni object: Uni.combine().all().unis(…).asTuple(). This operation is then chained to another lambda expression that will be responsible for the effective user deletion if the previous operation succeeds.
+
+    getCurrentUser():
+
+    public Uni<User> getCurrentUser() {
+
+  // TODO: replace implementation once security is
+
+     added to the project
+
+  return User.find("order by ID").firstResult();
+
+}
+
+This is an initial dummy implementation of the getCurrentUser method that is needed by other services. Until we implement the application security, this method just returns a Uni instance that emits a single item containing the user with the lowest ID available in the database.
+
+Now that we’ve seen the implementation details of UserService, let us see the implementation of ProjectService.
+ProjectService
+
+The project service encapsulates all of the business logic related to the management of projects for our task manager application. Just as we did for users, we’ll start by creating a new ProjectService class in the com.example.fullstack.project package. The following code snippet contains the relevant parts of the source code for the class declaration and its constructor (you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Development-with-Quarkus-and-React/tree/main/chapter-03/src/main/java/com/example/fullstack/project/ProjectService.java):
+
+@ApplicationScoped
+public class ProjectService {
+  private final UserService userService;
+  @Inject
+  public ProjectService(UserService userService) {
+    this.userService = userService;
+  }
+  // …
+}
+
+Just as with UserService, this class is annotated with an @ApplicationScoped annotation so that it can be injected as a singleton into other beans. When dealing with projects in our application, we’ll need to know the currently logged-in user to perform operations that only apply to this user. UserService is responsible for providing this information, so we need to inject it into this service. In this case, we are using constructor-based injection. The constructor is annotated with @Inject and has a single parameter, UserService userService. When Quarkus instantiates this class, the singleton UserService instance from the application context will automatically be injected.
+
+Now, let us analyze the different method implementations, focusing on those that differ from the analogous methods we implemented in the UserService class:
+
+    findById(long id):
+
+    public Uni<Project> findById(long id) {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> Project.<Project>findById(id)
+
+      .onItem().ifNull().failWith(() -> new
+
+        ObjectNotFoundException(id, "Project"))
+
+      .onItem().invoke(project -> {
+
+        if (!user.equals(project.user)) {
+
+          throw new UnauthorizedException("You are not
+
+            allowed to update this project");
+
+        }
+
+      }));
+
+}
+
+This method returns a Uni instance that will emit an item containing the project with the requested ID. If the project doesn’t exist, the Uni subscription will fail with ObjectNotFoundException. If the project belongs to a user other than the one logged in, it will fail with UnauthorizedException.
+
+We start the implementation by calling the getCurrentUser method exposed by UserService. The returned Uni instance that will emit the logged-in user is then chained to a lambda expression, which receives this user as its only argument and retrieves the project by its ID. The lambda expression contains asynchronous checks for the retrieved project. Just as we did for users, we check for a null item to throw an exception. In addition, this time, we also check that the project belongs to the returned user and we throw UnauthorizedException if it doesn’t.
+
+    listForUser():
+
+    public Uni<List<Project>> listForUser() {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> Project.find("user", user).list());
+
+}
+
+This method returns a Uni object that will emit an item containing a list of all the project entities in the database that belong to the currently logged-in user.
+
+The implementation starts by invoking getCurrentUser to retrieve a Uni object that will emit the user performing this operation. The Uni instance is asynchronously chained to a lambda expression that uses the input user argument as the parameter of an HQL query to find all users.
+
+    create(Project project):
+
+    @ReactiveTransactional
+
+public Uni<Project> create(Project project) {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> {
+
+      project.user = user;
+
+      return project.persistAndFlush();
+
+    });
+
+}
+
+The method creates a new project in the database with the data provided in the input project argument and returns a Uni object that will emit an item with the new project.
+
+We start the implementation by retrieving the currently logged-in user. Then we perform an asynchronous transformation to override the provided project’s user with the one received from the Uni subscription and store it in the database using the persistAndFlush method. With this, we make sure that the project is assigned to the currently logged-in user and not to whatever value was provided as input.
+
+    update(Project project):
+
+    @ReactiveTransactional
+
+public Uni<Project> update(Project project) {
+
+  return findById(project.id)
+
+    .chain(p -> Project.getSession())
+
+    .chain(s -> s.merge(project));
+
+}
+
+This method will update the data of the project entity in the database with the values from the provided project entity input argument. The implementation follows the same pattern described for the analogous operation in UserService.
+
+    delete(long id):
+
+    @ReactiveTransactional
+
+public Uni<Void> delete(long id) {
+
+  return findById(id)
+
+    .chain(p -> Task.update("project = null where
+
+      project = ?1", p)
+
+      .chain(i -> p.delete()));
+
+}
+
+This method deletes the project with the matching ID from the database and updates all of the related tasks to unset the project. The method returns a Uni object that will emit a null item if it completes successfully. The implementation follows a similar approach to the one described for the delete method in UserService. However, in this case, instead of performing a batch delete of tasks, we perform a batch update using a simplified HQL query: Task.update("project = null where project = ?1", p).
+
+We’ve already covered the UserService and ProjectService implementations – now, let us analyze the code for TaskService.
+TaskService
+
+The task service contains the complete business logic to manage the task entities in our task manager. Just as we did for users, we’ll start by creating a new TaskService class in the com.example.fullstack.task package. The following code snippet contains the relevant parts of the source code for the class declaration and its constructor (you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Development-with-Quarkus-and-React/tree/main/chapter-03/src/main/java/com/example/fullstack/task/TaskService.java):
+
+@ApplicationScoped
+public class TaskService {
+  private final UserService userService;
+  @Inject
+  public TaskService(UserService userService) {
+    this.userService = userService;
+  }
+  // …
+}
+
+The TaskService implementation is very similar to the one we did for ProjectService. It’s a singleton @ApplicationScoped bean with findById, listForUser, update, and delete methods too.
+
+Now, let’s check the methods of the classes and analyze those that are implemented differently from the analogous versions in ProjectService and UserService:
+
+    findById(long id):
+
+    public Uni<Task> findById(long id) {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> Task.<Task>findById(id)
+
+      .onItem().ifNull().failWith(() -> new
+
+        ObjectNotFoundException(id, "Task"))
+
+      .onItem().invoke(task -> {
+
+        if (!user.equals(task.user)) {
+
+          throw new UnauthorizedException("You are not
+
+            allowed to update this task");
+
+        }
+
+      }));
+
+}
+
+This method returns a Uni object that will emit an item containing a task with the requested ID or will fail with one of the following two exceptions: ObjectNotFoundException if the task doesn’t exist, or UnauthorizedException if the task belongs to a user other than the one logged in.
+
+    listForUser():
+
+    public Uni<List<Task>> listForUser() {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> Task.find("user", user).list());
+
+}
+
+This method returns a Uni object that emits an item containing a list of all the task entities available in the database that belong to the currently logged-in user.
+
+    create(Task task):
+
+    @ReactiveTransactional
+
+public Uni<Task> create(Task task) {
+
+  return userService.getCurrentUser()
+
+    .chain(user -> {
+
+      task.user = user;
+
+      return task.persistAndFlush();
+
+    });
+
+}
+
+This method creates a new task in the database with the data provided in the input task argument and returns a Uni object that will emit an item containing the newly created task entity.
+
+    update(Task task):
+
+    @ReactiveTransactional
+
+public Uni<Task> update(Task task) {
+
+  return findById(task.id)
+
+    .chain(t -> Task.getSession())
+
+    .chain(s -> s.merge(task));
+
+}
+
+This method will update the data of the task entity in the database with the values from the task entity input argument provided.
+
+    delete(long id):
+
+    @ReactiveTransactional
+
+public Uni<Void> delete(long id) {
+
+  return findById(id)
+
+    .chain(Task::delete);
+
+}
+
+This method deletes the task with the matching ID from the database and returns a Uni object that will emit a null item if it completes successfully. Unlike for UserService and ProjectService, tasks have no dependent entities, so we perform the deletion of the entity by chaining it after the findById method call.
+
+    setComplete(long id, boolean complete):
+
+    @ReactiveTransactional
+
+public Uni<Boolean> setComplete(long id, boolean complete) {
+
+  return findById(id)
+
+    .chain(task -> {
+
+      task.complete = complete ? ZonedDateTime.now() :
+
+        null;
+
+      return task.persistAndFlush();
+
+    })
+
+    .chain(task -> Uni.createFrom().item(complete));
+
+}
+
+This method updates the task entity with the matching ID from the database by setting its complete field value. If the provided Boolean complete argument is true, then we set the task’s complete field with the current timestamp; if it is false, we set it to null.
+
+Users can achieve a similar result by invoking the update method that is also provided. However, we provide this convenient method to encapsulate the complete field’s business logic and set its value with the current system’s time. In addition, this method only focuses on the complete field, disregarding optimistic locking.
+
+Now that we’ve implemented the complete business logic for the task manager application, let us see how to expose it to the frontend by implementing the HTTP endpoints.
+Exposing the task manager to the frontend
+
+We have implemented the required services for the task manager. Now, we can use the techniques we learned in the previous section, Writing a non-blocking asynchronous endpoint, to expose them to the frontend. Following the same pattern we used for the service implementation, we are going to create three resource controller classes, one for each entity: UserResource, ProjectResource, and TaskResource.
+UserResource
+
+This resource will expose the public operations of the UserService class, allowing the HTTP API consumers to perform actions dealing with the users of the task manager. We’ll start by creating a new UserResource class in the com.example.fullstack.user package. The following code snippet contains the relevant part to declare the newly created class and its constructor (you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/blob/main/chapter-03/src/main/java/com/example/fullstack/user/UserResource.java):
+
+@Path("/api/v1/users")
+public class UserResource {
+  private final UserService userService;
+  @Inject
+  public UserResource(UserService userService) {
+    this.userService = userService;
+  }
+  // …
+}
+
+Just as we learned about in the Writing a blocking synchronous endpoint section, to declare and expose an endpoint in Quarkus, you need to annotate the class with the @Path annotation. We’ll expose all of the user-related endpoints with the /api/v1/users prefix. We’ll follow the same pattern for the rest of the resources and reuse the /api/v1 prefix. This will allow us to distinguish the API endpoints from other kinds of endpoints and also facilitate the implementation of new versions in the future.
+
+Since most of the endpoints will produce a JSON response body, we could also annotate the class with a @Produces(MediaType.APPLICATION_JSON) annotation. However, this is not necessary for Quarkus because the JSON response media type is inferred from the presence of the quarkus-resteasy-reactive-jackson dependency and is used as the default for most of the return types. You can disable this feature by providing the following property: quarkus.resteasy-json.default-json=false.
+
+All of the operations are delegated to UserService, so we’ll use constructor-based injection once again to initialize the userService instance variable. Now, let us analyze the class methods and their annotations:
+
+    get():
+
+    @GET
+
+public Uni<List<User>> get() {
+
+  return userService.list();
+
+}
+
+This method is just annotated with the @GET annotation, which indicates that this method should be used to respond to HTTP GET requests. Its implementation delegates the call to the userService.list() method. Since the method is not annotated with an additional path annotation, when running the application, the endpoint will be available at the /api/v1/users URL. When invoked, the user will receive a JSON list of all the available users.
+
+If you start the application with ./mvnw quarkus:dev, you should be able to invoke the following cURL command:
+
+curl localhost:8080/api/v1/users
+
+If everything goes well, you should be able to see something similar to this:
+Figure 3.4 – A screenshot of the result of executing cURL to retrieve all users
+
+Figure 3.4 – A screenshot of the result of executing cURL to retrieve all users
+
+Note that since the password field in the User entity is not public, it is not exposed through the HTTP API.
+
+    create(User user):
+
+    @POST
+
+@Consumes(MediaType.APPLICATION_JSON)
+
+@ResponseStatus(201)
+
+public Uni<User> create(User user) {
+
+  return userService.create(user);
+
+}
+
+This endpoint exposes the functionality of UserService to create new users in the database. The method contains several annotations. The first one, @POST, is used to indicate that this method should be selected to respond to HTTP POST method calls. The @Consumes(MediaType.APPLICATION_JSON) annotation indicates that the HTTP request should include a body with an application/json content type. This annotation, in combination with the User user method parameter, configures Quarkus to deserialize the provided JSON body in the request into a User entity instance. The @ResponseStatus(201) annotation forces Quarkus to respond with a 201 Created response status code instead of the standard 200 OK upon success.
+
+Let’s test the endpoint as it is by invoking the following request:
+
+curl -X POST -d"{\"name\":\"packt\",\"password\":\"pass\"}" -H "Content-Type: application/json" localhost:8080/api/v1/users
+
+The response should show a failure, indicating that the password is a required field. In the next section, Deserializing the User entity’s password field, we will fix this problem.
+
+    get(@PathParam("id") long id):
+
+    @GET
+
+@Path("{id}")
+
+public Uni<User> get(@PathParam("id") long id) {
+
+  return userService.findById(id);
+
+}
+
+This endpoint returns a JSON representation of the user with the requested ID. In addition to the @GET annotation, we’ve included a @Path("{id}") annotation too. The path includes an {id} parameter so that we can retrieve the user ID from the request URL. This annotation is used in combination with the annotated method argument: @PathParam("id") long id. We can now test the endpoint by invoking the following command:
+
+curl localhost:8080/api/v1/users/0
+
+If everything goes well, you should be able to see the following response:
+Figure 3.5 – A screenshot of the result of executing cURL to retrieve user 0
+
+Figure 3.5 – A screenshot of the result of executing cURL to retrieve user 0
+
+    update(@PathParam("id") long id, User user):
+
+    @PUT
+
+@Consumes(MediaType.APPLICATION_JSON)
+
+@Path("{id}")
+
+public Uni<User> update(@PathParam("id") long id, User
+
+  user) {
+
+  user.id = id;
+
+  return userService.update(user);
+
+}
+
+This endpoint allows us to update the information for the user that matches the id provided with the information provided in the user entity. It’s annotated with the @PUT annotation, so Quarkus will select this method when dealing with HTTP PUT requests targeting this path. We’ve already covered the @Path, @Consumes, and @PathParam annotations when examining the other methods, so I won’t explain them again. Note that in the method implementation, we’re overriding whatever ID came in the deserialized User entity with the one provided in the HTTP URL path.
+
+    delete(@PathParam("id") long id):
+
+    @DELETE
+
+@Path("{id}")
+
+public Uni<Void> delete(@PathParam("id") long id) {
+
+  return userService.delete(id);
+
+}
+
+This endpoint can be used to delete the user that matches the id provided in the URL path. It’s annotated with the @DELETE annotation, so the method will be selected when dealing with HTTP DELETE requests. We can test the endpoint by executing the following command:
+
+curl -X DELETE -i localhost:8080/api/v1/users/1
+
+If everything goes well, you should see the following message containing the HTTP response header – the user should no longer exist in the database:
+Figure 3.6 – A screenshot of the result of executing cURL to delete user 1
+
+Figure 3.6 – A screenshot of the result of executing cURL to delete user 1
+
+    getCurrentUser():
+
+    @GET
+
+@Path("self")
+
+public Uni<User> getCurrentUser() {
+
+  return userService.getCurrentUser();
+
+}
+
+This endpoint should expose the currently logged-in user’s information. It’s delegating the call to the userService.getCurrentUser() method. However, we didn’t implement this logic yet, and currently, it will return the user with the lowest ID available in the database. Note that this time, the @Path annotation uses a fixed String literal, so the endpoint should be available at the /api/v1/users/self URL.
+
+We’ve completely analyzed the UserResource implementation. However, there’s still a problem left when deserializing User entities from JSON; let us now see how to fix that.
+Deserializing the User entity’s password field
+
+When we initially implemented the User entity, we declared all of its fields as public except for the password field. We did this to prevent this field from being exposed through the HTTP API. However, since we are using the same User entity class to deserialize HTTP request bodies containing the User information, there is no way for Quarkus to set the data for this field.
+
+To fix this, we just need to add the following snippet and the required imports to the User class:
+
+@JsonProperty("password")
+public void setPassword(String password) {
+  this.password = password;
+}
+
+The method will be used by Jackson to deserialize the value of the password property. However, since the password instance variable is still package-private, it won’t be serialized.
+
+Let’s now repeat the cURL command invocation to create a user:
+
+curl -X POST -d"{\"name\":\"packt\",\"password\":\"pass\"}" -H "Content-Type: application/json" localhost:8080/api/v1/users
+
+We should be able to see the following success message:
+Figure 3.7 – A screenshot of the result of executing cURL to create a new user
+
+Figure 3.7 – A screenshot of the result of executing cURL to create a new user
+
+We have now completed the implementation of the HTTP API to deal with the application’s users. Let us now continue by implementing the API to manage the user’s projects.
+ProjectResource
+
+This resource will expose the public operations of the ProjectService class, allowing the HTTP API’s logged-in users to perform actions concerning their task manager projects. We’ll start by creating a new ProjectResource class in the com.example.fullstack.project package.
+
+The implementation of the ProjectResource class is very similar to the one for the UserResource class – you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/blob/main/chapter-03/src/main/java/com/example/fullstack/project/ProjectResource.java. Just as we did with the UserResource class, we’ll annotate the ProjectResource class with the @Path annotation – yet, in this case, we’ll expose it under the /api/v1/projects URL. Again, all of the operations will be delegated to the service class that encapsulates the business logic: ProjectService. An instance of this class is injected so that it can be reused in the method implementations. The class contains most of the methods and annotations we implemented for UserResource: get, create, update, and delete. The same explanations apply here.
+
+If the application is running, once we save the new class, we can start to experiment with the new endpoints.
+
+Note
+
+We didn’t implement the application’s security yet, so every project operation will apply to the user with the lowest ID available in the database.
+
+    We can start by creating a new project by executing the following command:
+
+    curl -X POST -d"{\"name\":\"project\"}" -H "Content-Type: application/json" localhost:8080/api/v1/projects
+
+The execution should complete and print a JSON object with the details of the new project. The JSON should look something similar to the following (note that we’ve omitted and truncated some fields to make it more legible):
+
+{"id":10,"name":"project","user":{"id":0…},"version":0}
+
+    We should also be able to list the user’s projects by executing the following command:
+
+    curl localhost:8080/api/v1/projects
+
+The command should complete and print a JSON object with the list of projects for the user, including the one we just created:
+
+[{"id":10,"name":"project","user":{"id":0…},"version":0}]
+
+    We can also update the project and change its name by executing the following cURL command – note that the URL should be adapted to include the id that was returned in the previous create command:
+
+         curl -X PUT -d"{\"name\":\"new-name\",\"version\":0, \"user\":{\"id\":0}}" -H "Content-Type: application/json" localhost:8080/api/v1/projects/10
+
+The command should print a JSON object with the updated project information:
+
+{"id":10,"name":"new-name","user":
+{"id":0…},"version":1}
+
+    We should also be allowed to delete the newly created project by executing the following command:
+
+    curl -X DELETE localhost:8080/api/v1/projects/10
+
+Since the endpoint doesn’t produce a response body, the command will just complete successfully.
+
+We’ve covered the application’s HTTP API for users and projects; now, let’s complete it by implementing the TaskResource class.
+TaskResource
+
+This resource will expose the public operations of the TaskService class through an HTTP API. It allows logged-in users to perform CRUD operations on their tasks and mark them as complete. We’ll start by creating a new TaskResource class in the com.example.fullstack.task package.
+
+The implementation of the TaskResource class is very similar to those for the UserResource and ProjectResource classes – you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/blob/main/chapter-03/src/main/java/com/example/fullstack/task/TaskResource.java. Just as we did for the other resource classes, we’ll annotate the class with the @Path annotation and expose it under the /api/v1/tasks URL. We will also inject an instance of the TaskService class. This class contains the get, create, update, and delete methods, which have implementations and annotations that are almost identical to the ones in the UserResource and ProjectResource classes covered previously.
+
+The class contains an additional method: public Uni<Boolean> setComplete(@PathParam("id") long id, boolean complete). This endpoint allows users to mark tasks as complete. It’s annotated with @PUT and exposed under the /api/v1/tasks/{id}/complete URL where {id} is a parameter to be replaced with the project ID.
+
+Once we save the new class, if the application is running via the ./mvnw quarkus:dev command, we should be able to test some of the new endpoints:
+
+    The following curl command could be used to create a new task:
+
+    curl -X POST -d"{\"title\":\"task\"}" -H "Content-Type: application/json" localhost:8080/api/v1/tasks
+
+The execution should complete and print a JSON object with the details of the new task. The JSON should look something similar to the following (note that we’ve omitted and truncated some fields to make it more legible):
+
+{"id":11,"title":"task","description":null,"priority":null,"user":{"id":0…},"complete":null,"project":null,"version":0}
+
+    You can now mark this task as complete by sending the following HTTP request (note that the URL should be adapted to include the id that was returned in the previous create command):
+
+         curl -X PUT -d"\"true\"" -H "Content-Type: application/json" localhost:8080/api/v1/tasks/11/complete
+
+The command should complete successfully and print true on the screen.
+
+You should be able to test the rest of the endpoints by yourself by adapting the cURL commands we described for projects.
+
+I would like to highlight how we’re propagating the asynchronous Uni return type across the different classes and taking full advantage of the non-blocking reactive capabilities offered by Quarkus. From the initial query to the database, through the business logic and data processing, down to the JAX-RS endpoint definition: everything is encapsulated within an asynchronous Mutiny pipeline.
+
+We have now completed the implementation of all the HTTP endpoints for our application. However, you might have already noticed that if some exception happens, a nasty error message is printed on the screen. Let us now see how to deal with these exceptions and prepare proper HTTP responses.
+Dealing with service exceptions
+
+To be able to handle the application’s exceptions and map them to proper HTTP responses, we need to provide an implementation of ExceptionMapper. We will start by creating a new RestExceptionHandler class in the com.example.fullstack package. In the following code snippet, you will find the relevant source code for the class declaration (you can find the complete code in the GitHub repository at https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React/blob/main/chapter-03/src/main/java/com/example/fullstack/RestExceptionHandler.java):
+
+@Provider
+public class RestExceptionHandler implements
+  ExceptionMapper<HibernateException> {
+  // …
+}
+
+The JAX-RS specification defines the ExceptionMapper interface to be able to customize the way Java exceptions are converted to HTTP responses. To write a custom ExceptionMapper, we need to create a class that implements this interface and annotates it with the @Provider annotation so that it is automatically discovered by Quarkus. In this case, we are implementing it with a HibernateException type parameter. This means that only exceptions that extend HibernateException will be processed by this mapper, which should be fine for our application.
+
+Let us now implement and analyze the methods for this class:
+
+    hasExceptionInChain(…):
+
+    private static boolean hasExceptionInChain(
+
+  Throwable throwable, Class<? extends Throwable>
+
+    exceptionClass) {
+
+  return getExceptionInChain(throwable,
+
+    exceptionClass).isPresent();
+
+}
+
+This method checks whether the current exception, throwable, or any of the exceptions in its stack trace are an instance of the provided exceptionClass:
+
+    hasPostgresErrorCode(Throwable throwable, String code)
+
+    private static boolean hasPostgresErrorCode(
+
+  Throwable throwable, String code) {
+
+  return getExceptionInChain(throwable,
+
+    PgException.class)
+
+    .filter(ex -> Objects.equals(ex.getCode(), code))
+
+    .isPresent();
+
+}
+
+This method tries to retrieve a PgException from the provided throwable exception’s stack trace. If a PgException is found, it then checks to see whether it contains the provided error code. We will initially use this method to identify when a database’s unique constraint has been violated.
+
+    toResponse(HibernateException exception):
+
+    public Response toResponse(HibernateException
+
+  exception) {
+
+  if (hasExceptionInChain(exception,
+
+    ObjectNotFoundException.class)) {
+
+    return Response.status(Response.Status.NOT_FOUND)
+
+      .entity(exception.getMessage()).build();
+
+  }
+
+  if (hasExceptionInChain(exception,
+
+    StaleObjectStateException.class)
+
+    || hasPostgresErrorCode(exception,
+
+      PG_UNIQUE_VIOLATION_ERROR)) {
+
+    return Response.status
+
+      (Response.Status.CONFLICT).build();
+
+  }
+
+  return Response.status(Response.Status.BAD_REQUEST)
+
+    .entity("\"" + exception.getMessage() + "\"").
+
+      build();
+
+}
+
+This method contains the logic to effectively map the exceptions into HTTP responses with more suitable HTTP status codes. If the exception corresponds to ObjectNotFoundException, a response with a 404 Not Found status code will be returned. If the exception is of the StaleObjectStateException type, which is thrown when there is an optimistic lock problem, a 409 Conflict status code will be returned instead. The same 409 Conflict status code will be provided if the exception corresponds to a PostgreSQL unique key violation. In any other case, a response with a standard 400 Bad Request status code will be returned.
+
+This method could be improved in the future to cover other kinds of exceptions or to provide more details in the response. In addition, you could also implement an additional ExceptionMapper to deal with other kinds of exceptions too.
+
+We can now execute the application in dev mode using the ./mvnw quarkus:dev command and check whether our new RestExceptionHandler is working.
+
+We can start by performing a request to query a user that doesn’t exist:
+
+curl -i localhost:8080/api/v1/users/1337
+
+Note that we’ve included the -i command-line flag to print the response headers and body. You should be able to see something similar to the following:
+Figure 3.8 – A screenshot of a cURL execution showing the 404 Not Found status
+
+Figure 3.8 – A screenshot of a cURL execution showing the 404 Not Found status
+
+We can also force a conflict error by issuing a request to create a duplicate user:
+
+curl -i -X POST -d"{\"name\":\"admin\",\"password\":\"pass\"}" -H "Content-Type: application/json" localhost:8080/api/v1/users
+
+Once executed, the following headers should be visible:
+Figure 3.9 – A screenshot of a cURL execution showing the 409 Conflict status
+
+Figure 3.9 – A screenshot of a cURL execution showing the 409 Conflict status
+
+We’ve now implemented a common exception mapper that will convert Java exceptions to HTTP responses. This is very useful for the frontend side of the application, which can now properly handle any of the exceptions managed by our RestExceptionHandler.
+Summary
+
+In this chapter, we learned how to implement both blocking and non-blocking endpoints in Quarkus using RESTEasy Reactive. We also implemented the complete business logic and HTTP API for our application. We started by developing the business logic for the task manager in different service classes. Then, we implemented the JAX-RS endpoints in resource controller classes that receive these services via dependency injection. We also learned how to map Java exceptions to HTTP responses to be able to provide more accurate response status codes and how to fully customize the response.
+
+You should now be able to implement HTTP and REST APIs in Quarkus. In the next chapter, we’ll see how to secure the application using JWT. We’ll implement JWT authentication and authorization and protect the endpoints we just developed.
+Questions
+
+    Can RESTEasy Reactive be used to implement synchronous, blocking endpoints?
+    What are the two types provided by Mutiny to start a pipeline?
+    What is a bean?
+    How can you easily declare a singleton bean in Quarkus?
+    Why is bcrypt preferred for hashing passwords?
+    How can you add a path parameter to a URL in Quarkus?
+    Is it necessary to include the @Produces JAX-RS annotation in Quarkus endpoint definitions?
+    How can you intercept a Java exception and map it to an HTTP response?
+
