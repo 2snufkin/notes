@@ -431,7 +431,21 @@ public Uni<Void> delete(@PathParam("id") long id) {
   return userService.delete(id);
 }
 ```
+### Working with Path Variables
+```
+@GET
+@Path("{id}")
+public Uni<User> get(@PathParam("id") long id) {
+  return userService.findById(id);
+}
+```
+@Path("{id}"): includes an {id} parameter so that we can retrieve the user ID from the request URL. This annotation is used in combination with the annotated method argument: @PathParam("id") long id.
+
+
+
 ### Dealing with service exceptions
+The idea is to implement a common exception mapper that will convert Java exceptions to HTTP responses. This is very useful for the frontend side of the application, which can now properly handle any of the exceptions managed by our RestExceptionHandler.
+Summary
 To be able to handle the application’s exceptions and map them to proper HTTP responses, we need to provide an implementation of ExceptionMapper.\
 1. Create a RestExceptionHandler class that implements ExceptionMapper
 ```
@@ -477,15 +491,11 @@ This method could be improved to cover other kinds of exceptions or to provide m
 public Response toResponse(HibernateException exception) {
 
   if (hasExceptionInChain(exception, ObjectNotFoundException.class)) {
-
     return Response.status(Response.Status.NOT_FOUND)
-    
-      .entity(exception.getMessage()).build();
+          .entity(exception.getMessage()).build();
 
   }
-
   if (hasExceptionInChain(exception, StaleObjectStateException.class)
-
     || hasPostgresErrorCode(exception, PG_UNIQUE_VIOLATION_ERROR)) {
 
     return Response.status(Response.Status.CONFLICT).build();
@@ -493,53 +503,12 @@ public Response toResponse(HibernateException exception) {
   }
 
   return Response.status(Response.Status.BAD_REQUEST)
-
     .entity("\"" + exception.getMessage() + "\"").build();
 }
 ```
 
 
 
-Note that we’ve included the -i command-line flag to print the response headers and body. You should be able to see something similar to the following:
-Figure 3.8 – A screenshot of a cURL execution showing the 404 Not Found status
-
-Figure 3.8 – A screenshot of a cURL execution showing the 404 Not Found status
-
-We can also force a conflict error by issuing a request to create a duplicate user:
-
-curl -i -X POST -d"{\"name\":\"admin\",\"password\":\"pass\"}" -H "Content-Type: application/json" localhost:8080/api/v1/users
-
-Once executed, the following headers should be visible:
-Figure 3.9 – A screenshot of a cURL execution showing the 409 Conflict status
-
-Figure 3.9 – A screenshot of a cURL execution showing the 409 Conflict status
-
-We’ve now implemented a common exception mapper that will convert Java exceptions to HTTP responses. This is very useful for the frontend side of the application, which can now properly handle any of the exceptions managed by our RestExceptionHandler.
-Summary
-
-In this chapter, we learned how to implement both blocking and non-blocking endpoints in Quarkus using RESTEasy Reactive. We also implemented the complete business logic and HTTP API for our application. We started by developing the business logic for the task manager in different service classes. Then, we implemented the JAX-RS endpoints in resource controller classes that receive these services via dependency injection. We also learned how to map Java exceptions to HTTP responses to be able to provide more accurate response status codes and how to fully customize the response.
-
-You should now be able to implement HTTP and REST APIs in Quarkus. In the next chapter, we’ll see how to secure the application using JWT. We’ll implement JWT authentication and authorization and protect the endpoints we just developed.
-Questions
-
-    Can RESTEasy Reactive be used to implement synchronous, blocking endpoints?
-    What are the two types provided by Mutiny to start a pipeline?
-    What is a bean?
-    How can you easily declare a singleton bean in Quarkus?
-    Why is bcrypt preferred for hashing passwords?
-    How can you add a path parameter to a URL in Quarkus?
-    Is it necessary to include the @Produces JAX-RS annotation in Quarkus endpoint definitions?
-    How can you intercept a Java exception and map it to an HTTP response?
-
-#### Working with Path Variables
-```
-@GET
-@Path("{id}")
-public Uni<User> get(@PathParam("id") long id) {
-  return userService.findById(id);
-}
-```
-@Path("{id}"): includes an {id} parameter so that we can retrieve the user ID from the request URL. This annotation is used in combination with the annotated method argument: @PathParam("id") long id.
 
 ## Summery
 From the initial query to the database, through the business logic and data processing, down to the JAX-RS endpoint definition: everything is encapsulated within an asynchronous Mutiny pipeline, taking full advantage of the non-blocking reactive capabilities offered by Quarkus.
