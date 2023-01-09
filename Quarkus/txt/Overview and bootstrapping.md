@@ -1,8 +1,8 @@
 
-# Overview and Bootstrapping
-+ quick introduction to Quarkus and saw what its main advantages and breakthroughs for the Java ecosystem are. 
-+ create a Quarkus project 
-+ have a working development environment to implement the new features.
+# Overview  
+book: Full Stack Quarkus and React
+author: Marc Nuri San Felix
+[project files](https://github.com/PacktPublishing/Full-Stack-Quarkus-and-React)
 
 ## What is Quarkus
 Java framework, cloud orientated [free open source](https://github.com/quarkiverse) project that was initially released in March 2019. The main goals of Quarkus are to improve the application’s startup time, its memory footprint, and the developer experience. Quarkus was built from the ground up to be cloud-native from the start. When Quarkus was designed, the team decided to rely on existing tools, frameworks, and standards instead of building something new from scratch. Quarkus combines the traditional imperative coding style with the cloud-native friendly reactive coding style approach. 
@@ -18,7 +18,7 @@ The learning curve is very gentle since most of it is based on proven community 
 Quarkus makes it extremely easy to create native executables for your platform. The framework provides almost transparent integration with GraalVM, a high-performance Java Development Kit (JDK) distribution that allows you to compile your Java code into a standalone binary executable.
 
 
-## Bootstrapping a Quarkus application
+# Bootstrapping a Quarkus application
 There are more than ne way to create Quarkus app
 + [Web Page](https://code.quarkus.io/)
 + [CLI](https://quarkus.io/guides/cli-tooling)
@@ -76,9 +76,6 @@ Just as with the development mode, we can run a Maven command to start the conti
 ```
 ./mvnw quarkus:test
 ```
-
-
-
 ### Packaging the application
 
 The final step to being able to distribute and run the application would be to package it.
@@ -89,7 +86,7 @@ Besides the native mode, which we already analyzed in the Profiles section, Quar
 + native: This mode uses GraalVM to package your application into a single native binary executable file for your platform.
 + native-sources: This type is intended for advanced users. It generates the files that will be needed by GraalVM to create the native image binary. It’s like the native packaging type but stops before triggering the actual GraalVM invocation. This allows performing the GraalVM invocation in a separate step, which might be useful for CI/CD pipelines.
 
-#### Setting the packging mode
+#### Setting the packaging mode
 You can control the packaging mode by : 
 1. setting the quarkus.package.type Maven property. You can set this property in the pom.xml properties section 
 2. via the command line when running the Maven commands:

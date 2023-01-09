@@ -193,7 +193,7 @@ You don't need to send the Token to the server. AngularFire do it automatically 
 ```ts
 .auth.signOut()
 ```
-it will get rid of the token. Everything will work but you will get an error in the console "Missing ot insuddcient permissions"
+it will get rid of the token. Everything will work but you will get an error in the console "Missing or insufficient permissions"
 This error appear because after logging out I am still listen to  the DB changes whenever I use snapshotChanges()/ valueChanges()
 Solution: 
 1. in the subscribe() you can manage this error
