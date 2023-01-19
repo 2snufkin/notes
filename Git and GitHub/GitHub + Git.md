@@ -83,6 +83,8 @@ upstream branch or the tracked remote branch = the branch you will interact with
 ### Remote => Local:
 
 `git fetch origin $branchname`: download the changes but not applay them to your local working folder. You can examine them\
+`git fetch && git diff HEAD @{u} --name-only`: see what files will be modified if you do a git PULL
+`git fetch && git diff @{u} --name-only`: see ALL differences between your current version and the incoming version, including uncommited local modifications. 
 `git pull origin $branchname`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to recive the update\
 `git clone $url`: will copy from a remote repo to a local repo (your pc)
 
