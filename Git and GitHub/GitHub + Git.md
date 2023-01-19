@@ -66,7 +66,7 @@ quit: If I want o quit the log screen I need to click on q \
 `ssh-keygen -o`: create a SSH file on your disk, later to be used in github. It will ask you where to save\
 `cat <savefolder>/id_rsa.pub`: will show the SSH string
 
-### Communicating to remote:
+###  Local => Remote:
 `git remote add origin $url`: connect to an exisiting repo in gitub\
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files\
 `git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.\
@@ -80,13 +80,18 @@ upstream branch or the tracked remote branch = the branch you will interact with
 1.`git merge $branchname`: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe).\
 2. `git push origin $branchname`
 
-### Communicating from remote:
+### Remote => Local:
 
 `git fetch origin $branchname`: download the changes but not applay them to your local working folder. You can examine them\
 `git pull origin $branchname`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to recive the update\
 `git clone $url`: will copy from a remote repo to a local repo (your pc)
 
-
+#### Getting one file
+```
+git fetch: git fetch will download all the recent changes, but it will not put it in your current checked out code (working area).
+git checkout origin/<branchname> -- path/to/file.\
+//will checkout the particular file from the downloaded changes (origin/master).
+```
 
 
 
