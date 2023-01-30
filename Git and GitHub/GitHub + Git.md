@@ -89,15 +89,19 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git clone $url`: will copy from a remote repo to a local repo (your pc)
 `git rebase origin/<branchmaster>` : when on a feature beanch, it will update the feature branch with the remote main branch <branchmaster>
 
+ 
+ ### Conflicts
+ 1. resolve the conflicts
+ 2. add and commit the changed files
+
+ 
+ 
 #### Getting one file
 ```
 git fetch: git fetch will download all the recent changes, but it will not put it in your current checked out code (working area).
 git checkout origin/<branchname> -- path/to/file.\
 //will checkout the particular file from the downloaded changes (origin/master).
 ```
-
-
-
 
 ## What if
 - #### I lost a commit, I commited to a detached head
