@@ -90,9 +90,10 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git rebase origin/<branchmaster>` : when on a feature beanch, it will update the feature branch with the remote main branch <branchmaster>
 
  
- ### Conflicts
- 1. resolve the conflicts
- 2. add and commit the changed files
+# Workflow
+ update from remote -> create task branch -> work on it -> once a day `git rebase origin/<branchmaster>` to pull the code from remote.
+ when ready to push: compile and build your project -> test it -> `git rebase origin/<branchmaster> -> if there are conflicts solve them
+ -> add and commit with `git commit -am "message"` -> git rebase --continue -> push to remote.
 
  
  
