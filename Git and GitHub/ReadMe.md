@@ -17,8 +17,8 @@ TODO: finish last lectures in the Git Essentials: Become a Git and GitHub Ninja 
 ```
 # Git Workflow - New Task
 ## working workflow
-1.update from remote
-2. reate task branch -> work on it
+1. update from remote
+2. create task branch -> work on it
 3. once a day git rebase origin/<branchmaster> to pull the code from remote. 
 ## Finishing task
 1. git rebase origin/<branchmaster>
