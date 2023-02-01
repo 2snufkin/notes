@@ -15,3 +15,15 @@ from the following courses:
 ```sh
 TODO: finish last lectures in the Git Essentials: Become a Git and GitHub Ninja Course
 ```
+# Git Workflow - New Task
+## working workflow
+1.update from remote
+2. reate task branch -> work on it
+3. once a day git rebase origin/<branchmaster> to pull the code from remote. 
+## Finishing task
+1. git rebase origin/<branchmaster>
+A. if there are conflicts solve them
+B. add and commit with git commit -am "message"
+C. git rebase --continue
+2. compile and build your project 
+3. push to remote. If there were conflicts use the -f argument.
