@@ -25,3 +25,5 @@ TODO: finish last lectures in the Git Essentials: Become a Git and GitHub Ninja 
 [if there are conflicts solve them -> add and commit with `git commit -am "message"` -> `git rebase --continue`]
 2. compile and build your project 
 3. push to remote. If there were conflicts use the -f argument.
+4. Switch to refactoring
+5. Create a new branch for a new task
