@@ -48,8 +48,9 @@ quit: If I want o quit the log screen I need to click on q \
 `git checkout -- $filename`: Undeltete a file. After deleting a file from the working directory,it's possible to restore it to the working directory if it wasn't unstaged\
 (in this case, running git add . / git add filename after the delete)
 
-### Branchs
+### Branchs and merge
 `git branch`: list of the branches\
+`git branch --merged origin/<devbranch> -r` : list all the remote branches that have been merged into the remote master branch, where origin is the default name for the remote repository\
 `git switch -c $branchname`: create new branch and witch to it\
 `git branch $branchname` : create a new branch\
 `git branch -d $branchname`: delete a branch\
