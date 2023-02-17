@@ -13,9 +13,11 @@ For example, if you deploy a web application called "myapp.war" to Tomcat, Tomca
 Tomcat then **creates a context** for the web application based on the contents of the WEB-INF/web.xml file. The context contains information about the web application, such as the URL mappings, servlets, filters, and other configuration information.
 
 ## Deploy: Non Theory
-To deploy a Java web application to Tomcat, you need to **copy the WAR file to the "webapps" directory** of your Tomcat installation. By default, the "webapps" directory is located at $CATALINA_HOME/webapps/, where $CATALINA_HOME is the installation directory of Tomcat.
+1. **Build** your Java web application using a build tool such as Maven or Gradle. This will generate a WAR file in a directory such as "target".
+2. **Copy** the WAR file to the "webapps" directory of your Tomcat installation, which is typically located at $CATALINA_HOME/webapps/. where $CATALINA_HOME is the installation directory of Tomcat.
+Tomcat will automatically deploy the web application by extracting its contents to a new directory under "webapps". The name of the new directory will be the same as the name of the WAR file (without the .war extension).
 
-When you copy the WAR file to the "webapps" directory, Tomcat will **automatically deploy** it by extracting its contents to a new directory under "webapps". The name of the new directory is usually the same as the name of the WAR file (without the .war extension).
+You can then access your web application by using the context path of the new directory in the URL.
 
 ### Example
 if you have a WAR file called "myapp.war", you can deploy it to Tomcat by copying it to the "webapps" directory. After the deployment, Tomcat will extract the contents of the WAR file to a new directory called "myapp" under "webapps". You can then access your application by using the context path of "/myapp" in the URL.
