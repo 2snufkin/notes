@@ -14,7 +14,7 @@ Tomcat then **creates a context** for the web application based on the contents 
 
 ## Deploy: Non Theory
 1. **Build** your Java web application using a build tool such as Maven or Gradle. This will generate a WAR file in a directory such as "target".
-2. **Copy** the WAR file to the "webapps" directory of your Tomcat installation, which is typically located at $CATALINA_HOME/webapps/. where $CATALINA_HOME is the installation directory of Tomcat.
+2. **Copy** the WAR file to the "webapps" directory of your Tomcat installation, which is typically located at $CATALINA_HOME/webapps/. where $CATALINA_HOME is the installation directory of Tomcat.\
 Tomcat will automatically deploy the web application by extracting its contents to a new directory under "webapps". The name of the new directory will be the same as the name of the WAR file (without the .war extension).
 
 You can then access your web application by using the context path of the new directory in the URL.
