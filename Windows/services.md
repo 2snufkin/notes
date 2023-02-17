@@ -10,7 +10,7 @@ catalina.bat run
 ```
 2. Save the file with a .bat extension. For example, you can name the file startup.bat and save it in the C:\Tech\Tomcat folder.
 3. configure Tomcat to deploy the WAR file on startup. To do this, open the C:\...\Tomcat\conf\server.xml file in a text editor.\
-Locate the <Host> tag and add the following lines inside it:
+Locate the Host tag and add the following lines inside it:
 `<Context path="" docBase="path/to/your/war/file.war" debug="0" reloadable="true" />`\
 Make sure to replace path/to/your/war/file.war with the actual path to your WAR file.
 4. Save the server.xml file.
