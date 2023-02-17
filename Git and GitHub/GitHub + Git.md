@@ -40,6 +40,15 @@ quit: If I want o quit the log screen I need to click on q \
 `--soft`: delete the last commit but not it's files\
 `--hard`: delete the last commit and its files
 
+### Stash
+backup you files before\
+`git stash`: save your changes in a temporary location, allowing you to switch to another branch without committing your changes.\
+`git stash apply`:apply your stashed changes to your current branch.\
+`git stash pop`: apply your stashed changes and remove them from the stash.\
+If you have more than one stash, you can specify which stash to apply using the following command:\
+`git stash apply stash@{<number>}`: <number> is the number of the stash you want to apply, starting from 0 for the most recent stash.
+
+
 ### Checkout
 `git checkout`: it's like switch to commend. it allow you to jump between diffrent versions of the project\
 `git chackout $hashNoOfcommit `: update the working directory to the moment in time of this commit, can delete files and can add files\
