@@ -14,7 +14,7 @@ Locate the `<Host>` tag and add the following lines inside it:
 `<Context path="" docBase="path/to/your/war/file.war" debug="0" reloadable="true" />`\
 Make sure to replace path/to/your/war/file.war with the actual path to your WAR file.
 4. Save the server.xml file.
-5. add the batch file to the Windows startup folder:
+5. add the batch file to the Windows startup folder:\
 *: press the Windows key + R to open the Run dialog box, type shell:startup and press Enter.
 *: This will open the Startup folder. Right-click in the folder and select "New" > "Shortcut".
 *:  In the "Create Shortcut" dialog box, type the path to the startup.bat file that you created earlier, and click "Next".
