@@ -25,8 +25,8 @@ If you want to customize the deployment settings of your web application, you ca
 
 In the context XML file, you can define various settings for your web application, such as the context path, the database connection settings, and the security settings. Here is an example of a simple context XML file:
 
-<pre>
-```xml
+
+```
 <Context path="/myapp">
     <Resource name="jdbc/mydb" auth="Container" type="javax.sql.DataSource"
               username="myuser" password="mypassword"
@@ -34,7 +34,7 @@ In the context XML file, you can define various settings for your web applicatio
               url="jdbc:mysql://localhost/mydb"/>
 </Context>
 ```
-</pre>
+
   
 In this example, the context path of the web application is set to "/myapp", and a database connection pool is defined with the JNDI name "jdbc/mydb". You can place your own context XML file in the "conf/Catalina/localhost" directory to customize the deployment settings of your web application.
 
