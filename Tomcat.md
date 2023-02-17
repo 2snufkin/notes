@@ -15,4 +15,8 @@ Tomcat then **creates a context** for the web application based on the contents 
 ## In Action
 When a client sends a request for a URL that maps to the web application, Tomcat uses the context to determine how to handle the request. It might call a servlet to generate a response, or it might serve up a static file such as an HTML page or an image file.
 
-In summary, Tomcat is a web server and servlet container that is used to serve Java web applications. It extracts the contents of a WAR file into a directory on the server's file system, creates a context for the web application based on the contents of the WEB-INF/web.xml file, and uses the context to handle incoming HTTP requests.
+## In summary
+Tomcat is a web server and servlet container that is used to serve Java web applications. 
+* It extracts the contents of a WAR file into a directory on the server's file system
+* creates a context for the web application based on the contents of the WEB-INF/web.xml file
+* uses the context to handle incoming HTTP requests.
