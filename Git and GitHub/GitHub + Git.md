@@ -79,7 +79,7 @@ If you have more than one stash, you can specify which stash to apply using the 
 ###  Local => Remote:
 `git remote add origin $url`: connect to an exisiting repo in gitub\
 `git remote -v`: show if I am connected to a remote repo. if connected I should see the fetch and push files\
-`git push --set-upstream origin master`: To push the current branch and set the remote as upstream\ 
+`git push --set-upstream origin master`: To use for the first push. Push the current branch and set the remote as upstream\ 
 `git push origin $branchname`: push changes to github (origin), the branchname is the remote branch, the destination branch.\
 -u: define this branch as the default upstream branch.
 upstream branch or the tracked remote branch = the branch you will interact with by default when using git pull and git push commands.
