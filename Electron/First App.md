@@ -43,6 +43,22 @@ You need to call this function when the app is ready
 app.on('ready', createMainWindow)
 ```
 
+you can also implement garbage collection:
+this code creates a main window when Electron is ready, and then listens for the 'ready' event on that window. Once the window is ready, it sets the mainWindow variable to null to prevent keeping an unnecessary reference to it in memory. This is a good practice to avoid memory leaks and improve performance.
+ 
+```
+// This code listens for the 'ready' event that is emitted when Electron has finished initializing and is ready to create windows.
+app.on('ready', () => {
+	// When the app is ready, create a new main window.
+	createMainWindow();
+
+	// This code listens for the 'ready' event that is emitted when the main window has finished loading its content.
+	mainWindow.on('ready', () => {
+		// Once the main window is ready, set the mainWindow variable to null to avoid keeping a reference to it in memory.
+		mainWindow = null;
+	});
+});
+```
 
 ## Loading Window
 
@@ -81,21 +97,13 @@ using the dev tool on the window we will see an error about security policy. It 
 <meta http-equiv="Content-Security-Policy" content="script-src 'self` 'unsafe-inline">
 ``` 
 
-## Changing Icon
-1. put it in your assets folder
-2. add to the object
+## Customize the window
+`backgroundColor: x`: change the background of the app
+`resizable`: can you resize the window?
+`title`: the title
+`icon`: an icon for your app. follow by `'.assets/.....'`(create the assets folder)
 
-```
-function createMainWindow(){
-const mainWindow = new BrowserWindow({
-	title: 'my app'
-	width : 500,
-	height: 600,
-	icon: '.assets/.....'
 
-})
-
-```
 # Platform & Environment check
 checking which env. we are in (dev or production) or which platform we are in (OS: windows, mac , Linux). Why should I want to do it?
 maybe i will do some things according to those conditions
