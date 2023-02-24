@@ -124,7 +124,13 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git clone $URL`: will copy from a remote ropository to a local repository (your PC)
 `git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>
 
- 
+### Travel in time
+ if someone introduce a bug to the main remote branch and you want to go back to earlier version
+1.`git log`:  to see the commit history of the main branch. Look for the commit before the bug was introduced. You can use the arrow keys to scroll through the output, and press q to exit the log view.
+2. Find the hash of the commit you want to switch to. It should be a long string of letters and numbers, like d7258d4b6faaa4e9686071ecf8c4529a0d7a3b3c.
+3. `git checkout <commit-hash>`:  switch to that commit. 
+4. You should now be on the main branch at the state of the code before the bug was introduced. You can create a new branch from here if you want to make changes and keep them separate from the refactoring branch.
+5. to return back : `git branch <main>`
 # Workflow
  update from remote -> create task branch -> work on it -> once a day `git rebase origin/<branch-master>` to pull the code from remote.
  when ready to push: compile and build your project -> test it -> `git rebase origin/<branch-master> -> if there are conflicts solve them
