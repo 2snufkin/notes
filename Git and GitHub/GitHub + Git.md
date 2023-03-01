@@ -5,7 +5,7 @@ all commands are run in the project's folder aka working directory
 `git init`:
 connect the project to git. create an hidden folder named git when git store every version of every file in the working directory\
 `git config --global init.$default-Branch-Name`: change the init brunch name from master to whenever I want in all the projects\
-`git config alias.$name '[what it does(command)]'`: add a alias 
+`git config alias.$name '{git command without the git key}'`: add a alias 
 
 ### Info
 `git status`: show you on which branch you are at. If your are on a commit or not on a branch (HEAD detached), have you committed? untracked files etc..\
