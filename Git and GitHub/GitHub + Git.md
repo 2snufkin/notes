@@ -86,9 +86,11 @@ If you have more than one stash, you can specify which stash to apply using the 
 `git stash drop stash@{<no>}`: remove the specific stash from the stash list\
 `git stash clear`: clear the stash list - remove all the items in the list\
 
-moving problem
-. If I made changes to the wrong branch:\
-1. Stash        2. Change branch         3. Create branch          4. Pop stash
+#### moving changes
+If I made changes to the wrong branch, do the following:
+1. Stash
+2. Change branch  
+3. Pop stash
 
 
 ### Checkout
