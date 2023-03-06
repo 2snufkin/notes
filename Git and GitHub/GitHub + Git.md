@@ -8,9 +8,13 @@ connect the project to git. create an hidden folder named git when git store eve
 `git config alias.$name '{git command without the git key}'`: add a alias 
 
 ### Alias
+#### Create
 `git config --local alias.<alias-name> "<alias-command>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system
 `--global`: replacing --local with --global will set the alias globally.
+#### Get
 `git config --get-regexp alias`:  list all of your configured aliases
+#### Delete
+`git config --local --unset alias.<alias-name>`: deleting a local Git alias. If you want to delete a global alias replace --local with --global
 
 ### Info
 `cat .git/config`: print the config file
