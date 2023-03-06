@@ -7,7 +7,13 @@ connect the project to git. create an hidden folder named git when git store eve
 `git config --global init.$default-Branch-Name`: change the init brunch name from master to whenever I want in all the projects\
 `git config alias.$name '{git command without the git key}'`: add a alias 
 
+### Alias
+`git config --local alias.<alias-name> "<alias-command>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system
+`--global`: replacing --local with --global will set the alias globally.
+`git config --get-regexp alias`:  list all of your configured aliases
+
 ### Info
+`cat .git/config`: print the config file
 `git status`: show you on which branch you are at. If your are on a commit or not on a branch (HEAD detached), have you committed? untracked files etc..\
 `git config --list`: see the list of setting. I can see the author name and email only if they were configured before\
 `git config --global user.name "Name Family-name"`: set the author's name globally\
