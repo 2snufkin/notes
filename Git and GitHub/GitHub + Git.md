@@ -37,8 +37,16 @@ quit: If I want o quit the log screen I need to click on q \
 ### Staging, Unstaging And Ignoring
 `git add`:  Stage a file/files.Copy files from the working dir. to the staging area. \
 `git add`: will copy all files\
-`git restore --staged $file` or `git reset $filename`: unstage a file
-`git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream:
+`git restore --staged $file` or `git reset $filename`: unstage a file\
+`git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream
+
+### Excluding a file
+if you have made changes to a file that you do not want to push to the main project or share with others, then you can exclude that file from being committed by using the 
+1. make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section.
+2. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
+`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again.
+Note that this approach is only recommended for local changes that you do not want to push to the main project. If you need to exclude files from being committed for everyone, then you should use a .gitignore file instead.
+
 
 ### Commiting && Uncommiting
 `git commit`: copy files from the staging area to the git repository and creating the corresponding git objects and commit object\
