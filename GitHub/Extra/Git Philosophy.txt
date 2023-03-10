@@ -1,0 +1,18 @@
+Git Philosophy
+---------------
+
+It is important to contrast the design philosophy of git with the philosophy of a more traditional source control tool like SVN.
+
+Subversion was designed and built with a client/server model. There is a single repository that is the server, and several clients can fetch code from the server, work on it, then commit it back to the server. The assumption is that the client can always contact the server when it needs to perform an operation.
+
+Git was designed to support a more distributed model with no need for a central repository (though you can certainly use one if you like). Also git was designed so that the client and the "server" don't need to be online at the same time. Git was designed so that people on an unreliable link could exchange code via email, even. It is possible to work completely disconnected and burn a CD to exchange code via git.
+
+In order to support this model git maintains a local repository with your code and also an additional local repository that mirrors the state of the remote repository. By keeping a copy of the remote repository locally, git can figure out the changes needed even when the remote repository is not reachable. Later when you need to send the changes to someone else, git can transfer them as a set of changes from a point in time known to the remote repository.
+
+    git fetch is the command that says "bring my local copy of the remote repository up to date."
+
+    git pull says "bring the changes in the remote repository to where I keep my own code."
+
+Normally git pull does this by doing a git fetch to bring the local copy of the remote repository up to date, and then merging the changes into your own code repository and possibly your working copy.
+
+The take away is to keep in mind that there are often at least three copies of a project on your workstation. One copy is your own repository with your own commit history. The second copy is your working copy where you are editing and building. The third copy is your local "cached" copy of a remote repository.
