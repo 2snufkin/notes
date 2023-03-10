@@ -1,0 +1,7 @@
+##Files
+environement.ts:app wide properties: config setting, URL, etc
+the environement object sould have the same structure (attributes, keys) and properties in all environements files
+use it: for getting access to it's values you need to import the object
+`import {environment} from "../environments/environment";
+ `
+in the dev mode angular will take the valu from the enviroment.ts file and in prod mode from the enviroment-prod files
