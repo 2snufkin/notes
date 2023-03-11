@@ -104,12 +104,6 @@ M.toast({
 	html: `meassage`
 })
 ```
-# Creating Log File
-it will create a local log file on your computer. it can help you debug your app if something goes wrong, also in production (you don't have acces to console in production)
-1. npm i electron-log
-2. `const log = require {'electron-log}`
-3. you have error, warn, info, verbose, debug, silly methods
-4. the use is simple : `log.warn("a probleme has occured")`
-5. the log is saved here: home directory => library => logs
+
 
 
