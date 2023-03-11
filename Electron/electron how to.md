@@ -28,7 +28,7 @@ there are 3 main options:
 
 If you primarily access your data in the renderer process, this is the simplest solution. You can access HTML5 storage data from the main process via electron-remote, which provides an asynchronous API to a hidden browser window that can execute DOM/renderer specific code. One drawback to this might be the fact that the API you use to get/set your user data in the main (async) will be different from the what is in the renderer (sync). This is a pretty attractive solution, and one I plan to play around with.
 
-### Flat file
+### Store: Flat file (see the Store.md)
 If we want to access that data easily from both the renderer and main, using the same API, we can use the node.js fs (file system) module to save data to a JSON file (or any format we want). This approach covers the most common use cases, so we’ll cover how to do this in an example in a moment.
 
 #### Where
