@@ -5,11 +5,10 @@ all commands are run in the project's folder aka working directory
 `git init`:
 connect the project to git. create an hidden folder named git when git store every version of every file in the working directory\
 `git config --global init.$default-Branch-Name`: change the init brunch name from master to whenever I want in all the projects\
-`git config alias.$name '{git command without the git key}'`: add a alias 
 
 ### Alias
 #### Create
-`git config --local alias.<alias-name> "<alias-command>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system
+`git config --local alias.<alias-name> "<alias-command>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system. alias-command is without the ketword git.\
 `--global`: replacing --local with --global will set the alias globally.
 #### Get
 `git config --get-regexp alias`:  list all of your configured aliases
