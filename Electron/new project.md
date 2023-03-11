@@ -14,7 +14,7 @@
 7. run ` npm run dev`: running npm start will run the app without nodemon
 
 
-# Setup without the bootstrap code
+## Setup without the bootstrap code
 1. start with an empty folder
 2. `npm init`set the entry point to main.js
 3. `npm i -D electron`: D is for dev dependency == --save-dev
@@ -84,26 +84,6 @@ Node integration allow you to get the path of a file that was upload via the HTM
 2. `variable.files[x].path`: files is an array. if you want only the first file put 0 instaed of x
 
 
-### Useful methods
-
-#### open a folder
-you want the app to open a folder:
-1. import shell from electron
-2. `shell.openItem(path)`
-
-#### make paths for windows and mac
-You use backslashes (\) in Windows, but forward slashes (/) in everything else. it's a lot of work to work with condition: if you are in windows you backslashes else use forward. there is a library that do that for us => slash
-1. install npm install slash
-2. import using `const slash = require('slash')`
-3. use it, pass a path to the slash constructor `slash(path)`
-
-#### open an alert window from JS
-if using materliaze
-```
-M.toast({
-	html: `meassage`
-})
-```
 
 
 

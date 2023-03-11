@@ -1,7 +1,7 @@
-# Notification API
+# Notification 
 in the JS file, if you want to use desktop noitification you can create a new Notification object. Under the hood it used HTML 5 notification API. Being so, it's only avaliable in the renderer processand not in the main process. If you want to use Notification in the main process chack out Notification module.
 
-### In the renderer
+### Notification API
  Example:
 ```
 function notifyUser(options){
@@ -19,6 +19,15 @@ notifyUser({
 })
 
 ```
+
+## Materilize notification
+if using materliaze
+```
+M.toast({
+	html: `meassage`
+})
+```
+
 
 # Creating Log File
 it will create a local log file on your computer. it can help you debug your app if something goes wrong, also in production (you don't have acces to console in production)
@@ -48,3 +57,16 @@ Linux: ~/.config/<Your App Name>
 ### Embedded database
 
 If we have larger data storage needs there are “embedded” databases like neDB (implements the Mongo API) or sqlite that we could use. Note that this could introduce some complexity because sometimes these databases (like sqlite) are native node modules (they use C++), and shipping cross-platform native code, even through NPM, can have some gotchas. Most applications that I’ve seen/heard of don’t have such complicated storage needs, but I’m sure there’s some use cases for it.
+
+
+# open a folder
+you want the app to open a folder:
+1. import shell from electron
+2. `shell.openItem(path)`
+
+# make paths for windows and mac
+You use backslashes (\) in Windows, but forward slashes (/) in everything else. it's a lot of work to work with condition: if you are in windows you backslashes else use forward. there is a library that do that for us => slash
+1. install npm install slash
+2. import using `const slash = require('slash')`
+3. use it, pass a path to the slash constructor `slash(path)`
+
