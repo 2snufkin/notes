@@ -1,4 +1,4 @@
-## Notification API
+# Notification API
 in the JS file, if you want to use desktop noitification you can create a new Notification object. Under the hood it used HTML 5 notification API. Being so, it's only avaliable in the renderer processand not in the main process. If you want to use Notification in the main process chack out Notification module.
 
 ### In the renderer
@@ -19,6 +19,15 @@ notifyUser({
 })
 
 ```
+
+# Creating Log File
+it will create a local log file on your computer. it can help you debug your app if something goes wrong, also in production (you don't have acces to console in production)
+1. npm i electron-log
+2. `const log = require {'electron-log}`
+3. you have error, warn, info, verbose, debug, silly methods
+4. the use is simple : `log.warn("a probleme has occured")`
+5. the log is saved here: home directory => library => logs
+
 # Storing Data
 there are 3 main options:
 
