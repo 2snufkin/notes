@@ -156,8 +156,7 @@ upstream branch or the tracked remote branch = the branch you will interact with
  when ready to push: compile and build your project -> test it -> `git rebase origin/<branch-master> -> if there are conflicts solve them
  -> add and commit with `git commit -am "message"` -> git rebase --continue -> push to remote with the -f argument.
 
- 
- 
+  
 #### Getting one file
 ```
 git fetch: git fetch will download all the recent changes, but it will not put it in your current checked out code (working area).
@@ -165,23 +164,3 @@ git checkout origin/<branch-name> -- path/to/file.\
 //will checkout the particular file from the downloaded changes (origin/master).
 ```
 
-## What if
-- #### I lost a commit, I committed to a detached head
-
-if you commit to detach head, than you move to another branch, you loose your latest work since it was committed to nothing. Don't worry, it's not lost - the commit is still there
-The old commit is still in the reflog. It can be done in 2 ways:
-##### First
-1. find the lost commit
-`git reflog` This will show a list of commits, and the "lost" commit should be in there. \
-`git fsck --lost-found` this will also do the same
-
-2. create a new branch and attribute it to it or attribute it to an existing branch
-`git branch $new-branch $commit-No`\
-Note that "lost" commits will get deleted when the database is pruned.
-
-##### Second: Not always work
-take over the detached HEAD commits into your current branch directly, without creating and merging a new branch. After finding your commit, 
-` git cherry-pick $commit-No`
-
-- #### Rebase conflict
-`git rebase --continue`: run this command

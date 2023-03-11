@@ -38,3 +38,23 @@ First, understand what you see:
 ## What's next?
 No matter what you choose, you will need to continue with `git add <filename>`, `git commit` and  `git rebase --continue` or `git push` or something else depending on what you try to achieve.
 
+-----------------------------
+# I lost a commit, I commited to a detached head
+
+if you commit to detach head, than you move to another branch, you loose your latest work since it was commited to nothing. Don't worry, it's not lost - the commit is still there
+The old commit is still in the reflog. It can be done in 2 ways:
+## First
+1. find the lost commit
+`git reflog` This will show a list of commits, and the "lost" commit should be in there. 
+`git fsck --lost-found` this will also do the same
+
+2. create a new branch and attribute it to it or attribute it to an existing branch
+`git branch $new-branch $commitNo`
+Note that "lost" commits will get deleted when the database is pruned.
+
+## Second: Not always work
+take over the detached HEAD commits into your current branch directly, without creating and merging a new branch. After finding your commit, 
+` git cherry-pick $commitNo`
+
+## Reabse conflict
+`git rebase --continue`: run this command
