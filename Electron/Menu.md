@@ -1,5 +1,6 @@
 # Creating Menu 
 When you create a menu, ask yourself id you want this app to run on Mac. Id the answer is yes, you should create a variable to check if isMac and then configurate the menu array for mac also (see section Menu with condition)
+
 ## main.js
  add also Menu to your imports
 the menu is like a toolbar in a website. the menu is an array of objects. Each object is one entity of menu that can have submenu. you can have also submenu
