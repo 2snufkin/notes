@@ -70,3 +70,27 @@ You use backslashes (\) in Windows, but forward slashes (/) in everything else. 
 2. import using `const slash = require('slash')`
 3. use it, pass a path to the slash constructor `slash(path)`
 
+# Working with Tray Icon
+should be small 16x16. call it tray_ icon to distinguish it from the main icon. 
+in the main.js
+1. imoport Tray: `import {Tray} = require {'electron'}`
+2. create new Tray: `let tray`
+3. under the app.on('ready'):
+```
+`const trayIconPath = path.join(_direname, 'assets', 'icons', '<name>')
+tray = new Tray(trayIconPath);
+// what will happen if a user click on the tray icon, what normally happens is the window disappear
+tray.on('click', () => {
+	if (mainWindow.isVisible() === true){
+		mainWindow.hide()
+	} else{
+		mainWindow.show()
+	}
+
+	})
+
+```
+## Tray Contexte Menu
+see the Menu.md
+
+
