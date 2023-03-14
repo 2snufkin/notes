@@ -22,10 +22,10 @@ path sperators: windows =>
 `{request} INTO OUTFILE {filename.csv/txt etc} FIELDS ENCLOSED BY '"' TERMINATED BY ';' LINES TERMINATED BY '\r\n';`: exprot the result off this request to a file
 
 ## Info
-`SELECT user,host FROM mysql.user;`: show the users
-`SHOW DATABASES;`: Show a list of all the databases
-`SELECT * FROM INFORMATION_SCHEMA.TABLES  where TABLE_SCHEMA = '{db_name}' and TABLE_NAME like '{name%}';`: find a table that start with a name
-`select routine_definition from information_schema.routines where routine_type='PROCEDURE' and routine_name='$nameProcedureStocke';` : find and display the content of a stocked procedure.
++ `SELECT user,host FROM mysql.user;`: show the users
++ `SHOW DATABASES;`: Show a list of all the databases
++ `SELECT * FROM INFORMATION_SCHEMA.TABLES  where TABLE_SCHEMA = '{db_name}' and TABLE_NAME like '{name%}';`: find a table that start with a name
++ `select routine_definition from information_schema.routines where routine_type='PROCEDURE' and routine_name='$nameProcedureStocke';` : find and display the content of a stocked procedure.
 
 ## Actions
 
