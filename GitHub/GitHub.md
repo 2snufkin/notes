@@ -144,8 +144,8 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git fetch && git diff @{u} --name-only`: see ALL differences between your current version and the incoming version, including uncommitted local modifications. 
 `git pull origin $branch-name`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to receive the update\
 `git clone $URL`: will copy from a remote ropository to a local repository (your PC)
-`git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>
-
+`git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>\
+ `git checkout origin/<remote_branch> -- <file_path>`: update a file to it's remote version
 ### Travel in time
  if someone introduce a bug to the main remote branch and you want to go back to earlier version
 1.`git log`:  to see the commit history of the main branch. Look for the commit before the bug was introduced. You can use the arrow keys to scroll through the output, and press q to exit the log view.
