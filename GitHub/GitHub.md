@@ -154,7 +154,12 @@ upstream branch or the tracked remote branch = the branch you will interact with
  update from remote -> create task branch -> work on it -> once a day `git rebase origin/<branch-master>` to pull the code from remote.
  when ready to push: compile and build your project -> test it -> `git rebase origin/<branch-master> -> if there are conflicts solve them
  -> add and commit with `git commit -am "message"` -> git rebase --continue -> push to remote with the -f argument.
+### Getting a certain commit
+ `git archive --format=tar <commit-hash> | tar -x --wildcards '*.txt'`: The first part of the command, git archive --format=tar <commit-hash>, creates a tar archive of the files in the commit. The second part of the command, tar -x --wildcards '*.txt', extracts only the files that match the *.txt pattern from the archive.
 
+In this example, the *.txt pattern matches only files with a .txt extension. You can replace this pattern with any other pattern that matches the files you want to download.
+
+After running this command, you will have a directory with only the changed files from the specified commit. Note that this command does not create a Git repository, so you won't be able to commit changes or push them back to the remote. If you need to work with the files in a Git repository, you should clone the repository and then checkout the commit that you want to work with using the git checkout <commit-hash> command.
   
 #### Getting one file
 ```
