@@ -111,7 +111,10 @@ If I made changes to the wrong branch, do the following:
 `git merge $branch-name`: I must be on the receiving branch to run it (with checkout). Will merge the branch in the arg to the receiving branch \
 `git rebase $branch-name`: rebase a branch
 
+###Saving comitted files
+`git archive --format=zip --output=commit-files.zip commit-hash`: creates a zip file named commit-files.zip in your current directory, containing the committed files for the specified commit. The --format=zip option tells git archive to create a zip archive, and the --output=commit-files.zip option specifies the name of the output file.
 
+Note that this command creates an archive of all the files in the commit, not just the files that were changed in the commit
 ## GITHUB:
 
 
