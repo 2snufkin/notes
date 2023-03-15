@@ -1,21 +1,17 @@
 # SQL
-{name}: is a placeholder
 path sperators: windows => 
                 linux => /
 ##  Connect to MySQL
 `mysql -u {user} -p`: you will access mySql on your machine
+`mysql -u {user} -p {db_name}`: you will access mySql on your machine
+`mysql -u root -p`: connect to root. there are some operations that you can do only when in root.\
 `mysql  -h {localhost} -u {user} -p`: -h allow you to access a diffrent machine
 `exit`: disconnect
-##  Access a DB
 `mysql -u {user} -p {db_name}`: you will access mySql on your machine
 
 ## Working with dump file  
-
-### Import
-`mysql -u {user} -p {db_name}<{absoulte_address_dump_file+sql ext}`
-
-### export
-`mysqldump -u {user} -p {db_name}>{absoulte_address_dump_file_to_be_created+sql ext}`
+`mysql -u {user} -p {db_name}<{absoulte_address_dump_file+sql ext}`: import a dump file
+`mysqldump -u {user} -p {db_name}>{absoulte_address_dump_file_to_be_created+sql ext}`: export a dumpfile
 `--routines`: routine is a function ot a stocked procedure. using this option will include them in the dump file
 
 ## Requets
@@ -25,7 +21,7 @@ path sperators: windows =>
 + `SELECT user,host FROM mysql.user;`: show the users
 + `SHOW DATABASES;`: Show a list of all the databases
 + `SELECT * FROM INFORMATION_SCHEMA.TABLES  where TABLE_SCHEMA = '{db_name}' and TABLE_NAME like '{name%}';`: find a table that start with a name
-+ `select routine_definition from information_schema.routines where routine_type='PROCEDURE' and routine_name='$nameProcedureStocke';` : find and display the content of a stocked procedure.
++ `select routine_definition from information_schema.routines where routine_type='PROCEDURE' and routine_name='$nameProcedureStocke';` : find and display the content of a stocked procedure. Don't run it in intelliJ , it won't work. connect to mySql and run it
 
-## Actions
+
 
