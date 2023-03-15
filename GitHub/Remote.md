@@ -10,7 +10,7 @@
 `git remote -v`: show if I am connected to a remote repository. if connected I should see the fetch and push files\
 `git push --set-upstream origin master`: To use for the first push. Push the current branch and set the remote as upstream\ 
 `git push origin $branch-name`: push changes to GitHub (origin), the branch-name is the remote branch, the destination branch.\
--u: define this branch as the default upstream branch.
+-u: define this branch as the default upstream branch.\
 upstream branch or the tracked remote branch = the branch you will interact with by default when using git pull and git push commands.
 `git push --set-upstream-to origin/the_branch`: set upstream branch\
 `git push origin --delete $remoteBranchName`: delete remote branch
