@@ -111,8 +111,7 @@ If I made changes to the wrong branch, do the following:
 `git switch -c $branch-name`: create new branch and witch to it\
 `git branch $branch-name` : create a new branch\
 `git branch -d $branch-name`: delete a branch\
-`-m $branch-name`: change the current branch name, if you want to change another branch name, move to it before\
-`-d:` delete the branch\
+`git branch -m $branch-name`: change the current branch name, if you want to change another branch name, move to it before\
 `git merge $branch-name`: I must be on the receiving branch to run it (with checkout). Will merge the branch in the arg to the receiving branch \
 `git rebase $branch-name`: rebase a branch
 
