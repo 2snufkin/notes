@@ -24,8 +24,12 @@ However, the types of changes that can be hot reloaded may differ between these 
 + May require additional configuration for some types of changes
 
 ## Setting
-in the TOMCAT setting inside intellij
-1. under JV options define the HotSwap Agent
+
++ install DCEVM
++ download the Hotswap Agent jar file
++ add VM arguments to your launcher to activate both DCEVM and Hotswap Agent
++ optionally create configuration
+
 ## Spring Loaded:
 
     Supports hot reloading of changes to Java classes and resources
