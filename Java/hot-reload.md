@@ -16,14 +16,16 @@ However, the types of changes that can be hot reloaded may differ between these 
     Integrates with popular IDEs and application servers
     Some advanced features such as integration with JMX and OSGi are only available in the commercial version
 
-## DCEVM:
+# DCEVM:
++ Provides enhanced class redefinition functionality for the JVM
++ Supports hot reloading of changes to Java classes and interfaces, but does not support resources or configuration files
++ Supports adding, modifying, and removing methods and fields, as well as modifying method signatures and adding new annotations
++ Integrates with popular IDEs and application servers
++ May require additional configuration for some types of changes
 
-    Provides enhanced class redefinition functionality for the JVM
-    Supports hot reloading of changes to Java classes and interfaces, but does not support resources or configuration files
-    Supports adding, modifying, and removing methods and fields, as well as modifying method signatures and adding new annotations
-    Integrates with popular IDEs and application servers
-    May require additional configuration for some types of changes
-    
+## Setting
+in the TOMCAT setting inside intellij
+1. under JV options define the HotSwap Agent
 ## Spring Loaded:
 
     Supports hot reloading of changes to Java classes and resources
