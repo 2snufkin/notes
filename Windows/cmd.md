@@ -23,6 +23,13 @@ netstat -ano | findstr :4200
 You should get no result
 
 ## Find all files that contains a string
+in powershell
+```
+foreach ($file in Get-ChildItem -Path "C:\Tech\code\TK For TK\tumorotek-webapp\src\main\webapp\zuls" -Filter "*.zul" -Recurse | Select-String -Pattern "<calendarbox" | Select-Object -Unique Path) {
+    $file.Path
+}
+
+```
 1. List FileInfo objects for all files containing pattern:
 ```
 
