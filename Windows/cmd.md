@@ -24,49 +24,8 @@ You should get no result
 
 ## Find all files that contains a string
 in powershell
+whatever inside {xy} is a field you must enter according to your seach needs. Don't put it inside {} however.
 ```
-foreach ($file in Get-ChildItem -Path "C:\Tech\code\TK For TK\tumorotek-webapp\src\main\webapp\zuls" -Filter "*.zul" -Recurse | Select-String -Pattern "<calendarbox" | Select-Object -Unique Path) {
+foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{filetype}" -Recurse | Select-String -Pattern "{search_term}" | Select-Object -Unique Path) {
     $file.Path
 }
-
-```
-1. List FileInfo objects for all files containing pattern:
-```
-
-    Get-ChildItem -Recurse filespec | Where-Object { Select-String pattern $_ -Quiet }
-    ls -r filespec | ? { sls pattern $_ -q }
-
-```
-2.     List file names for all files containing pattern:
-
-```
- Get-ChildItem -Recurse filespec | Select-String pattern | Select-Object -Unique Path
-    ls -r filespec | sls pattern | select -u Path
-
-
-```
-3.  List FileInfo objects for all files not containing pattern:
-
-
-```
- Get-ChildItem -Recurse filespec | Where-Object { !(Select-String pattern $_ -Quiet) }
-    ls -r filespec | ? { !(sls pattern $_ -q) }
-
-```
-4.     List file names for all files not containing pattern:
-
-```
-  
-
-    (Get-ChildItem -Recurse filespec | Where-Object { !(Select-String pattern $_ -Quiet) }).FullName
-    (ls -r filespec | ? { !(sls pattern $_ -q) }).FullName
-
-
-```
-other options
-1. Get-ChildItem -Recurse | Select-String "dummy" -List | Select Path
-2. findstr /S /I /M /C:"ENTER THE STRING YOU SEARCH HERE" *.*
-3. foreach ($file in Get-ChildItem | Select-String -pattern "dummy" | Select-Object -Unique path) {$file.path}
-4. if you search in one directory: `select-string -Path "c:\temp\*.*" -Pattern "result"  -List | select Path`
-   
-
