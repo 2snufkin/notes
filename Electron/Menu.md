@@ -1,8 +1,7 @@
-# Creating Menu 
-When you create a menu, ask yourself id you want this app to run on Mac. Id the answer is yes, you should create a variable to check if isMac and then configurate the menu array for mac also (see section Menu with condition)
+# Creating Main Menu 
+When you create a menu, ask yourself if you want this app to run on Mac. Id the answer is yes, you should create a variable to check if isMac and then configurate the menu array for mac also (see section Menu with condition)
 
-## main.js
- add also Menu to your imports
+add also Menu to your imports
 the menu is like a toolbar in a website. the menu is an array of objects. Each object is one entity of menu that can have submenu. you can have also submenu
 1. define the menu
 ```
@@ -28,7 +27,7 @@ app.on('ready', ()=> {
 
 ```
 
-## Shortcuts
+## Menu Shortcuts
 Electron let you add shortcuts to you menu. it is done by adding an accelerator attribute
 add globalShorcut to your imports
 ```
@@ -115,5 +114,43 @@ secondWindow.loadFile($path)
 ...
 label : 'About',
 click: createSecondWindow // the function we have created
+
+```
+# Sending event 
+lets say you have a button in a menu that does not open a window, but change something in the renderer
+what you will do is
+```
+{
+	label: 'menuName',
+	click: () => mainWindow
+}
+
+
+```
+
+
+
+
+
+
+# Tray Icon Contexte Menu
+First import Tray from electron and create a new tray object (see How To.md)
+The contexte menu of an app is showed when a user right click on the icon tray. you just need to create a reaction to right click
+```
+tray.on('right-click', () => {
+	// since it's not a complext menu there is no need to create a 
+	// menu variable and passing it as a parameter, we will just //define the menu as the parameter
+		 const contexteMenu = Menu.buildFrolTemplate([
+		 	{
+		 		label: 'Quit',
+		 		click: () => {
+		 			app.isQuitting = true
+		 			app.quit()
+		 		}
+		 	}
+	 	])
+	 	tray.popUpContexteMenu(contexteMenu);
+	})
+
 
 ```

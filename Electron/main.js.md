@@ -55,14 +55,16 @@ const mainWindow = new BrowserWindow({
 	height: 600,
 	resizable : false // can't resize the window
 
-
 })
 
 mainWindow.loadUrl(`file://${_dirname}/app/index.html`)
 }
 
 ```
-
+## properties
++ opcity
++ show
++ resizable
 
 the loadUrl method can have an site url as an argument so the first window is a website.
 Alternatively I can use the 
