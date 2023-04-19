@@ -25,6 +25,24 @@ This tells IntelliJ IDEA to enable Spring DevTools automatic restarts.
 
 When you run your application from within IntelliJ IDEA, Spring DevTools will only watch for changes in the specified packages. If you make a change to a file in one of these packages, Spring DevTools will automatically restart your application.
 
+## spring-boot-devtools.properties
+
+You can configure global devtools settings by adding a file named .spring-boot-devtools.properties to your $HOME folder (note that the filename starts with “.”). Any properties added to this file will apply to all Spring Boot applications on your machine that use devtools. For example, to configure restart to always use a trigger file, you would add the following:
+
+~/.spring-boot-devtools.properties. 
+You can also create it in the root directory
+
+### root directory
+By convention, the root directory of a Maven project contains the pom.xml file, which serves as the project's parent POM (Project Object Model) and defines the project's modules, dependencies, build configuration, and other settings.
+
+If you're using Git for version control, the .gitignore file should also be located in the root directory. This file specifies which files and directories Git should ignore when committing changes to the repository, such as build artifacts, IDE configuration files, and other files that are not relevant to the project's source code.
+
+So, if you're creating a local .spring-boot-devtools.properties file for your Maven-based Java project, you should create it in the root directory alongside the pom.xml and .gitignore files.
+Note that if you're using a version control system like Git, you may want to add .spring-boot-devtools.properties to your .gitignore file to avoid committing it to the repositor
+
+spring.devtools.reload.trigger-file=.reloadtrigger
+
+
 ## Attention
 Developer tools are automatically disabled when running a fully packaged application. If your application is launched using java -jar or if it’s started using a special classloader, then it is considered a “production application”. Flagging the dependency as optional in Maven or using compileOnly in Gradle is a best practice that prevents devtools from being transitively applied to other modules using your project.
 
@@ -114,7 +132,7 @@ public static void main(String[] args) {
 }
 
 ## Using a trigger file
-
+`spring.devtools.reload.trigger-file=.reloadtrigger`
 If you work with an IDE that continuously compiles changed files, you might prefer to trigger restarts only at specific times. To do this you can use a “trigger file”, which is a special file that must be modified when you want to actually trigger a restart check. Changing the file only triggers the check and the restart will only occur if Devtools has detected it has to do something. The trigger file could be updated manually, or via an IDE plugin.
 
 To use a trigger file use the spring.devtools.restart.trigger-file property.
@@ -146,13 +164,7 @@ Restart functionality does not work well with objects that are deserialized usin
 
 Unfortunately, several third-party libraries deserialize without considering the context classloader. If you find such a problem, you will need to request a fix with the original authors.
 
-# Global settings
 
-You can configure global devtools settings by adding a file named .spring-boot-devtools.properties to your $HOME folder (note that the filename starts with “.”). Any properties added to this file will apply to all Spring Boot applications on your machine that use devtools. For example, to configure restart to always use a trigger file, you would add the following:
-
-~/.spring-boot-devtools.properties. 
-
-spring.devtools.reload.trigger-file=.reloadtrigger
 # Remote applications
 
 The Spring Boot developer tools are not just limited to local development. You can also use several features when running applications remotely. Remote support is opt-in, to enable it you need to make sure that devtools is included in the repackaged archive:

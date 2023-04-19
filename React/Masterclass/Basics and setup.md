@@ -41,3 +41,6 @@ you can use the following build tools:
 `npm create vite`
 
 *a project created with create react let you write jsx code inside js file. Vite - not. You will need to use the .jsx*
+
+# How react works
+if you delete the src folder you will see that there is a compile error. React does not find the src/index.js. This is the only file it needs. We can write all the application inside this file but we don't do it, we divide it into components. But eventelly all the app is inderictly inside index.js since index.js imoport all the compoentns (or a parent component)

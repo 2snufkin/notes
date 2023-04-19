@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="files">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Java/hotswap/files/hotswap-agent-1.4.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Java/hotswap/files/DCEVM-8u181-installer-build2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
