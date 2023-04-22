@@ -1,10 +1,7 @@
-# Past
+# Past: Finished
 
-
-# Now
-
-+ Master Microservices with Spring Boot and Spring Cloud  
-
+# Current
++ DevOps Complete Course [Video]: Why do we need gitHub
 
 
 ## Future
@@ -16,4 +13,3 @@
 
 
 
-books are in italic video are without

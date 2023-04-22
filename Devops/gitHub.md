@@ -13,7 +13,11 @@ to know which files are in which stage of the work flow you can use `git status`
 + untracked files: files that are in the working area but not in the staging area
 + tracked files: files in the staging area
 + list all the commits with `git log`
+HEAD is another word for local repository
+git diff compares the working directory with the most recent commit, while git diff --staged compares the staging area with the most recent commit.
+You can compare diff between 2 commits
 # Working with gitHub
+
 # Working with others
 # Commits
 # Branches
