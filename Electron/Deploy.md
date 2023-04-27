@@ -12,7 +12,7 @@ On the other hand, the electron-packager tool is a simpler alternative for build
 ## electron-package
 for this task we use a package that called electron-packager. this is a dev dependency
 1. install: `npm i -D electron-packager`
-2. in the main.js set the NODE.ENV to "production"
+2. `process.env.NODE_ENV = production`: change the env. to production
 3. in the package.json you will need to add scripts for each OS packaging process inside the "script" object. you have them in the bootstrap project
 4. the scripts to add will be inside the init project I will create that will serve an entry point to each electron project and I will git push it
 5. for it to work inside the assets folder you need to have linux, mac and win folder with the icon named icon
@@ -23,6 +23,11 @@ for this task we use a package that called electron-packager. this is a dev depe
 ## electron-builder
 1. `npm install electron-builder --save-dev`
 2.  write the yml file
-3. `npm run build`
+3. `process.env.NODE_ENV = production`: change the env. to production
+4. `npm run build`
+
+
 ## why icon per os?
 because every OS work with diffrent file type windows accept the .ico, mac accept the .icns
+
+
