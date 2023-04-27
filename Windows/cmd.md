@@ -21,3 +21,11 @@ you will get something like this:
 netstat -ano | findstr :4200
 ```
 You should get no result
+
+## Find all files that contains a string
+in powershell
+whatever inside {xy} is a field you must enter according to your seach needs. Don't put it inside {} however.
+```
+foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{filetype}" -Recurse | Select-String -Pattern "{search_term}" | Select-Object -Unique Path) {
+    $file.Path
+}
