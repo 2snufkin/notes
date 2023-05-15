@@ -16,10 +16,28 @@ to know which files are in which stage of the work flow you can use `git status`
 HEAD is another word for local repository
 git diff compares the working directory with the most recent commit, while git diff --staged compares the staging area with the most recent commit.
 You can compare diff between 2 commits
+
 # Working with gitHub
 
+
 # Working with others
+pull before you push
+
+
+
 # Commits
+ HEAD represents to the content, which is available in your local repository. You can change the content of the local repo if you move a branch or to a past/ future commit
+
+you can also use 
+`git diff HEAD HEAD~$no`
+compare: you can compare two commit wid git diff commitA commitB  
+the colors will change depnding the order of the commits
+white means no change has been done
+
+`git show`: show  the changes you did at the latest commit
+
+
+
 # Branches
 # Team
 # Reverting Changes
