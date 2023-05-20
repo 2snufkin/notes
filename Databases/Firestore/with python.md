@@ -2,31 +2,34 @@
 Google Firestore is a document-based NoSQL database and so it uses collections and documents to represent tables and records.\
 It is necessary to make sure that each document is named uniquely to prevent overwriting of documents and losing data. If you are familiar with MongoDB or other popular document-based NoSQL databases, you can relate the name of the database with the “_id” field present in MongoDB documents that uniquely identifies them in a collection.
 
-## Setting up Google Firestore
-1. create a Firebase project in order to access Firestore. 
-2. Go to the console
-3. Build -> Firestore Database (not RealTime)
-4. Choose the closest region to your current location to reduce latency and click
-5. Choose test mode enable.
+# Setting up Google Firestore
+## Console
+1. Create a Firebase project in order to access [Firestore](https://console.firebase.google.com). 
+2. Go to the console and choose the project you've created
+3. Build -> Firestore Database (not RealTime) -> Create Database
+4. click on Start in Test mode
+5. Choose the closest location 
+
 
 ## Connect python to Google Firebase 
 Ensure that your python version is 3.6 or below as firebase_admin throws an exception because of the async module added in python 3.7 onwards. If you have a higher version installed, you can use anaconda to create a new environment with python 3.6. I am using python 3.6.5 for this article.\
 
 1. pip install firebase_admin
-2. Go to the console, click on project setting => service accounts
-3. You will find a code snippet for connecting to Google Firebase.
-4. Select python as the language and copy the code snippet
-5. Copy the code. Now you will generate a jdon file
-6. click on “manage service account permissions“ (it's a small link on top of the code)
-7. click on “manage keys” => “add key”
-8. choose JSON as the file format and click create. This is your  credentials
-9. Connect your JSON file to your code
+2. Return to the console
+3. Find the setting button and click on it (should be near the project overview on the top-left corner)
+4. Choose Project Setting => service account
+5. You will find a code snippet for connecting to Google Firebase.
+6. Select python as the language and copy the code snippet paste it to the python class
+7. Click on Generate New Private Key, it should donload the key.
+8. click on “manage service account permissions“ (it's a small link on top of the code)
+9. click on “manage keys” => “add key”
+10. choose JSON as the file format and click create. This is your credentials
+11. Put the json file in your project and if you use git never commit the file
 ```
 cred = credentials.Certificate("path/to/serviceAccountKey.json")
 ```
 
-## Performing CRUD operations on Google Firestore
-
+# Performing CRUD 
 ### Create
 
 #### A collection
@@ -50,7 +53,6 @@ if you want to use the add method you should call it on the collection
 my_collection.add(object)
 ```
 
-
 to set the ID yourself, you can pass it as a parameter to the document method
 ```
 res = my_collection.document('A01').add({ # insert document
@@ -67,7 +69,6 @@ It is important that we convert the object to a dictionary so that it can be han
 res = my_collection.document('A01').get().to_dict()
 
 ```
-
 To get all the documents present inside a collection, we can directly call the get function on a collection but it returns a list of objects and each object needs to be converted to a dictionary using the “to_dict()” function for further processing.
 ```
 res = collection.get() # returns a list

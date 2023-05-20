@@ -57,15 +57,18 @@ a 3rd package that serves as a bridge between Angular App and Firebase.
 The alternative is to use REST API provided by Firebase or SDK.
 SDK: Javascript Package
 AngularFire will provide all the features provided by SDK in a manner that embreces Observable-based "Data streams". Can be used only with Angular apps.
-
+npm install firebase and ng add @angular/fire are two different ways of installing the Firebase SDK in your Angular project.
+npm install firebase installs the Firebase JavaScript SDK as a regular NPM package, which you can import in your project using standard JavaScript imports. This method does not provide any Angular-specific integration.
+On the other hand, ng add @angular/fire installs the @angular/fire package, which is an Angular-specific library that provides seamless integration between Firebase and Angular. It provides a set of Angular services and components that simplify the process of working with Firebase in an Angular project.
 
 
 ### Connect Angular to Firebase
 (github page): [https://github.com/angular/angularfire]
-Becareful, there is an un-updated fork that is called angularfire2 - don't use it
+Be careful, there is an un-updated fork that is called angularfire2 - don't use it
 1. ng add @angular/fire
-
-2. Open /src/environments/environment.ts and add your Firebase configuration:
+2. Go to the project Console on Firebase
+Project Overview -> Add firebase to your app -> choose the platform 
+3. Open /src/environments/environment.ts and add your Firebase configuration:
 ```property
 export const environment = {
   production: false,
@@ -79,28 +82,27 @@ export const environment = {
   }
 };
 ```
-
-where I take tose values from? Go to the project Console on Firebase
-Project Overview -> Add firebase to your app -> choose the platform 
-
-3. Add AngularFire to the app.module
+3. Add AngularFireModule to the app.module. 
+Here are the diffrent modules. You don't need to add all of them
 ```ts
-import {AngularFireModule} from 'angularfire2',;
-import {enviroment} from '../enviroments/enviroment'
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 ```
 
 in the improts array:
 ```ts
 AngularFireModule.initializeApp(enviroment.firebase)
 ```
-
 4. Use the diffrent services:
 Now you connected Angular et Firebase. Each service in Firebase has its prope Module
 example: AngularFirestoreModule, AngularFireAuthModule,AngularDatabaseModule etc...
 the import goes like this, you import from a sub-folder
-import {AngularFirestoreModule} from 'angularfire2/firestore'
+`import {AngularFirestoreModule} from 'angularfire2/firestore'`
 
-Using FireStore:
+### Using FireStore:
 inject the AngularFireStore to the constructor of the delegated service
 call the collection(<collection name>)on the injected variable  
 call the valueChanges() - it will return an Observable with a simplified data ( a data that is striped off its metadata like ID)
