@@ -5,9 +5,14 @@
 `ssh-keygen -o`: create a SSH file on your disk, later to be used in GitHub. It will ask you where to save\
 `cat <save-folder>/id_rsa.pub`: will show the SSH string
 
-##  Local => Remote:
-`git remote add origin $URL`: connect to an existing repository in GitHub\
+## Getting info
+`git log --merges --pretty=format:'%h %s' --grep='Merge pull request'`: return a list of all merege pull requests
 `git remote -v`: show if I am connected to a remote repository. if connected I should see the fetch and push files\
+
+## Connecting to remote
+`git remote add origin $URL`: connect to an existing repository in GitHub\
+
+##  Local => Remote:
 `git push --set-upstream origin master`: To use for the first push. Push the current branch and set the remote as upstream\ 
 `git push origin $branch-name`: push changes to GitHub (origin), the branch-name is the remote branch, the destination branch.\
 -u: define this branch as the default upstream branch.\
