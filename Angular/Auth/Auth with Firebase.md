@@ -15,7 +15,7 @@ Cheat: we can't generate a fake token since it won't fit the algo and the valida
 3. Prepare the Backend (Console)
 4. Implement Sign Up/ SignIn method: You will use the Firebase Auth REST API so google it to reach the up-to-date docs (the link here can be changed in the future)
 A. Sign Up: create a signup method in the auth service
-
+B. Sign In: create a signIn method in the auth service
 
 
 
@@ -56,6 +56,7 @@ create the signup method
 ```ts
 
 signupURL= "..."
+
 signup(email: string, password: string) {
     return this.http
       .post<AuthResponseData>(
@@ -66,6 +67,7 @@ signup(email: string, password: string) {
           returnSecureToken: true
         }
       )
+      // Error management
       .pipe(
         catchError(this.handleError),
         tap(resData => {
@@ -100,3 +102,11 @@ Common error codes
     EMAIL_EXISTS: The email address is already in use by another account.
     OPERATION_NOT_ALLOWED: Password sign-in is disabled for this project.
     TOO_MANY_ATTEMPTS_TRY_LATER: We have blocked all requests from this device due to unusual activity. Try again later.
+
+### Component
+1. Inject the auth Service
+2. subscribe the signup method
+
+
+## Sign In with email / password
+it's the same as Sign Up but you just send a request to a diffrent URL
