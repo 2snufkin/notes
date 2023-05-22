@@ -1,7 +1,7 @@
 # Firebase
 Required:\
-1.Angular cli installed? do nothing : `npm install -g @angular/cli`
-2.Firebase cli? do nothing : `npm install -g firebase-tools`
+1. Angular cli installed? do nothing : `npm install -g @angular/cli`
+2. Firebase cli? do nothing : `npm install -g firebase-tools`
 3. An exisiting Firebase project, 
 4. Is Firebase connected to your Angular app? ? do nothing : `firebase login`
 
