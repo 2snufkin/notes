@@ -1,5 +1,5 @@
 # Firebase
-Required: 
+Required:\
 1.Angular cli installed? do nothing : `npm install -g @angular/cli`
 2.Firebase cli? do nothing : `npm install -g firebase-tools`
 3. An exisiting Firebase project, 
