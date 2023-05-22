@@ -16,7 +16,7 @@ The Firebase CLI uses a configuration file called `.firebaserc` to store project
 1. Initialize Firebase in your project: In the terminal, navigate to your Angular project's root directory and run the following command to initialize Firebase:
 `firebase init`. This will prompt you to select the Firebase features you want to set up. Choose "Hosting" using the arrow keys, click on space and press Enter. 
 Select your Firebase project from the list, or create a new one if prompted.
-2.  Configure Firebase Hosting: Next, you'll be asked to configure your Firebase Hosting settings. Use the following options:
+Next, you'll be asked to configure your Firebase Hosting settings. Use the following options:
 + What do you want to use as your public directory? dist/[your-angular-project-name] (replace [your-angular-project-name] with the actual name of your Angular project)
 + Configure as a single-page app? Yes
 + Set up automatic builds and deploys with GitHub? No (unless you want to set up automatic deployment using a GitHub repository)
