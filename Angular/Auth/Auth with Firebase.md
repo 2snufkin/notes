@@ -10,6 +10,7 @@ Validation: the server can validate the token since it was the one that created 
 Cheat: we can't generate a fake token since it won't fit the algo and the validation on the server and the server will block access
 
 ## Implementing Auth
+This is implementing auth without using AngularFireAuth that provide solution out of the box and methosd like sign in user etc...
 1. Create the auth component (html + css + ts)
 2. If you have SignUp, create also a component for that
 3. Prepare the Backend (Console)
@@ -20,10 +21,9 @@ Cheat: we can't generate a fake token since it won't fit the algo and the valida
 8. in the login/signin methods inside the auth service fire a new user 
 9. when the user is logged in navigate to another compoent(you don't want to be stuck in the login component)
 10. Change the UI dynalmically to wheather the user is logged in 
-11. Attach the token to each request: DRY and use Interceptor
-12. Add Logout
-13. Add Auto Login
-14. Add Auto Logout
+11. Attach the token to each request:  use Interceptor
+12. Add Auto Login: otherwise if you reload the app (F5)  you will lose the login
+13. Add Logout and  Auto Logout
 15. Add Guard
 
 ## Prepare the backend
@@ -290,3 +290,24 @@ export class AuthInterceptorService implements HttpInterceptor {
 ```
 and add `import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
 `
+## Logout
+simple: remeber that the interceptor use the user for sending the token? so logout is simply
+1. set the user to null
+2. navigate to login
+3. clean localstorage 
+```ts
+logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
+  }
+```
+
+## AutoLogin
+1. save the user to localstorage: in the login method: after the user logged in save the user to the localstorage `    localStorage.setItem('userData', JSON.stringify(user));`
+2. user the autoLogin method
+3. If you want to auto login the user for it's next visits you can call the autoLogin function in the AppComponent inside ngOnInit()
