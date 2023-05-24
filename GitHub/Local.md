@@ -13,7 +13,7 @@ you can configurate your name, email, alias etc...
 
 ### Alias
 #### Create
-`git config --local alias.<alias-name> "<alias-command>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system. alias-command is without the ketword git.\
+`git config --local alias.<alias-name> "<alias-command-without-git>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system. alias-command is without the ketword git.\
 `--global`: replacing --local with --global will set the alias globally.
 #### Get
 `git config --get-regexp alias`:  list all of your configured aliases
