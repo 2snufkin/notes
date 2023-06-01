@@ -30,11 +30,12 @@ All of the config will be nested in the `<configuration>` tag
   </appender>
 
 ```
-<file>:specifies the initial log file path.
-<fileNamePattern>: defines the file name pattern for rolled files. The %d{yyyy-MM-dd} pattern indicates that the rolled files will be suffixed with the current date in the format yyyy-MM-dd. The %i placeholder ensures that each rolled file gets a unique number.
-<maxFileSize>: specifies the maximum size for each log file. When this limit is reached, the current file will be rolled.
-<maxHistory>: determines the maximum number of rolled files to keep.
-<totalSizeCap> : specifies the maximum total size of all log files combined. When this limit is reached, the oldest log files will be deleted.
+
++ <file>:specifies the initial log file path.
+- <fileNamePattern>: defines the file name pattern for rolled files. The %d{yyyy-MM-dd} pattern indicates that the rolled files will be suffixed with the current date in the format yyyy-MM-dd. The %i placeholder ensures that each rolled file gets a unique number.
+- <maxFileSize>: specifies the maximum size for each log file. When this limit is reached, the current file will be rolled.
+- <maxHistory>: determines the maximum number of rolled files to keep.
+- <totalSizeCap> : specifies the maximum total size of all log files combined. When this limit is reached, the oldest log files will be deleted.
 
 ## Console
 ```xml
