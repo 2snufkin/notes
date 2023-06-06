@@ -29,6 +29,7 @@ whatever inside {xy} is a field you must enter according to your seach needs. Do
 foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{filetype}" -Recurse | Select-String -Pattern "{search_term}" | Select-Object -Unique Path) {
     $file.Path
 }
+```
 ### In CMD
 `findstr /S /C:"STRING" "C:\path\to\code\*.java"`
 + /S: Searches for matching files in the current directory and all subdirectories.
