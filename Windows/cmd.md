@@ -34,6 +34,7 @@ foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{fil
 `findstr /S /C:"STRING" "C:\path\to\code\*.java"`
 + /S: Searches for matching files in the current directory and all subdirectories.
 + /C:"log.debug": Specifies the search string to look for. In this case, it is log.debug.
-+ "C:\path\to\code\*.java": Specifies the path to the directory to search in, followed by the file pattern *.java to limit the search to Java files.
++ "C:\path\to\code\*.java": Specifies the path to the directory to search in, followed by the file pattern `*.java` to limit the search to Java files.
+`findstr /S /R /C:"log.debug.*\+" "C:\path\to\code\*.java"`
 + /R option enables the use of regular expressions with findstr. The regular expression log.debug.*\+ searches for the string log.debug followed by any characters (.*) and the + sign (\+).
 + | clip: copy to clipboard instead of printing to the console
