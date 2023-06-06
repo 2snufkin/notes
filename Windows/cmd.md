@@ -23,9 +23,16 @@ netstat -ano | findstr :4200
 You should get no result
 
 ## Find all files that contains a string
-in powershell
+### in powershell
 whatever inside {xy} is a field you must enter according to your seach needs. Don't put it inside {} however.
 ```
 foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{filetype}" -Recurse | Select-String -Pattern "{search_term}" | Select-Object -Unique Path) {
     $file.Path
 }
+### In CMD
+`findstr /S /C:"STRING" "C:\path\to\code\*.java"`
++ /S: Searches for matching files in the current directory and all subdirectories.
++ /C:"log.debug": Specifies the search string to look for. In this case, it is log.debug.
++ "C:\path\to\code\*.java": Specifies the path to the directory to search in, followed by the file pattern *.java to limit the search to Java files.
++ /R option enables the use of regular expressions with findstr. The regular expression log.debug.*\+ searches for the string log.debug followed by any characters (.*) and the + sign (\+).
++ | clip: copy to clipboard instead of printing to the console
