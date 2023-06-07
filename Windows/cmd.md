@@ -38,3 +38,4 @@ foreach ($file in Get-ChildItem -Path "{insert_the_search_path}" -Filter "*.{fil
 `findstr /S /R /C:"log.debug.*\+" "C:\path\to\code\*.java"`
 + /R option enables the use of regular expressions with findstr. The regular expression log.debug.*\+ searches for the string log.debug followed by any characters (.*) and the + sign (\+).
 + | clip: copy to clipboard instead of printing to the console
++ | find /C /V: count the number of lines that are not empty (/V "").
