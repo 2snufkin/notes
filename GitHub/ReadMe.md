@@ -1,4 +1,5 @@
 # Git Hub
+trick: change the .com to .dev and you will see the repo inside visual studio code
 ## What's Inside:
 
 - CheatSheet: as downloaded from the   [ATLASIAN](https://www.atlassian.com/git/tutorials/atlassian-git-cheatsheet) website
