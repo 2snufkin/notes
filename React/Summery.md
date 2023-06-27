@@ -1,6 +1,10 @@
-# Creating a project
-it's much more complex then just creating an html + js file with vanilla JS since React code incluse syntax  that the browser doesn't understand, various optimizations should be applied before deployment, a react file has jsx extention which is not supported by browsers etc... So more complex project setup is resquired. To add to it, 
+# Start Here
 
+## Mise en place
++ You must have Node.js installed
+
+## Creating a project
+it's much more complex then just creating an html + js file with vanilla JS since React code incluse syntax  that the browser doesn't understand, various optimizations should be applied before deployment, a react file has jsx extention which is not supported by browsers etc... So more complex project setup is resquired. To add to it, 
 
 1. create a folder in the location that you want the code to reside
 2. use a boilerplate tool / boilerplate code from git
