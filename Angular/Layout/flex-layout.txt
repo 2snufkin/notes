@@ -21,6 +21,7 @@ fxLayoutGap: define the padding between one children and another.
 
 for Elements:
 fxFlex: used on elements within a fxLayout container and identifies the resizing of that element within the flexbox container flow. Can be use also on a container
+fxFlex="120px": will define it as a flex and will give it a width
 
 RESPONSIVE API:
 ***************
