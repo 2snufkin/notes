@@ -49,3 +49,41 @@ Tomcat is a web server and servlet container that is used to serve Java web appl
 * It extracts the contents of a WAR file into a directory on the server's file system
 * creates a context for the web application based on the contents of the WEB-INF/web.xml file
 * uses the context to handle incoming HTTP requests.
+
+##  CATALINA_BASE and CATALINA_HOME variables
+If you are running **multiple** instances of Tomcat on a single host you should set
++ CATALINA_BASE: to be equal to the .../tomcat_instance1 or .../tomcat_instance2 directory as appropriate for each instance
++ CATALINA_HOME: to the common Tomcat installation whose files will be shared between the two instances.
+The CATALINA_HOME environment variable should be set to the location of the
+root directory of the "binary" distribution of Tomcat.
+
+The Tomcat startup scripts have some logic to set this variable
+automatically if it is absent, based on the location of the startup script
+in *nix and on the current directory in Windows. That logic might not work
+in all circumstances, so setting the variable explicitly is recommended.
+
+The CATALINA_BASE environment variable specifies location of the root
+directory of the "active configuration" of Tomcat. It is optional. It
+defaults to be equal to CATALINA_HOME.
+
+Using distinct values for the CATALINA_HOME and CATALINA_BASE variables is
+recommended to simplify further upgrades and maintenance. It is documented
+in the "Multiple Tomcat Instances" section below.
+
+### Folders Content
+When running with a separate CATALINA_HOME and CATALINA_BASE, the files and directories are split as following:
+
+In CATALINA_BASE:
+
+bin - Only: setenv.sh (*nix) or setenv.bat (Windows), tomcat-juli.jar
+conf - Server configuration files (including server.xml)
+lib - Libraries and classes, as explained below
+logs - Log and output files
+webapps - Automatically loaded web applications
+work - Temporary working directories for web applications
+temp - Directory used by the JVM for temporary files>
+In CATALINA_HOME:
+
+bin - Startup and shutdown scripts
+lib - Libraries and classes, as explained below
+endorsed - Libraries that override standard "Endorsed Standards". By default it's absent.
