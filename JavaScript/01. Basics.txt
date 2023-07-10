@@ -1,0 +1,34 @@
+JavaScript: lightwaight, interpreted, not pre-compiled. 
+JS Engine: a software component that execute JS
+ECMAScript: standard for JS. So that JS will work the same on diffrent broswers that have diffrent JS engines 
+Node: a JS Engine outside the browser.
+Environment Setup: Visual Studio, Atom, SublimeText
+extentions for VS: Live Server, Material Icon, Material Theme, intelliCode
+How to Run JavaScript Files: via 1. Browser 2. Node
+Where: before </body> 1. inside a <script>  2.in an external file with a src attribute.
+Browser Console 
+Variables, Constants, and Comments
+Naming Conventions 
+Data Types 
+Strings 
+String Methods 
+Numbers 
+Template Literals 
+Arrays 
+Null and Undefined 
+Booleans and Comparisons 
+Loose Versus Strict Comparison 
+Type Conversion 
+Control Flow
+For Loop 
+For Loop (in and of) / 019-1
+While Loop / 020
+Do While Loop / 021
+If Statements / 022
+Else and Else If / 023
+Logical Operators / 024
+Logical NOT / 025
+Break and Continue / 026
+Switch Statements / 027
+Scope (Global and Local) / 028
+Ternary Operator / 028-1
