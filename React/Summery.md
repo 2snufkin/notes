@@ -13,9 +13,6 @@ it's much more complex then just creating an html + js file with vanilla JS sinc
 
 you can use the following build tools:
 1. create reacte app: a way to start building a new single-page application in React.
-`npx create-react-app`
-2. create-vite: more recommended. A tool to quickly start a project from a basic template for popular frameworks.
-`npm create vite`
 
 *a project created with create react let you write jsx code inside js file. Vite - not. You will need to use the .jsx*
 
