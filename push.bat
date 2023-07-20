@@ -1,14 +1,6 @@
 @echo off
 :: Retrieve the PC hostname
 set "pc_name=%computername%"
-
-:: Check if the PC hostname is "DESKTOP-F6R5C8I", set pc_name to "Home", otherwise set it to "Outside Home"
-if "%computername%"=="DESKTOP-F6R5C8I" (
-    set "pc_name=Home"
-) else (
-    set "pc_name=Outside Home"
-)
-
 git pull
 git add .
 
