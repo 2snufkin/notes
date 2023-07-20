@@ -1,6 +1,6 @@
-cd /d C:\notes
+@echo off
 git pull
 git add .
-git commit -am "%date%"
-
+set "commit_message=Changes made on %date% at %time%"
+git commit -m "%commit_message%"
 git push origin
