@@ -36,8 +36,8 @@ quit: If I want o quit the log screen I need to click on q \
 ` git diff --name-only $branch`: list all files that are different between the specified branch and the current branch. pecifically, it will show the names of files that have been modified, added, or deleted in the specified branch since it diverged from the current branch.  It does not take into account any changes that have been staged (i.e., added to the index) but not yet committed.\
 `git diff --name-only HEAD`: This will show the names of all files that have been modified between the current commit (i.e., HEAD) and the working directory, including any changes that have been staged (but not yet committed).\
 `git diff --name-only`: list the names of files that have been modified in the working directory (i.e., unstaged changes), you can use the following command:
-` | wc -l`: adding this will count the number of files
-
+` | wc -l`: adding this will count the number of files.\
+`git diff origin/branch_x path/to/file`: compare a file to it's remote version on branch_x.\
 
 ## Staging, Unstaging And Ignoring
 `git add`:  Stage a file/files.Copy files from the working dir. to the staging area. \
