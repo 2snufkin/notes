@@ -77,17 +77,25 @@ Tailwind CSS provides responsive utility classes to create adaptive layouts. For
 ```
 
 ## Dark Mode
+1. Create config file `tailwind.config.js`. the name is up to you and insert the foloowing code
+```js
+module.exports = {
+  darkMode: 'class',
+  // ...
+}
+```
+If you want to support toggling dark mode manually instead of relying on the operating system preference, use the class strategy instead of the media strategy
 
-Implementing dark mode with Tailwind CSS is simple. Add the dark variant to your class:
-
+2. import it ine 
+For each element that you want it to present diffrently in dark mode you must add the dark:css class
 ```html
 <div class="bg-white dark:bg-gray-800">
   <p class="text-black dark:text-white">Toggle dark mode!</p>
 </div>
 ```
+3. Enabling the dark mode invlove just adding `class="dark"` to the `<html>`
 
 ## Custom Configuration
-
 Tailwind CSS is highly customizable. Edit your `tailwind.config.js` file to add or modify settings. For example, adding custom colors:
 
 ```javascript
