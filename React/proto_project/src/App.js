@@ -1,16 +1,12 @@
 import './App.css';
-import {Route, Routes} from "react-router-dom";
-import {PageNotFound, Test} from "./pages";
-
+import {BrowserRouter} from "react-router-dom";
+import  {AllRoutes} from "../src/routes/AllRoutes"
 function App() {
   return (
-    <div className="App">
-            <Routes>
-                <Route path="/test" element={Test} />
-                <Route path="*" element={PageNotFound} />
-            </Routes>
+      <BrowserRouter>
+           <AllRoutes />
+      </BrowserRouter>
 
-    </div>
   );
 }
 
