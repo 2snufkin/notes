@@ -20,10 +20,6 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git push --set-upstream-to origin/the_branch`: set upstream branch\
 `git push origin --delete $remoteBranchName`: delete remote branch
 
-### Merge
- !Always do git pull before merge!\
-1.`git merge $branch-name`: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe).\
-2. `git push origin $branch-name`
 
 ## Remote => Local:
 
@@ -35,41 +31,98 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>\
 `git checkout origin/<remote_branch> -- <file_path>`: update a file to it's remote version
 
-### Merge remote branch into local.\
-To merge a remote branch into another remote or local branch, you'll typically follow these steps. Let's say we want to merge gatsby (from) into gatsby_evo (to)
-1. **Fetch Changes**: First, make sure you have the latest information about the remote repository by fetching the changes from the remote:
-   ```bash
-   git fetch origin
-   ```
-2. **Switch to Target Branch**: If "gatsby_evo" is a local branch, switch to it. If it's a remote branch, and it does not have a local branch that track it - you  want to create and switch to a local branch that tracks the remote "gatsby_evo" branch:
 
-   ```bash
-   # If "gatsby_evo" is a local branch
-   git checkout gatsby_evo
+## Cherry-Picking 
+Cherry picking in Git allows you to select a commit from one branch and apply it onto another branch. This can be useful when you only want to take a specific commit from a feature branch and merge it into your main branch, without merging the entire feature branch.
 
-   # If "gatsby_evo" is a remote branch (create and track a local branch)
-   git checkout -b gatsby_evo origin/gatsby_evo
-   ```
-3. **Merge Remote Branch**: Once you are on the target branch, you can merge the changes from the "gatsby" branch into it:
 
-   ```bash
-   git merge origin/gatsby
-   ```
-This command will merge the changes from the remote "gatsby" branch into the current branch ("gatsby_evo").
 
-4. **Resolve Conflicts (if any)**: If there are any conflicts between the changes in the two branches, Git will prompt you to resolve them. Open the conflicted files, resolve the conflicts, save the changes, and then continue the merge process by:
 
-   ```bash
-   git add .       # Add the resolved files
-   git commit -m "Resolved conflicts from gatsby branch"
-   ```
+- **Fetch Remote Changes:**
+  ```
+  git fetch origin
+  ```
 
-5. **Push Changes**: After successfully merging and resolving any conflicts, push the changes back to the remote repository:
+- **Switch to Target Branch:**
+  ```
+  git checkout target_branch
+  ```
 
-   ```bash
-   git push origin gatsby_evo
-   ```
-This will push the merged changes to the remote "gatsby_evo" branch.
+- **Cherry-Pick a Single Commit:**
+  ```
+  git cherry-pick commit_hash
+  ```
+
+- **Cherry-Pick a Range of Commits:**
+  ```
+  git cherry-pick starting_commit_hash^..ending_commit_hash
+  ```
+
+- **Resolve Conflicts (if needed):**
+  ```
+  git cherry-pick --continue
+  ```
+
+- **Abort Cherry-Pick (if needed):**
+  ```
+  git cherry-pick --abort
+  ```
+
+- **View Cherry-Picked Commit:**
+  ```
+  git show cherry-picked_commit_hash
+  ```
+
+- **Commit Cherry-Picked Changes:**
+  ```
+  git commit
+  ```
+
+- **Push Changes to Remote:**
+  ```
+  git push origin target_branch
+  ```
+
+
+
+
+
+
+
+
+
+
+### Cherry Picking One Commit
+1. Checkout the branch where you want to apply the commit 
+2. Get the commit hash of the commit you want to cherry pick. You can find this by running `git log` on the branch with the commit. If you do it don't forget to switch to the target branch
+3. Run the cherry pick command, specifying the commit hash:
+```
+git cherry-pick <commit-hash>
+```
+4. If there are no conflicts, Git will apply the commit directly. If there are conflicts, you will need to resolve them before committing the changes.
+5. Once done, commit the changes. The commit message will include information that this was a cherry picked commit.
+```
+git commit -m "Cherry pick commit <commit-hash>" 
+```
+
+
+## Cherry Picking Multiple Commits 
+You can also cherry pick a range of commits using:
+
+```
+git cherry-pick <start-commit-hash>..<end-commit-hash>
+```
+This will apply the sequence of commits onto the current branch. Again, resolve any conflicts before committing.
+
+## Caveats of Cherry Picking
+
+Some things to keep in mind when cherry picking:
+- Cherry picked commits will have different hash IDs than the original commits.
+- Don't cherry pick a merge commit without also cherry picking its parent commits. This can lead to issues.
+- Cherry picking does not bring over the branch relationship or any tags from the original commit.
+- Regular git commands like `git rebase` and `git revert` may be better choices in some situations.
+
+
 
 
  ### Getting one file from remote
