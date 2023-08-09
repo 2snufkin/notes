@@ -50,7 +50,7 @@ Note that this approach is only recommended for local changes that you do not wa
 
 if you have made changes to a file that you do not want to push to the main project or share with others, then you can exclude that file from being committed. \
 
-Make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section.
+Make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section. \
 **If it was not commited yet:**
 1. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
 2.`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again.
