@@ -20,17 +20,41 @@ you can configurate your name, email, alias etc...
 #### Delete
 `git config --local --unset alias.<alias-name>`: deleting a local Git alias. If you want to delete a global alias replace --local with --global
 
-### Info
-`git status`: show you on which branch you are at. If your are on a commit or not on a branch (HEAD detached), have you committed? untracked files etc..\
-`git log`: show list of commits to the current branch\
-`git log --graph`: will show a graph of the commit tree\
-`git log --oneline --graph --decorate --all`: show the entire tree. good to use after git fetch\
-`git log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'` : nice presentation of the \
-quit: If I want o quit the log screen I need to click on q \
-`gitk --simplify-by-decoration --all`: open a window with a compact grapcial representation \
-`gitk --all` : open a window with more detailed grapcial representation \
-`git log --oneline --graph --color --all --decorate`: compact branch represntation in the terminal(only part of the commit name)\
-`git log --pretty=oneline --graph --decorate --all`:  branch represntation in the terminal with full commit number
+
+
+
+### Info and Lists
+
+#### Information and Status
+- `git status`: Displays the current status of your working directory, including changes to be committed and untracked files.
+
+#### Commit History
+- `git log`: Shows a list of commits on the current branch.
+- `git log --graph`: Displays a visual graph of the commit tree.
+- `git log --oneline --graph --decorate --all`: Shows the entire commit history graph, useful after `git fetch`.
+- `git log --topo-order --all --graph --date=local --pretty=format:'%C(green)%h%C(reset) %><(55,trunc)%s%C(red)%d%C(reset) %C(blue)[%an]%C(reset) %C(yellow)%ad%C(reset)%n'`: Displays a concise and color-enhanced history of commits.
+
+#### Commit History Visualization
+- `gitk --simplify-by-decoration --all`: Opens a graphical window with a compact representation of the commit history.
+- `gitk --all`: Opens a graphical window with a more detailed representation of the commit history.
+- `git log --oneline --graph --color --all --decorate`: Provides a compact branch representation in the terminal (partial commit names).
+- `git log --pretty=oneline --graph --decorate --all`: Displays a branch representation in the terminal with full commit numbers.
+
+#### Showing Files
+- `git show`: Displays the changes of the last commit, including added and removed lines.
+- `git show <commit-hash>`: Displays detailed information about a specific commit, including changes to files.
+- `git diff`: Shows changes between your working directory and the last commit.
+- `git diff <commit-hash>`: Compares your working directory to a specific commit.
+- `git log -n 1 --name-only --pretty=format:"%h - %an, %ar : %s"`: This command will display the commit hash (%h), author name (%an), relative time (%ar), and commit message (%s) for the most recent commit. Additionally, it will list the names of files that were changed in that commit (--name-only).
+- `git log --name-only --pretty=format:"%h - %an, %ar : %s"`: list of files changed in each commit across the history
+#### Exiting Commit History Visualization
+- Press `q`: Quits the `git log` screen and returns to the terminal.
+
+#### Additional Information
+- `git branch`: Lists all local branches and highlights the current branch.
+- `git remote -v`: Lists remote repositories and their URLs.
+- `git blame <file>`: Shows the commit details for each line of a file.
+
 
 ## Diff
 ` git diff --name-only $branch`: list all files that are different between the specified branch and the current branch. pecifically, it will show the names of files that have been modified, added, or deleted in the specified branch since it diverged from the current branch.  It does not take into account any changes that have been staged (i.e., added to the index) but not yet committed.\
@@ -51,9 +75,11 @@ Note that this approach is only recommended for local changes that you do not wa
 if you have made changes to a file that you do not want to push to the main project or share with others, then you can exclude that file from being committed. \
 
 Make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section. \
+
 **If it was not commited yet:**
 1. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
 2.`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again. \
+
 **If it was commited:**
 1. **Untrack the File:** `git rm --cached <file-path>`
 2. **Update .gitignore** After untracking the file, you should add its path to the .gitignore file to ensure it doesn't get accidentally staged again in the future. Add  `/path/to/your/file` relative to the root of your repository.
