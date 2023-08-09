@@ -21,6 +21,8 @@ Next, create a configuration file:
 ```bash
 npx tailwindcss init
 ```
+### Ready To Use
+there is a site called Flowbite that contains ready to use components (header , footer, cards etc...)
 
 ### Quick Demo
 
