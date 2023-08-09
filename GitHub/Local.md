@@ -53,7 +53,7 @@ if you have made changes to a file that you do not want to push to the main proj
 Make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section. \
 **If it was not commited yet:**
 1. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
-2.`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again.
+2.`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again. \
 **If it was commited:**
 1. **Untrack the File:** `git rm --cached <file-path>`
 2. **Update .gitignore** After untracking the file, you should add its path to the .gitignore file to ensure it doesn't get accidentally staged again in the future. Add  `/path/to/your/file` relative to the root of your repository.
