@@ -99,18 +99,38 @@ For each element that you want it to present diffrently in dark mode you must ad
 
 ## Custom Configuration
 Tailwind CSS is highly customizable. Edit your `tailwind.config.js` file to add or modify settings. For example, adding custom colors:
+You can create a config file using `npx tailwindcss init`. In this file you can extend or override setting
 
 ```javascript
 module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#FFA500',
-        secondary: '#00FF00',
-      },
+  content: ['./src/**/*.{html,js}'],
+  theme: { //overwrite that is already exists
+    colors: { //define your default colors
+      'blue': '#1fb6ff',
+      'purple': '#7e5bef',
+      'pink': '#ff49db',
+      'orange': '#ff7849',
+      'green': '#13ce66',
+      'yellow': '#ffc82c',
+      'gray-dark': '#273444',
+      'gray': '#8492a6',
+      'gray-light': '#d3dce6',
     },
+    fontFamily: { //when you use sans it will use x: overwrite of the current setting 
+      sans: ['Graphik', 'sans-serif'],
+      serif: ['Merriweather', 'serif'],
+    },
+    extend: { // extend functions that does not exist
+      spacing: { // there is no 8xl, you can define it
+        '8xl': '96rem',
+        '9xl': '128rem',
+      },
+      borderRadius: {
+        '4xl': '2rem',
+      }
+    }
   },
-};
+}
 ```
 
 ## Project Demo

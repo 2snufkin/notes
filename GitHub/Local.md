@@ -46,12 +46,18 @@ quit: If I want o quit the log screen I need to click on q \
 `git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream
 
 ### Excluding a file
-if you have made changes to a file that you do not want to push to the main project or share with others, then you can exclude that file from being committed by using the 
-1. make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section.
-2. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
-`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again.
-Note that this approach is only recommended for local changes that you do not want to push to the main project. If you need to exclude files from being committed for everyone, then you should use a .gitignore file instead.
+Note that this approach is only recommended for local changes that you do not want to push to the main project. If you need to exclude files from being committed for everyone, then you should use a .gitignore file instead. \
 
+if you have made changes to a file that you do not want to push to the main project or share with others, then you can exclude that file from being committed. \
+
+Make sure that the file is not already committed by running the command git status. If the file is not committed, it should show up under the "Changes not staged for commit" section. \
+**If it was not commited yet:**
+1. `git update-index --assume-unchanged <file-path>`: ignore any changes made to the file and not include it in future commits.
+2.`git update-index --no-assume-unchanged <file-path>`: This will tell Git to start tracking changes to the file again. \
+**If it was commited:**
+1. **Untrack the File:** `git rm --cached <file-path>`
+2. **Update .gitignore** After untracking the file, you should add its path to the .gitignore file to ensure it doesn't get accidentally staged again in the future. Add  `/path/to/your/file` relative to the root of your repository.
+3. **Commit the Changes:** `git commit -m "Stopped tracking <file-name>"`
 
 ## Commiting && Uncommiting
 `git commit`: copy files from the staging area to the git repository and creating the corresponding git objects and commit object\
