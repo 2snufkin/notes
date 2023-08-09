@@ -37,62 +37,34 @@ Cherry picking in Git allows you to select a commit from one branch and apply it
 
 
 
-
-- **Fetch Remote Changes:**
-  ```
-  git fetch origin
-  ```
-
-- **Switch to Target Branch:**
-  ```
-  git checkout target_branch
-  ```
-
-- **Cherry-Pick a Single Commit:**
+**Cherry-Pick a Single Commit:**
   ```
   git cherry-pick commit_hash
   ```
 
-- **Cherry-Pick a Range of Commits:**
+**Cherry-Pick a Range of Commits:**
   ```
   git cherry-pick starting_commit_hash^..ending_commit_hash
   ```
 
-- **Resolve Conflicts (if needed):**
+**Continue Cherry-Pick (run this after resolving):**
   ```
   git cherry-pick --continue
   ```
 
-- **Abort Cherry-Pick (if needed):**
+**Abort Cherry-Pick (if needed):**
   ```
   git cherry-pick --abort
   ```
 
-- **View Cherry-Picked Commit:**
+**View Cherry-Picked Commit:**
   ```
   git show cherry-picked_commit_hash
   ```
 
-- **Commit Cherry-Picked Changes:**
-  ```
-  git commit
-  ```
-
-- **Push Changes to Remote:**
-  ```
-  git push origin target_branch
-  ```
-
-
-
-
-
-
-
-
-
 
 ### Cherry Picking One Commit
+0. Fetch Remote Changes: run `git fetch origin`. 
 1. Checkout the branch where you want to apply the commit 
 2. Get the commit hash of the commit you want to cherry pick. You can find this by running `git log` on the branch with the commit. If you do it don't forget to switch to the target branch
 3. Run the cherry pick command, specifying the commit hash:
