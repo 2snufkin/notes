@@ -76,6 +76,15 @@ git cherry-pick <commit-hash>
 ```
 git commit -m "Cherry pick commit <commit-hash>" 
 ```
+6. work on your task. When you push to origin you don't want to push also  the cherry-pick commit so for this:
+```bash
+git rebase -i HEAD~5
+```
+This will open an interactive text editor with a list of recent commits, including the commit you want to remove
+
+7. Change pick to drop in front of the commit you want to remove. Save and close the text editor. Git will now proceed with the rebase and drop the commit you specified.
+
+Remember that this action alters the commit history, so if your branch has been pushed to a remote repository, you might need to force-push the branch to update the remote history. `git push --force-with-lease origin <branch-name>`. Be cautious when force-pushing, as it can affect other collaborators who have pulled the branch. Communication with your team is important in such cases.
 
 
 ## Cherry Picking Multiple Commits 
