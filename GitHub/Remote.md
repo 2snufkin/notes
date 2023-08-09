@@ -21,7 +21,7 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git push origin --delete $remoteBranchName`: delete remote branch
 
 ### Merge
- !Always do git pull before merge!
+ !Always do git pull before merge!\
 1.`git merge $branch-name`: locally. the branch name you merge to it should be the same branch name in the git push command (master maybe).\
 2. `git push origin $branch-name`
 
@@ -34,6 +34,43 @@ upstream branch or the tracked remote branch = the branch you will interact with
 `git clone $URL`: will copy from a remote ropository to a local repository (your PC)
 `git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>\
 `git checkout origin/<remote_branch> -- <file_path>`: update a file to it's remote version
+
+### Merge remote branch into local.\
+To merge a remote branch into another remote or local branch, you'll typically follow these steps. Let's say we want to merge gatsby (from) into gatsby_evo (to)
+1. **Fetch Changes**: First, make sure you have the latest information about the remote repository by fetching the changes from the remote:
+   ```bash
+   git fetch origin
+   ```
+2. **Switch to Target Branch**: If "gatsby_evo" is a local branch, switch to it. If it's a remote branch, and it does not have a local branch that track it - you  want to create and switch to a local branch that tracks the remote "gatsby_evo" branch:
+
+   ```bash
+   # If "gatsby_evo" is a local branch
+   git checkout gatsby_evo
+
+   # If "gatsby_evo" is a remote branch (create and track a local branch)
+   git checkout -b gatsby_evo origin/gatsby_evo
+   ```
+3. **Merge Remote Branch**: Once you are on the target branch, you can merge the changes from the "gatsby" branch into it:
+
+   ```bash
+   git merge origin/gatsby
+   ```
+This command will merge the changes from the remote "gatsby" branch into the current branch ("gatsby_evo").
+
+4. **Resolve Conflicts (if any)**: If there are any conflicts between the changes in the two branches, Git will prompt you to resolve them. Open the conflicted files, resolve the conflicts, save the changes, and then continue the merge process by:
+
+   ```bash
+   git add .       # Add the resolved files
+   git commit -m "Resolved conflicts from gatsby branch"
+   ```
+
+5. **Push Changes**: After successfully merging and resolving any conflicts, push the changes back to the remote repository:
+
+   ```bash
+   git push origin gatsby_evo
+   ```
+This will push the merged changes to the remote "gatsby_evo" branch.
+
 
  ### Getting one file from remote
 ```
