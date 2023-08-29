@@ -10,9 +10,9 @@ path sperators: windows =>
 `mysql -u {user} -p {db_name}`: you will access mySql on your machine
 
 ## Working with dump file  
-`mysql -u {user} -p {db_name}<{absoulte_address_dump_file+sql ext}`: import a dump file
-`mysqldump -u {user} -p {db_name}>{absoulte_address_dump_file_to_be_created+sql ext}`: export a dumpfile
-`--routines`: routine is a function ot a stocked procedure. using this option will include them in the dump file
+`mysql -u {user} -p {db_name}<{absoulte_address_dump_file+sql ext}`: import a dump file.\
+`mysqldump -u {user} -p {db_name}>{absoulte_address_dump_file_to_be_created+sql ext}`: export a dumpfile.\
+`--routines`: routine is a function or a stocked procedure. using this option will include them in the dump file
 
 ## Requets
 `{request} INTO OUTFILE {filename.csv/txt etc} FIELDS ENCLOSED BY '"' TERMINATED BY ';' LINES TERMINATED BY '\r\n';`: exprot the result off this request to a file
