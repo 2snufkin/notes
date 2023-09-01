@@ -117,9 +117,9 @@ Squashing commits is a technique to combine multiple commits into a single, more
 
 If you need to delete a specific commit from your Git history, you can use the `git reset` command. There are two modes to reset:
 
-- `git reset --soft`: This mode will delete the last commit but keep its changes in your working directory. It allows you to make new changes and create a new commit.
+- `git reset --soft <hash>`: This mode will delete the commit but keep its changes in your working directory. It allows you to make new changes and create a new commit.
 
-- `git reset --hard`: This mode will delete the last commit along with its changes. Use it with caution as it discards all the changes made in the deleted commit.
+- `git reset --hard <hash>`: This mode will delete the commit along with its changes. Use it with caution as it discards all the changes made in the deleted commit.
 
 Remember to use `git reset` carefully, especially when working in a shared repository, as it can affect the Git history for everyone.
 
