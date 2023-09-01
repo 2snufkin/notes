@@ -85,20 +85,47 @@ Make sure that the file is not already committed by running the command git stat
 2. **Update .gitignore** After untracking the file, you should add its path to the .gitignore file to ensure it doesn't get accidentally staged again in the future. Add  `/path/to/your/file` relative to the root of your repository.
 3. **Commit the Changes:** `git commit -m "Stopped tracking <file-name>"`
 
-## Commiting && Uncommiting
-`git commit`: copy files from the staging area to the git repository and creating the corresponding git objects and commit object\
-`-m "$commitDescription"`: commit a staged file or files\
-`-a`:  stage and commit. it's git add + git commit\
-`--amend`: modify the last commit message\
-`git reflog`: show a track of the historical positions of a branch head, and you can use it to find things that the branch head was pointing at previously. \
-`git reset`: can be soft or hard\
-`--soft`: delete the last commit but not it's files\
-`--hard`: delete the last commit and its files
+## Commits
 
-### Saving comitted files to the Disk
-`git archive --format=zip --output=commit-files.zip commit-hash`: creates a zip file named commit-files.zip in your current directory, containing the committed files for the specified commit. The --format=zip option tells git archive to create a zip archive, and the --output=commit-files.zip option specifies the name of the output file.
+In Git, commits are essential for tracking changes in your project. Each commit represents a snapshot of your project at a particular point in time. Here are some common Git commit commands and concepts:
 
-Note that this command creates an archive of all the files in the commit, not just the files that were changed in the commit
+### Creating Commits
+
+- `git commit`: This command is used to create a commit in Git. It copies files from the staging area to the Git repository and creates the corresponding Git objects and a commit object.
+
+- `git commit -m "$commitDescription"`: You can use this command to commit staged files along with a brief commit message for documentation.
+
+- `git commit -a`: This command stages and commits changes in one step. It's essentially equivalent to running `git add .` followed by `git commit`.
+
+- `git commit --amend`: Use this command to modify the last commit's message without creating a new commit.
+
+### Squash Commits
+
+Squashing commits is a technique to combine multiple commits into a single, more organized commit. This can help keep your Git history clean and meaningful, especially when working on feature branches. Here's how you can squash commits:
+
+1. Use `git rebase -i HEAD~n`, where `n` is the number of commits you want to squash. You can replace it wit ha hash of the commit that will mark the start of the squash. This command opens an interactive rebase dialog.
+
+2. In the interactive rebase dialog, replace `pick` with `squash` (or simply `s`) for the commits you want to squash. Leave `pick` for the commit you want to keep.
+
+3. Save and close the dialog. Git will then prompt you to edit the combined commit message.
+
+4. Edit the commit message as desired and save the changes.
+
+5. Git will complete the rebase, and you will have a single squashed commit with the combined changes.
+
+### Deleting a Specific Commit
+
+If you need to delete a specific commit from your Git history, you can use the `git reset` command. There are two modes to reset:
+
+- `git reset --soft`: This mode will delete the last commit but keep its changes in your working directory. It allows you to make new changes and create a new commit.
+
+- `git reset --hard`: This mode will delete the last commit along with its changes. Use it with caution as it discards all the changes made in the deleted commit.
+
+Remember to use `git reset` carefully, especially when working in a shared repository, as it can affect the Git history for everyone.
+
+### Saving Committed Files to the Disk
+
+You can create a compressed archive of committed files for a specific commit using the following command:
 
 
 ## Stash
