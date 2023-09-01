@@ -126,6 +126,10 @@ Remember to use `git reset` carefully, especially when working in a shared repos
 ### Saving Committed Files to the Disk
 
 You can create a compressed archive of committed files for a specific commit using the following command:
+`git archive --format=zip --output=commit-files.zip commit-hash`
+This command will create a zip file named `commit-files.zip` in your current directory, containing all the files as they existed at the specified commit (`commit-hash`).
+Note that this command archives all the files in the commit, not just the files that were changed in the commit.
+
 
 
 ## Stash
