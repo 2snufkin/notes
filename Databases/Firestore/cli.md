@@ -1,2 +1,0 @@
-`npx -p node-firestore-import-export firestore-import  -a appconfig.json -b to_import.json`: import a database. The appconfig is the the private key and the to_import.json is the database i want to import, it can also be a csv file
-`npx -p node-firestore-import-export firestore-export  -a appconfig.json -b to_import.json`: export a database. 
