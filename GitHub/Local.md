@@ -114,14 +114,37 @@ Squashing commits is a technique to combine multiple commits into a single, more
 5. Git will complete the rebase, and you will have a single squashed commit with the combined changes.
 
 ### Deleting a Specific Commit
+You can use git reabse -i or git reset:
++ git rebase -i <hash>: allows you to modify the commit history by reordering, editing, or dropping commits while preserving the history.
++ git reset --soft <hash>: moves the branch pointer while preserving the commit history and staged changes.
++ git reset --hard <hash>: moves the branch pointer and removes commits and changes made after the reset point, effectively rewriting history.
 
-If you need to delete a specific commit from your Git history, you can use the `git reset` command. There are two modes to reset:
+#### git reabse -i
+   - Purpose: Interactive rebasing allows you to modify and reorder commits interactively.
+   - Result: You can edit, squash, reword, or drop individual commits during the interactive rebase.
+   - Commit History: Commits can be changed or combined into new commits.
+   - Commit SHA-1: Commits are typically rewritten with new SHA-1 hashes.
+   - Safety: Safer for shared branches if used carefully because it preserves commit history.
+   - Use Case: Used when you want to clean up commit history or incorporate changes from another branch into your current branch.
 
-- `git reset --soft <hash>`: This mode will delete the commit but keep its changes in your working directory. It allows you to make new changes and create a new commit.
+#### git reset --soft
 
-- `git reset --hard <hash>`: This mode will delete the commit along with its changes. Use it with caution as it discards all the changes made in the deleted commit.
+   - Purpose: Soft reset moves the branch pointer to a specific commit while keeping the changes staged.
+   - Result: The commit you reset to becomes the new head of the branch, and the changes from subsequent commits are staged and ready for a new commit.
+   - Commit History: Previous commits are still part of the branch's history.
+   - Commit SHA-1: The commit history remains unchanged, so commit SHA-1 hashes are retained.
+   - Safety: Safe for personal branches or if you want to rewrite the commit message without altering history.
+   - Use Case: Useful when you want to make additional changes to a previous commit or reword its message.
 
-Remember to use `git reset` carefully, especially when working in a shared repository, as it can affect the Git history for everyone.
+#### git reset --hard 
+
+   - Purpose: Hard reset moves the branch pointer to a specific commit and discards all changes made after that commit.
+   - Result: Resets the branch to the specified commit, discarding any changes in the working directory and staging area.
+   - Commit History: Commits that were reset are no longer part of the branch's history.
+   - Commit SHA-1: Commits after the reset point are effectively deleted and won't appear in the commit history.
+   - Safety: Can be dangerous on shared branches because it permanently removes commits.
+   - Use Case: Should be used with caution and only when you're certain you want to remove commits and start over from a specific point.
+
 
 ### Saving Committed Files to the Disk
 
