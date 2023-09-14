@@ -57,9 +57,9 @@ you can configurate your name, email, alias etc...
 ` | wc -l`: adding this will count the number of files.\
 `git diff origin/branch_x path/to/file`: compare a file to it's remote version on branch_x.\
 
-## Staging, Unstaging And Ignoring
+## Files
 `git add`:  Stage a file/files.Copy files from the working dir. to the staging area. \
-`git add`: will copy all files\
+`git add .`: will copy all files\
 `git restore --staged $file` or `git reset $filename`: unstage a file\
 `git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream
 
