@@ -107,6 +107,65 @@ Squashing commits is a technique to combine multiple commits into a single, more
 
 5. Git will complete the rebase, and you will have a single squashed commit with the combined changes.
 
+
+### Modifying the Most Recent Commit
+
+To make changes to the most recent commit, including modifying the commit message or adding new changes to it, you can use the `--amend` option with the `git commit` command:
+
+```bash
+git commit --amend
+```
+
+This will open your default text editor, allowing you to modify the commit message. You can also stage additional changes before saving.
+#### Modifing commit message:
+git commit --amend -m "New commit message"
+
+#### Adding Changes to the Last Commit:
+To add new changes to the last commit without changing its commit message, follow these steps:
+1. Stage the changes you want to add to the last commit using `git add`.
+
+   ```bash
+   git add <files>
+   ```
+
+2. Use the `--amend` option to include the staged changes in the last commit:
+
+   ```bash
+   git commit --amend
+   ```
+
+## Modifying Older Commits
+
+If you need to modify a commit that is not the most recent one, you'll need to use interactive rebasing. Interactive rebasing allows you to edit, squash, or split commits.
+
+### Interactive Rebase
+
+1. Open the interactive rebase tool with the following command, specifying how many commits you want to go back:
+
+   ```bash
+   git rebase -i HEAD~<number-of-commits>
+   ```
+
+2. An editor will open, displaying a list of commits from the current HEAD going back the specified number of commits.
+
+3. Change the word "pick" to one of the following options to modify the corresponding commit:
+
+   - **pick:** Keep the commit as is.
+   - **edit:** Pause the rebase process to allow you to amend the commit.
+   - **squash:** Combine the commit with the previous one.
+   - **reword:** Change the commit message.
+
+4. Save and close the editor.
+
+5. Git will pause at each commit marked as "edit," allowing you to make changes.
+
+6. After making your changes, stage them with `git add` and then use `git commit --amend` to modify the commit.
+
+7. Continue the rebase with `git rebase --continue`.
+
+8. Repeat steps 5-7 for each "edit" commit in the rebase.
+
+
 ### Deleting a Specific Commit
 You can use git reabse -i or git reset:
 + git rebase -i <hash>: allows you to modify the commit history by reordering, editing, or dropping commits while preserving the history.

@@ -20,9 +20,12 @@ TODO: finish last lectures in the Git Essentials: Become a Git and GitHub Ninja 
 ## Starting task
 1. update from remote
 2. create task branch -> work on it
-3. once a day git rebase origin/<branchmaster> to pull the code from remote. 
+3. once a day `git pull --rebase origin {starting_branch}` to pull the code from remote.\
+***If you want to use merge instead**
++ fetch changes from the dev branch: `git fetch origin <dev>`
++ merge: `git merge origin/<dev>`
 ## Finishing task
-1. git rebase origin/{devbranch}
+1. `git pull --rebase origin {starting_branch}`
 [if there are conflicts solve them -> add and commit with `git commit -am "message"` -> `git rebase --continue`]
 2. compile and build your project 
 3. push to remote. If there were problems and  there is no other way you use the -f argument. but try to avoid using it\
