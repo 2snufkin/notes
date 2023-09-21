@@ -23,6 +23,7 @@ TODO: finish last lectures in the Git Essentials: Become a Git and GitHub Ninja 
 3. once a day: rebase or merge changes from remote
 + Reabse: `git pull --rebase origin {starting_branch}` to pull the code from remote.\
 + Merge:  `git fetch origin` => `git merge origin/<starting_branch>`
+  
 ## Finishing task
 1. `git pull --rebase origin {starting_branch}`
 [if there are conflicts solve them -> add and commit with `git commit -am "message"` -> `git rebase --continue`]
