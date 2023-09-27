@@ -1,32 +1,26 @@
+# Local Repository
 
+## Init a git project
 `git init`:
 connect the project to git. create an hidden folder named git when git store every version of every file in the working directory\
-`git config --global init.$default-Branch-Name`: change the init brunch name from master to whenever I want in all the projects\
 
 ## Configurations
 you can configurate your name, email, alias etc...
-`cat .git/config`: print the config file
+- `git config --global init.$default-Branch-Name`: change the init brunch name from master to whenever I want in all the projects\
+- `cat .git/config`: print the config file
 `git config --list`: see the list of setting. I can see the author name and email only if they were configured before\
 `git config --global user.name "Name Family-name"`: set the author's name globally\
 `git config --global user.email Email`: set the author's email globally (the email that I use as username at GitHub)\
 `cat ~/.gitconfig`: will display you username and email\
+- `git status`: Displays the current status of your working directory, including changes to be committed and untracked files.
 
 ### Alias
-#### Create
-`git config --local alias.<alias-name> "<alias-command-without-git>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system. alias-command is without the ketword git.\
+- `git config --local alias.<alias-name> "<alias-command-without-git>"`: This will set the alias configuration only for the current Git repository, without affecting any other repositories or the global Git configuration on your system. alias-command is without the ketword git.\
 `--global`: replacing --local with --global will set the alias globally.
-#### Get
-`git config --get-regexp alias`:  list all of your configured aliases
-#### Delete
-`git config --local --unset alias.<alias-name>`: deleting a local Git alias. If you want to delete a global alias replace --local with --global
+- `git config --get-regexp alias`:  list all of your configured aliases
+- `git config --local --unset alias.<alias-name>`: deleting a local Git alias. If you want to delete a global alias replace --local with --global
 
-
-
-
-### Info and Lists
-
-#### Information and Status
-- `git status`: Displays the current status of your working directory, including changes to be committed and untracked files.
+### Commit's Info
 
 #### Commit History
 - `git log`: Shows a list of commits on the current branch.
@@ -57,15 +51,15 @@ you can configurate your name, email, alias etc...
 
 
 ## Diff
-` git diff --name-only $branch`: list all files that are different between the specified branch and the current branch. pecifically, it will show the names of files that have been modified, added, or deleted in the specified branch since it diverged from the current branch.  It does not take into account any changes that have been staged (i.e., added to the index) but not yet committed.\
-`git diff --name-only HEAD`: This will show the names of all files that have been modified between the current commit (i.e., HEAD) and the working directory, including any changes that have been staged (but not yet committed).\
-`git diff --name-only`: list the names of files that have been modified in the working directory (i.e., unstaged changes), you can use the following command:
+- ` git diff --name-only $branch`: list all files that are different between the specified branch and the current branch. pecifically, it will show the names of files that have been modified, added, or deleted in the specified branch since it diverged from the current branch.  It does not take into account any changes that have been staged (i.e., added to the index) but not yet committed.\
+- `git diff --name-only HEAD`: This will show the names of all files that have been modified between the current commit (i.e., HEAD) and the working directory, including any changes that have been staged (but not yet committed).\
+- `git diff --name-only`: list the names of files that have been modified in the working directory (i.e., unstaged changes), you can use the following command:
 ` | wc -l`: adding this will count the number of files.\
 `git diff origin/branch_x path/to/file`: compare a file to it's remote version on branch_x.\
 
-## Staging, Unstaging And Ignoring
+## Files
 `git add`:  Stage a file/files.Copy files from the working dir. to the staging area. \
-`git add`: will copy all files\
+`git add .`: will copy all files\
 `git restore --staged $file` or `git reset $filename`: unstage a file\
 `git update-index --skip-worktree $filename`: ignores uncommitted changes in a file that is already tracked. git will always use the file content and attributes from the staging area. This is useful when we want to add local changes to a file without pushing them to the upstream
 
@@ -112,6 +106,65 @@ Squashing commits is a technique to combine multiple commits into a single, more
 4. Edit the commit message as desired and save the changes.
 
 5. Git will complete the rebase, and you will have a single squashed commit with the combined changes.
+
+
+### Modifying the Most Recent Commit
+
+To make changes to the most recent commit, including modifying the commit message or adding new changes to it, you can use the `--amend` option with the `git commit` command:
+
+```bash
+git commit --amend
+```
+
+This will open your default text editor, allowing you to modify the commit message. You can also stage additional changes before saving.
+#### Modifing commit message:
+git commit --amend -m "New commit message"
+
+#### Adding Changes to the Last Commit:
+To add new changes to the last commit without changing its commit message, follow these steps:
+1. Stage the changes you want to add to the last commit using `git add`.
+
+   ```bash
+   git add <files>
+   ```
+
+2. Use the `--amend` option to include the staged changes in the last commit:
+
+   ```bash
+   git commit --amend
+   ```
+
+## Modifying Older Commits
+
+If you need to modify a commit that is not the most recent one, you'll need to use interactive rebasing. Interactive rebasing allows you to edit, squash, or split commits.
+
+### Interactive Rebase
+
+1. Open the interactive rebase tool with the following command, specifying how many commits you want to go back:
+
+   ```bash
+   git rebase -i HEAD~<number-of-commits>
+   ```
+
+2. An editor will open, displaying a list of commits from the current HEAD going back the specified number of commits.
+
+3. Change the word "pick" to one of the following options to modify the corresponding commit:
+
+   - **pick:** Keep the commit as is.
+   - **edit:** Pause the rebase process to allow you to amend the commit.
+   - **squash:** Combine the commit with the previous one.
+   - **reword:** Change the commit message.
+
+4. Save and close the editor.
+
+5. Git will pause at each commit marked as "edit," allowing you to make changes.
+
+6. After making your changes, stage them with `git add` and then use `git commit --amend` to modify the commit.
+
+7. Continue the rebase with `git rebase --continue`.
+
+8. Repeat steps 5-7 for each "edit" commit in the rebase.
+
 
 ### Deleting a Specific Commit
 You can use git reabse -i or git reset:
@@ -207,3 +260,131 @@ If I made changes to the wrong branch, do the following:
 `git merge $branch-name`: I must be on the receiving branch to run it (with checkout). Will merge the branch in the arg to the receiving branch \
 `git rebase $branch-name`: rebase a branch
 
+# Remote Repository
+
+
+## SSH KEYS
+`ssh-keygen -o`: create a SSH file on your disk, later to be used in GitHub. It will ask you where to save\
+`cat <save-folder>/id_rsa.pub`: will show the SSH string
+
+## Getting info
+`git log --merges --pretty=format:'%h %s' --grep='Merge pull request'`: return a list of all merege pull requests
+`git remote -v`: show if I am connected to a remote repository. if connected I should see the fetch and push files\
+
+## Connecting to remote
+`git remote add origin $URL`: connect to an existing repository in GitHub\
+
+##  Local => Remote:
+`git push --set-upstream origin master`: To use for the first push. Push the current branch and set the remote as upstream\ 
+`git push origin $branch-name`: push changes to GitHub (origin), the branch-name is the remote branch, the destination branch.\
+-u: define this branch as the default upstream branch.\
+upstream branch or the tracked remote branch = the branch you will interact with by default when using git pull and git push commands.
+`git push --set-upstream-to origin/the_branch`: set upstream branch\
+`git push origin --delete $remoteBranchName`: delete remote branch
+
+
+## Remote => Local:
+
+`git fetch origin $branch-name`: download the changes but not apply them to your local working folder. You can examine them\
+`git fetch && git diff HEAD @{u} --name-only`: see what files will be modified if you do a git PULL
+`git fetch && git diff @{u} --name-only`: see ALL differences between your current version and the incoming version, including uncommitted local modifications. 
+`git pull origin $branch-name`: take the changes that have been made to the remote branch x.  * before running it make sure you are sitting on the branch that you want it to receive the update\
+`git clone $URL`: will copy from a remote ropository to a local repository (your PC)
+`git rebase origin/<branch-master>` : when on a feature branch, it will update the feature branch with the remote main branch <branch-master>\
+`git checkout origin/<remote_branch> -- <file_path>`: update a file to it's remote version
+
+
+## Cherry-Picking 
+Cherry picking in Git allows you to select a commit from one branch and apply it onto another branch. This can be useful when you only want to take a specific commit from a feature branch and merge it into your main branch, without merging the entire feature branch.
+
+
+
+**Cherry-Pick a Single Commit:**
+  ```
+  git cherry-pick commit_hash
+  ```
+
+**Cherry-Pick a Range of Commits:**
+  ```
+  git cherry-pick starting_commit_hash^..ending_commit_hash
+  ```
+
+**Continue Cherry-Pick (run this after resolving):**
+  ```
+  git cherry-pick --continue
+  ```
+
+**Abort Cherry-Pick (if needed):**
+  ```
+  git cherry-pick --abort
+  ```
+
+**View Cherry-Picked Commit:**
+  ```
+  git show cherry-picked_commit_hash
+  ```
+
+
+### Cherry Picking One Commit
+0. Fetch Remote Changes: run `git fetch origin`. 
+1. Checkout the branch where you want to apply the commit 
+2. Get the commit hash of the commit you want to cherry pick. You can find this by running `git log` on the branch with the commit. If you do it don't forget to switch to the target branch
+3. Run the cherry pick command, specifying the commit hash:
+```
+git cherry-pick <commit-hash>
+```
+4. If there are no conflicts, Git will apply the commit directly. If there are conflicts, you will need to resolve them before committing the changes.
+5. Once done, commit the changes. The commit message will include information that this was a cherry picked commit.
+```
+git commit -m "Cherry pick commit <commit-hash>" 
+```
+6. work on your task. When you push to origin you don't want to push also  the cherry-pick commit so for this:
+```bash
+git rebase -i HEAD~5
+```
+This will open an interactive text editor with a list of recent commits, including the commit you want to remove
+
+7. Change pick to drop in front of the commit you want to remove. Save and close the text editor. Git will now proceed with the rebase and drop the commit you specified.
+
+Remember that this action alters the commit history, so if your branch has been pushed to a remote repository, you might need to force-push the branch to update the remote history. `git push --force-with-lease origin <branch-name>`. Be cautious when force-pushing, as it can affect other collaborators who have pulled the branch. Communication with your team is important in such cases.
+
+
+## Cherry Picking Multiple Commits 
+You can also cherry pick a range of commits using:
+
+```
+git cherry-pick <start-commit-hash>..<end-commit-hash>
+```
+This will apply the sequence of commits onto the current branch. Again, resolve any conflicts before committing.
+
+## Caveats of Cherry Picking
+
+Some things to keep in mind when cherry picking:
+- Cherry picked commits will have different hash IDs than the original commits.
+- Don't cherry pick a merge commit without also cherry picking its parent commits. This can lead to issues.
+- Cherry picking does not bring over the branch relationship or any tags from the original commit.
+- Regular git commands like `git rebase` and `git revert` may be better choices in some situations.
+
+
+
+
+ ### Getting one file from remote
+```
+git fetch: git fetch will download all the recent changes, but it will not put it in your current checked out code (working area).
+git checkout origin/<branch-name> -- path/to/file: will checkout the particular file from the downloaded changes (origin/master).
+```
+   
+
+### Travel in time
+ if someone introduce a bug to the main remote branch and you want to go back to earlier version
+1.`git log`:  to see the commit history of the main branch. Look for the commit before the bug was introduced. You can use the arrow keys to scroll through the output, and press q to exit the log view.
+2. Find the hash of the commit you want to switch to. It should be a long string of letters and numbers, like d7258d4b6faaa4e9686071ecf8c4529a0d7a3b3c.
+3. `git checkout <commit-hash>`:  switch to that commit. 
+4. You should now be on the main branch at the state of the code before the bug was introduced. You can create a new branch from here if you want to make changes and keep them separate from the refactoring branch.
+5. to return back : `git branch <main>`
+
+
+# Workflow
+ update from remote -> create task branch -> work on it -> once a day `git rebase origin/<branch-master>` to pull the code from remote.
+ when ready to push: compile and build your project -> test it -> `git rebase origin/<branch-master> -> if there are conflicts solve them
+ -> add and commit with `git commit -am "message"` -> git rebase --continue -> push to remote with the -f argument.
