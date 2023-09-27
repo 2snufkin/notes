@@ -1,5 +1,28 @@
 # HOW TO
-### Close a process that uses a port
+
+## Launch a script with windows startup
+Please note that you may need administrative privileges to create a scheduled task, and the task will run in the background when you log in. Make sure to adjust the file paths and settings according to your system configuration.
+
+1. Create a bat file to run
+
+If you want to run a py script: 
+1.  Save your Python script in a location where it won't be moved or deleted.
+2. Create a batch script (.bat) that will run your Python script and save it in the same folder. Open Notepad and paste the following code:
+```
+@echo off
+pythonw.exe "C:\path\to\your\script\main.py"
+```
+2. Open the Windows Task Scheduler:         Press Win + S, type "Task Scheduler," and press Enter.
+3. In the Task Scheduler, click on "Create Basic Task..." in the right-hand panel.
+4. Follow the wizard to give your task a name and a description. Click "Next."
+4. Choose "When the computer starts" and click "Next."
+5. Choose "Start a program" and click "Next."
+6. Browse and select the batch (.bat) script you created in step 1.2
+7. Review your settings and click "Finish" to create the task.
+
+
+
+## Close a process that uses a port
 You want to run Angular on 4200 but you forgot to close it. You don't want to work with a random port. How do you close this process?
 @mise en place: replace the port 4200 with the port u try to close
 1. run as admin:
