@@ -79,6 +79,62 @@ Make sure that the file is not already committed by running the command git stat
 2. **Update .gitignore** After untracking the file, you should add its path to the .gitignore file to ensure it doesn't get accidentally staged again in the future. Add  `/path/to/your/file` relative to the root of your repository.
 3. **Commit the Changes:** `git commit -m "Stopped tracking <file-name>"`
 
+
+Certainly! Here's a Markdown section on using `git clean` in your documentation:
+
+---
+
+# Git Clean
+
+The `git clean` command is a powerful tool for removing untracked files and directories from your Git working directory. Untracked files are those that Git is not aware of, either because they have not been added to the repository or because they have been ignored.
+
+## Basic Usage
+
+To use `git clean`, you can run the following command:
+
+```bash
+git clean [options]
+```
+
+### Common Options
+
+- `-n` or `--dry-run`: This option shows what files and directories would be removed without actually removing them. It's useful for previewing the changes.
+
+- `-f` or `--force`: This option is required to execute the clean operation. Without it, `git clean` will not remove any files.
+
+- `-d`: By default, `git clean` only removes untracked files. To remove untracked directories as well, use the `-d` option.
+
+- `-i` or `--interactive`: This option prompts for confirmation before removing each untracked file or directory, making it safer.
+
+- `-x`: Removes ignored files as well. By default, `git clean` doesn't remove files specified in `.gitignore`, but `-x` overrides this behavior.
+
+## Examples
+
+### Preview Files to Be Removed
+
+```bash
+git clean -n
+```
+
+### Remove Untracked Files and Directories (Use with Caution)
+
+```bash
+git clean -f
+```
+
+### Remove Untracked Files and Directories Interactively
+
+```bash
+git clean -i
+```
+
+## Caution
+
+Be cautious when using `git clean` with the `-f` (force) option, as it can permanently delete files from your working directory, and these deletions cannot be undone. Always ensure you have backups of important files before running this command. Using `-n` (dry run) or `-i` (interactive) options is advisable for safety.
+
+---
+
+Feel free to incorporate this Markdown section into your documentation, and adjust it as needed to fit your specific project or context.
 ## Commits
 
 In Git, commits are essential for tracking changes in your project. Each commit represents a snapshot of your project at a particular point in time. Here are some common Git commit commands and concepts:
