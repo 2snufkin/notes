@@ -1,5 +1,5 @@
 # Local Repository
-
+https://learngitbranching.js.org/: site to prefond your knoledge in git with games
 ## Init a git project
 `git init`:
 connect the project to git. create an hidden folder named git when git store every version of every file in the working directory\
