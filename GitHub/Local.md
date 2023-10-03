@@ -91,7 +91,6 @@ In Git, commits are essential for tracking changes in your project. Each commit 
 
 - `git commit -a`: This command stages and commits changes in one step. It's essentially equivalent to running `git add .` followed by `git commit`.
 
-- `git commit --amend`: Use this command to modify the last commit's message without creating a new commit.
 
 ### Squash Commits
 
@@ -133,7 +132,10 @@ To add new changes to the last commit without changing its commit message, follo
    ```bash
    git commit --amend
    ```
-
+   or without modifing the message: 
+   ```bash
+   git commit --amend --no-edit
+   ```
 ## Modifying Older Commits
 
 If you need to modify a commit that is not the most recent one, you'll need to use interactive rebasing. Interactive rebasing allows you to edit, squash, or split commits.
