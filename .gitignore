@@ -1,4 +1,4 @@
-
+*.db
 # md editor
 *.backup
 *.bat
