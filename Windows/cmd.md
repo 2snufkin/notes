@@ -6,8 +6,8 @@ Please note that you may need administrative privileges to create a scheduled ta
 1. Create a bat file to run
 
 If you want to run a py script: 
-1.  Save your Python script in a location where it won't be moved or deleted.
-2. Create a batch script (.bat) that will run your Python script and save it in the same folder. Open Notepad and paste the following code:
++ Save your Python script in a location where it won't be moved or deleted.
++ Create a batch script (.bat) that will run your Python script and save it in the same folder. Open Notepad and paste the following code:
 ```
 @echo off
 pythonw.exe "C:\path\to\your\script\main.py"

@@ -28,7 +28,7 @@ This happens when a file has been modified in the same place by 2 separate sourc
 2. `git checkout --ours <filename>`: prefere and keep the local version. It will ignore the remote version
 3. Manually: Modify the conflicting file and make a 3rd version which will then be kept. 
 
-###Manually
+### Manually
 First, understand what you see:
 + Zone of the conflict is inside <<<<<<< ... >>>>>>>.
 + <<<<<<< HEAD: local modificiation
