@@ -12,7 +12,7 @@ Locally:
 ## Initial Setup:
 - git init
 - git add .
-- git commit -m “Your commit message”
+- git commit -m “init project”
 - git branch -M main
 - git remote add origin <repository_link>
 - git push -u origin main
