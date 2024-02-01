@@ -177,3 +177,88 @@ impression
 initiatives that were abandoned or never used. We should not undervalue the impact of demonstrating unconventional solutions, even if they weren’t used. Employers will be impressed by our diligence and inventiveness.
 2. 2. It’s also a good idea to present documentation that demonstrates your familiarity with certain tools and technologies, such as software licenses or certificates. Include these items in your profile and website
 
+# ATS
+use those ATS friendly titles:
+Contact Information,Professional Summary,Work Experience,Education,Skills,Certifications,Projects,Awards and Honors,Volunteer Experience,Languages,Professional Memberships
+
+## Example
+
+John Doe
+123 Main Street, City, State | (555) 555-5555 | john.doe@email.com | LinkedIn: linkedin.com/in/johndoe
+
+Professional Summary:
+Results-driven and detail-oriented professional with 5+ years of experience in project management and team leadership. Proven track record of successfully delivering projects on time and within budget. Seeking a challenging project management role to leverage strong organizational and communication skills.
+
+Work Experience:
+Project Manager | XYZ Corporation, City, State | January 2020 - Present
+- Led cross-functional teams to deliver multiple projects, resulting in a 20% increase in client satisfaction.
+- Implemented project management best practices, improving overall team efficiency by 15%.
+- Collaborated with stakeholders to define project scope, objectives, and deliverables.
+
+Assistant Project Manager | ABC Company, City, State | June 2017 - December 2019
+- Assisted in planning and executing various projects, ensuring adherence to timelines and budgets.
+- Conducted risk assessments and implemented mitigation strategies to minimize project risks.
+- Prepared project status reports and communicated updates to stakeholders.
+
+Education:
+Bachelor of Science in Business Administration | University of XYZ | Graduated May 2017
+
+Skills:
+Project Management, Team Leadership, Stakeholder Communication, Budgeting, Risk Assessment, Time Management, Microsoft Project, Agile Methodology
+
+Certifications:
+Project Management Professional (PMP) | Project Management Institute
+
+Projects:
+Website Redesign | XYZ Corporation | 2021
+- Led a team in redesigning the company website, resulting in a 30% increase in online engagement.
+- Implemented SEO strategies to improve website visibility and drive organic traffic.
+
+Awards and Honors:
+Employee of the Month | ABC Company | September 2018
+
+Volunteer Experience:
+Community Outreach Coordinator | Local Charity Organization | 2018 - Present
+- Organized and executed community events, increasing awareness and participation.
+
+Languages:
+Spanish (Proficient), French (Basic)
+
+Professional Memberships:
+Project Management Institute (PMI)
+
+
+1. **Use a Simple and Clean Format:**
+   - ATS prefers simple, clean resume formats without elaborate designs or graphics.
+   - Stick to standard fonts and avoid images or charts.
+
+2. **Keywords and Phrases:**
+   - Identify relevant keywords in the job description and incorporate them naturally into your resume.
+   - Use industry-specific terms and skills that are commonly associated with the job.
+
+3. **Use a Standard File Format:**
+   - Save your resume in a standard, ATS-friendly format like .docx or .pdf.
+   - Avoid using unusual file formats that may not be compatible with ATS.
+
+4. **Headings and Subheadings:**
+   - Organize your resume with clear headings and subheadings.
+   - Ensure that each section is labeled appropriately (e.g., "Work Experience," "Education," "Skills").
+
+5. **Avoid Graphics and Special Characters:**
+   - ATS may have difficulty parsing graphics, logos, or special characters. Stick to plain text where possible.
+
+6. **Tailor Your Resume:**
+   - Customize your resume for each job application. Highlight the most relevant skills and experiences based on the specific job requirements.
+
+7. **Include a Skills Section:**
+   - Create a dedicated skills section and list key skills relevant to the job. This can help ATS identify your qualifications.
+
+8. **Check for Spelling and Grammar:**
+   - Proofread your resume for spelling and grammar errors. ATS may penalize poorly written content.
+
+9. **Avoid Headers and Footers:**
+   - Information in headers and footers may not be read by ATS. Include important details in the main body of your resume.
+
+10. **Provide Complete Information:**
+    - Ensure that your resume includes all necessary details, such as job titles, dates of employment, and educational information.
+
