@@ -1,5 +1,37 @@
 # Basic
 
+## Types
+
+**Type Hinting:** Intredouce in Python 3.5. Allows to specify the type of a variable or function parameter.
+*Syntax:* var : type. 
+*collctions:* if you want a var to be a list of books `def add_books(books : List[Book])` you ill need to import List `from typing import List`
+*return:* `-> return_type` if it's a custome object, the object type should be inside " " if your are in the same class otherwise "" is not needed
+## Imports in Python
+**Import:**importing runs through a file and allows you to access the properties defined inside it. you can import from files or folders as long as they are in your sys paths.
+**__init__.py:** Importing from a folder usually requires a dunder  file to be defined,especially in older Python versions.
+**__name__:** equal to `__main__` in the file you run and is equal to the import path on other files.
+.
+
+```python
+# Importing modules
+import math
+print(math.sqrt(25))
+
+# Importing specific function/class
+from random import randint
+print(randint(1, 10))
+```
+
+## Relative Imports in Python
+
+For relative imports within a package, use `.` and `..`.
+
+```python
+# Relative imports
+from .module1 import function1
+from ..module2 import function2
+```
+
 ## Conditionals (if, elif, else):
 - **if:** Evaluates a condition; if true, it skips further `elif` and `else` checks; if false, it proceeds to the next condition.
 - **elif:** Allows you to check multiple conditions in sequence until a true condition is found.
@@ -24,6 +56,24 @@ for key, value of in dict_example:
     # code
 
 
+
+# Type hinting
+def add(x: int, y: int) -> int: 
+    return x + y
+
+class CustomObject:
+    def __init__(self, value: int):
+        self.value = value
+
+    def add_values(a: int, b: int) -> int:
+        return a + b
+
+    def create_custom_object(value: int) -> "CustomObject":
+        return CustomObject(value)
+
+    def create_external_object() -> OtherObject:
+        return OtherObject()
+```
 
 ```
 # Collections
@@ -279,7 +329,6 @@ print_user_info(**user_info) # equivalent to: print_user_info(name='John', age=3
 # Object-Oriented Programming 
 Object-Oriented Programming is a programming paradigm that utilizes objects to structure code. In Python, everything is an object, and OOP allows you to model real-world entities as objects, each with its own attributes and behaviors. Key concepts in OOP include classes, objects, encapsulation, inheritance, and polymorphism.
 
-# Classes and Objects
 **Class:** a blueprint for creating objects. It defines a data structure (attributes) and methods (functions) that operate on that data.
 self: a reference to the object itself when the object is created
 **Object:** an instance of a class. It is a concrete realization of the class, with specific values for its attributes.
@@ -293,9 +342,13 @@ calling: You must create an object if you want to call it.  all the instance met
 behinf the scene: Python does ClassName.method_name(instance) for example `yoni = Student("Yoni", (100, 85, 71)) => Student.calculate_avarage(yoni)`
 *Class Method:* Anottated with `@classmethod`. Bound to the class rather than instances, often used for operations that involve the class itself, and they can't access or modify instance-specific attributes directly.
 *Static method:* Anottated with `@staticmethod`. It's not really a method, it's more of a function inside a class which is independent of class and instance state, often used for utility functions within the class that don't require access to instance-specific or class-specific attributes.
-**Inheritance:** Inheritance allows a class (subclass/derived class) to inherit attributes and methods from another class (base class/parent class). The subclass can then extend or override the inherited methods and attributes. The relationship is subclass is parentclass (like Printer is as Device)
+**Inheritance:** x is y relationship between classes. Allows a subclass to inherit attributes and methods from another class (parent class). 
 `super()` function: Used to call the methods of the parent class.
-**Composition:**
+**Composition:** x has y relationship. Allows one class to contain an instance of another class as a member or attribute.
+
+
+
+
 ## Magic methods
 Magic methods, also known as dunder methods (short for "double underscore" methods), are special methods in Python that are surrounded by double underscores on both sides of their names. These methods are called implicitly by the Python interpreter in response to certain events, and they provide a way to define how objects behave in various contexts. 
 
@@ -413,184 +466,10 @@ class Point:
     ```        
 
 
-## Encapsulation
 
-Encapsulation restricts access to some of an object's components, bundling the data and methods that operate on the data within a single unit.
 
-- Use private attributes by prefixing them with double underscores (`__`).
 
-```python
-class MyClass:
-    def __init__(self, attribute1, attribute2):
-        self.__attribute1 = attribute1
-        self.__attribute2 = attribute2
 
-    def get_attribute1(self):
-        return self.__attribute1
-
-    def set_attribute1(self, new_value):
-        self.__attribute1 = new_value
-```
-
-**Polymorphism:**Polymorphism allows objects of different classes to be treated as objects of a common base class.
-
-```python
-class Animal:
-    def sound(self):
-        pass
-
-class Dog(Animal):
-    def sound(self):
-        return "Woof"
-
-class Cat(Animal):
-    def sound(self):
-        return "Meow"
-```
-
-- Objects of `Dog` and `Cat` classes can be treated as objects of the common base class `Animal`.
-
-This basic guide covers the fundamental concepts of Object-Oriented Programming in Python. OOP provides a powerful and flexible way to structure code, promoting modularity, reusability, and maintainability.
-```
-
-## Magic Methods: `__str__` and `__repr__`
-
-Magic methods allow customization of class behavior. `__str__` and `__repr__` are used for string representation.
-
-```python
-# Magic methods
-class Point:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
-
-    def __str__(self):
-        return f"Point({self.x}, {self.y})"
-
-    def __repr__(self):
-        return f"Point({self.x}, {self.y})"
-```
-
-## Solution to Coding Exercise: Classes and Objects
-
-*Exercise: Create a class representing a book with attributes: title, author, and year published.*
-
-```python
-# Coding Exercise Solution
-class Book:
-    def __init__(self, title, author, year_published):
-        self.title = title
-        self.author = author
-        self.year_published = year_published
-
-# Create an instance
-my_book = Book("Python Basics", "John Doe", 2022)
-print(my_book.title)
-```
-
-## `@classmethod` and `@staticmethod`
-
-Class methods (`@classmethod`) and static methods (`@staticmethod`) are used for class-level operations.
-
-```python
-# Class methods and static methods
-class MathOperations:
-    @staticmethod
-    def add(x, y):
-        return x + y
-
-    @classmethod
-    def multiply(cls, x, y):
-        return x * y
-```
-
-## Solution to Coding Exercise: `@classmethod` and `@staticmethod`
-
-*Exercise: Create a class method that calculates the average of a list of numbers.*
-
-```python
-# Coding Exercise Solution
-class MathOperations:
-    @classmethod
-    def calculate_average(cls, numbers):
-        return sum(numbers) / len(numbers)
-
-# Test the class method
-numbers = [10, 20, 30, 40, 50]
-average = MathOperations.calculate_average(numbers)
-print(average)
-```
-
-## Class Inheritance
-
-Inheritance allows a class to inherit attributes and methods from another class.
-
-```python
-# Class inheritance
-class Animal:
-    def speak(self):
-        pass
-
-class Dog(Animal):
-    def speak(self):
-        print("Woof!")
-
-class Cat(Animal):
-    def speak(self):
-        print("Meow!")
-```
-
-## Class Composition
-
-Composition involves combining classes to create more complex behavior.
-
-```python
-# Class composition
-class Engine:
-    def start(self):
-        print("Engine started.")
-
-class Car:
-    def __init__(self):
-        self.engine = Engine()
-
-    def start(self):
-        self.engine.start()
-```
-
-## Type Hinting in Python 3.5+
-
-Type hinting allows you to specify the type of a variable or function parameter.
-
-```python
-# Type hinting
-def add(x: int, y: int) -> int:
-    return x + y
-```
-
-## Imports in Python
-
-You can import modules or specific functions/classes from modules.
-
-```python
-# Importing modules
-import math
-print(math.sqrt(25))
-
-# Importing specific function/class
-from random import randint
-print(randint(1, 10))
-```
-
-## Relative Imports in Python
-
-For relative imports within a package, use `.` and `..`.
-
-```python
-# Relative imports
-from .module1 import function1
-from ..module2 import function2
-```
 
 ## Errors in Python
 
