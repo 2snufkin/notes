@@ -49,3 +49,8 @@ When building a responsive web application, it's crucial to use media queries to
    ```
 
 These are just examples, and you can adjust the specific breakpoints and styles based on your application's design and layout requirements. Always test your responsive design on various devices to ensure a seamless user experience across different screen sizes.
+
+/* For screens smaller than 768px (typically smartphones) */
+@media only screen and (max-width: 767px) {
+  /* Your styles for smartphones go here */
+}
