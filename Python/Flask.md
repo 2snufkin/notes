@@ -164,7 +164,11 @@ FLASK_DEBUG=1 # set the hot reload
 
 ```
 **`abort()`:** Get two arg, status code and message. The abort method also exists in Flask but when you call the abort of Flask-Smorest it also add the documentation. 
-How to Use Blueprints and MethodViews in Flask
+
+## Blueprints and MethodViews in Flask
+Blueprint is a feature provided by Flask to help organize larger applications into smaller, reusable components which can improve code organization and maintainability, especially as your application grows in size and complexity.Blueprints allow you to define sets of routes, templates, and static files in a way that can be registered with an application or even reused across multiple applications.
+
+
 
 How to Write Marshmallow Schemas for Our API
 

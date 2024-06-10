@@ -21,8 +21,9 @@ def generate_image(prompt):
     Returns:
     - image (bytes): The generated image in bytes format.
     """
-    client = OpenAI()
-    client.api_key = os.getenv("API_KEY")
+
+    client = OpenAI(api_key=os.getenv("API_KEY"))
+)
 
     response = client.images.generate(
         model="dall-e-2", # or dalle-e-2 : price impact
@@ -51,6 +52,7 @@ def generate_image(prompt):
     Returns:
     - image (bytes): The generated image in bytes format.
     """
+    # you can also assign the api key like this, compare to Dalle2 Code
     client = OpenAI()
     client.api_key = os.getenv("API_KEY")
 
