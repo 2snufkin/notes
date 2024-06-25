@@ -162,6 +162,12 @@ Squashing commits is a technique to combine multiple commits into a single, more
 
 5. Git will complete the rebase, and you will have a single squashed commit with the combined changes.
 
+## Deleting Commits 
+`git reset --soft HEAD~1`: to remove the last commit but keep the changes.
+`git reset --hard HEAD~1`: to remove the last commit and discard the changes.
+`git commit --amend`: to modify the last commit.
+`git revert HEAD`:  if the commit has been pushed to a shared remote repository. This command creates a new commit that undoes the changes introduced by the last commit.
+
 
 ### Modifying the Most Recent Commit
 
