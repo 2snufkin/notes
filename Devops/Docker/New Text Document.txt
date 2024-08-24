@@ -1,5 +1,0 @@
-Interview de Solomon Hykes, co fondateur de dotCloud - Docker: 
-https://www.youtube.com/watch?v=CxMj1CuOD4E
-
-DockerCon 15 - Day 1 Keynote by Ben Golub & Solomon Hykes: 
-https://www.youtube.com/watch?v=at72dhg-SZY&list=RDCMUC76AVf2JkrwjxNKMuPpscHQ&index=1

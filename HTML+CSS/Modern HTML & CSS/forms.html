@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Form Examples with TailwindCSS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 text-gray-900 p-8">
+    <div class="max-w-4xl mx-auto space-y-12">
+
+        <!-- Basic Form with Input Tags -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6">Basic Form with Input Tags</h2>
+            <form action="/submit-form" method="POST" class="space-y-4">
+                <!-- Username -->
+                <div>
+                    <label for="username" class="block text-sm font-medium">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username"
+                        class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email"
+                        class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password"
+                        class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <!-- Number Input -->
+                <div>
+                    <label for="age" class="block text-sm font-medium">Age</label>
+                    <input type="number" id="age" name="age" min="18" max="100"
+                        class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <!-- Select List -->
+                <div>
+                    <label for="country" class="block text-sm font-medium">Country</label>
+                    <select id="country" name="country" class="mt-1 p-2 w-full border rounded-md">
+                        <option value="usa">USA</option>
+                        <option value="canada">Canada</option>
+                        <option value="uk">UK</option>
+                    </select>
+                </div>
+
+                <!-- Textarea -->
+                <div>
+                    <label for="bio" class="block text-sm font-medium">Biography</label>
+                    <textarea id="bio" name="bio" rows="4" class="mt-1 p-2 w-full border rounded-md"
+                        placeholder="Tell us about yourself..."></textarea>
+                </div>
+
+                <!-- Checkbox -->
+                <div>
+                    <label class="inline-flex items-center">
+                        <input type="checkbox" name="newsletter" class="form-checkbox text-indigo-600">
+                        <span class="ml-2">Subscribe to newsletter</span>
+                    </label>
+                </div>
+
+                <!-- Radio Buttons -->
+                <div>
+                    <p class="block text-sm font-medium">Choose your gender</p>
+                    <div class="mt-2">
+                        <label class="inline-flex items-center mr-4">
+                            <input type="radio" name="gender" value="male" class="form-radio text-indigo-600">
+                            <span class="ml-2">Male</span>
+                        </label>
+                        <label class="inline-flex items-center">
+                            <input type="radio" name="gender" value="female" class="form-radio text-indigo-600">
+                            <span class="ml-2">Female</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- File Upload -->
+                <div>
+                    <label for="resume" class="block text-sm font-medium">Upload your resume</label>
+                    <input type="file" id="resume" name="resume"
+                        class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" value="Submit"
+                        class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 cursor-pointer">
+                </div>
+            </form>
+        </section>
+
+        <!-- Input Field Attributes Example -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6">Input Field Attributes</h2>
+            <form class="space-y-4">
+                <div>
+                    <label for="username-attr" class="block text-sm font-medium">Username</label>
+                    <input type="text" id="username-attr" name="username" placeholder="Enter your username"
+                        minlength="5" maxlength="15" class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <div>
+                    <label for="password-attr" class="block text-sm font-medium">Password</label>
+                    <input type="password" id="password-attr" name="password" minlength="8" maxlength="20"
+                        class="mt-1 p-2 w-full border rounded-md" required>
+                </div>
+
+                <div>
+                    <label for="bio-attr" class="block text-sm font-medium">Bio</label>
+                    <textarea id="bio-attr" name="bio" rows="4" class="mt-1 p-2 w-full border rounded-md"
+                        placeholder="Tell us about yourself..." required></textarea>
+                </div>
+
+                <div>
+                    <input type="submit" value="Submit"
+                        class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 cursor-pointer">
+                </div>
+            </form>
+        </section>
+
+        <!-- Select Boxes and Textarea -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6">Select Box and Textarea</h2>
+            <form class="space-y-4">
+                <!-- Select Box with multiple and size attributes -->
+                <div>
+                    <label for="fruits" class="block text-sm font-medium">Choose your favorite fruits</label>
+                    <select id="fruits" name="fruits[]" multiple size="3" class="mt-1 p-2 w-full border rounded-md">
+                        <option value="apple">Apple</option>
+                        <option value="banana">Banana</option>
+                        <option value="orange" selected>Orange</option>
+                        <option value="mango">Mango</option>
+                    </select>
+                </div>
+
+                <!-- Textarea with placeholder -->
+                <div>
+                    <label for="message" class="block text-sm font-medium">Message</label>
+                    <textarea id="message" name="message" rows="5" class="mt-1 p-2 w-full border rounded-md"
+                        placeholder="Enter your message here..."></textarea>
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" value="Submit"
+                        class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 cursor-pointer">
+                </div>
+            </form>
+        </section>
+
+        <!-- Color, Date, and Time Input Fields -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6">Color, Date, and Time Input Fields</h2>
+            <form class="space-y-4">
+                <!-- Color Picker -->
+                <div>
+                    <label for="favcolor" class="block text-sm font-medium">Favorite Color</label>
+                    <input type="color" id="favcolor" name="favcolor" value="#00ff00"
+                        class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Date Picker -->
+                <div>
+                    <label for="date" class="block text-sm font-medium">Select Date</label>
+                    <input type="date" id="date" name="date" class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Time Input -->
+                <div>
+                    <label for="time" class="block text-sm font-medium">Select Time</label>
+                    <input type="time" id="time" name="time" class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Week Input -->
+                <div>
+                    <label for="week" class="block text-sm font-medium">Select Week</label>
+                    <input type="week" id="week" name="week" class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Month Input -->
+                <div>
+                    <label for="month" class="block text-sm font-medium">Select Month</label>
+                    <input type="month" id="month" name="month" class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Range Input -->
+                <div>
+                    <label for="range" class="block text-sm font-medium">Select a Range</label>
+                    <input type="range" id="range" name="range" min="0" max="100" step="10" class="mt-1 w-full">
+                </div>
+
+                <!-- URL Input -->
+                <div>
+                    <label for="website" class="block text-sm font-medium">Website URL</label>
+                    <input type="url" id="website" name="website" placeholder="https://example.com"
+                        class="mt-1 p-2 w-full border rounded-md">
+                </div>
+
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" value="Submit"
+                        class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 cursor-pointer">
+                </div>
+            </form>
+        </section>
+
+        <!-- Datalist Example -->
+        <section class="bg-white p-6 rounded-lg shadow-md">
+            <h2 class="text-2xl font-bold mb-6">Datalist Example</h2>
+            <form class="space-y-4">
+                <!-- Datalist -->
+                <div>
+                    <label for="browser" class="block text-sm font-medium">Choose your favorite browser</label>
+                    <input list="browsers" id="browser" name="browser" class="mt-1 p-2 w-full border rounded-md">
+                    <datalist id="browsers">
+                        <option value="Chrome">
+                        <option value="Firefox">
+                        <option value="Safari">
+                        <option value="Edge">
+                        <option value="Opera">
+                    </datalist>
+                </div>
+
+                <!-- Datalist for Time -->
+                <div>
+                    <label for="appt" class="block text-sm font-medium">Choose an appointment time</label>
+                    <input list="appt-times" id="appt" name="appt" class="mt-1 p-2 w-full border rounded-md">
+                    <datalist id="appt-times">
+                        <option value="10:00">
+                        <option value="11:00">
+                        <option value="14:00">
+                        <option value="16:00">
+                    </datalist>
+                </div>
+
+                <!-- Datalist for Colors -->
+                <div>
+                    <label for="color" class="block text-sm font-medium">Choose a color</label>
+                    <input list="colors" id="color" name="color" class="mt-1 p-2 w-full border rounded-md">
+                    <datalist id="colors">
+                        <option value="#ff0000" label="Red">
+                        <option value="#00ff00" label="Green">
+                        <option value="#0000ff" label="Blue">
+                        <option value="#DC143C"></option>
+
+                    </datalist>
+                </div>
+
+
+                <label for="tick">Tip Amount</label>
+                <input type="range" name="tick" id="tick" list="tickmarks" min="0" max="100" />
+                <datalist id="tickmarks">
+                    <option value="0"></option>
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
+                    <option value="50"></option>
+                    <option value="60"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
+                    <option value="100"></option>
+                </datalist>
+
+                <!-- Submit Button -->
+                <div>
+                    <input type="submit" value="Submit"
+                        class="mt-4 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 cursor-pointer">
+                </div>
+            </form>
+        </section>
+
+    </div>
+</body>
+
+</html>
