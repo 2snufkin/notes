@@ -1,0 +1,54 @@
+ body {
+     font-family: "Lato", sans-serif;
+     font-size: 18px;
+     line-height: 1.6;
+ }
+
+ .header {
+     background-color: #5e175b;
+     color: #fff;
+ }
+
+ h1 {
+     text-align: center;
+     font-size: 40px;
+     text-indent: 20px;
+ }
+
+ a {
+     text-decoration: none;
+     color: #333;
+ }
+
+ a:hover {
+     color: rebeccapurple;
+ }
+
+ a:active {
+     font-size: 0.8em;
+     color: red;
+ }
+
+ ul {
+     list-style: none;
+     padding: 0;
+
+ }
+
+
+
+ .main-menu {
+     background-color: #f4f4f4;
+     text-transform: uppercase;
+     text-indent: 10px;
+ }
+
+ .lead {
+     font-weight: bold;
+     color: rebeccapurple;
+ }
+
+ .center {
+     margin: auto;
+     width: 500px;
+ }
