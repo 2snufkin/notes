@@ -1,9 +1,4 @@
-# GITHUB:
-
-
-## SSH KEYS
-`ssh-keygen -o`: create a SSH file on your disk, later to be used in GitHub. It will ask you where to save\
-`cat <save-folder>/id_rsa.pub`: will show the SSH string
+# Remote
 
 ## Getting info
 `git log --merges --pretty=format:'%h %s' --grep='Merge pull request'`: return a list of all merege pull requests
