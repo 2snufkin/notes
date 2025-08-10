@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+        rel="stylesheet">
+    <title>Document</title>
+    <style>
+        :root {
+            --blue_4: #104196;
+            --red: #d93d4a;
+            --brown: #44251a;
+            --blue_1: #d1dfe2;
+
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Roboto", sans-serif;
+            background-color: var(--blue_1);
+
+
+        }
+
+        .container {
+            margin: 100px auto;
+            width: 35%;
+            height: 80vh;
+        }
+
+
+
+        .card {
+            margin: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 10px 10px 20px black;
+
+        }
+
+        h1 {
+            font-weight: 300;
+            padding-bottom: 10px;
+        }
+
+        .sporty h1 {
+            color: var(--red);
+        }
+
+        .casual h1 {
+            color: var(--blue_4);
+        }
+
+        .formal h1 {
+            color: var(--brown);
+        }
+
+        button {
+            border: none;
+            outline: none;
+            padding: 10px;
+            color: white;
+            border-radius: 3px;
+            width: 30%;
+            margin-top: 20px;
+        }
+
+        .sporty button {
+            background-color: var(--red);
+        }
+
+        .sporty {
+            background: white url("sporty.png") no-repeat center right/180px;
+        }
+
+        .formal {
+            background: white url("formal.png") no-repeat center right/180px;
+        }
+
+        .casual {
+            background: white url("casual.png") no-repeat center right/180px;
+        }
+
+        .casual button {
+            background-color: var(--blue_4);
+        }
+
+        .formal button {
+            background-color: var(--brown);
+        }
+
+        .left {
+            padding: 20px;
+            width: 70%
+        }
+
+        .right {
+            width: 30%;
+        }
+
+        img {
+            width: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- sporty -->
+        <div class="card sporty">
+            <div class="left">
+                <h1>Keep It sporty</h1>
+                <p>Shoes to keep you active an healthy</p>
+                <button>View Collection</button>
+            </div>
+
+        </div>
+        <!-- casual -->
+        <div class="card casual">
+            <div class="left">
+                <h1>Keep It Casual</h1>
+                <p>Shoes to keep you comfortable</p>
+                <button>View Collection</button>
+            </div>
+
+        </div>
+        <!-- formal -->
+
+        <div class="card formal">
+            <div class="left">
+                <h1>Keep It Formal</h1>
+                <p>Shoes to keep you looking sharp</p>
+                <button>View Collection</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

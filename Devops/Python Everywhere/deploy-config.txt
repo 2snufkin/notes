@@ -1,0 +1,8 @@
+[PythonAnywhere]
+api_token = your_api_token_here
+
+username = your_pythonanywhere_username
+
+domain_name = your_username.pythonanywhere.com
+
+repo_name = your_repository_name

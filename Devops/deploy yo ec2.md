@@ -12,6 +12,139 @@ click enter and enter , the second enter is if you want to create Passphrase for
 6. Navigate to GitHub's SSH and GPG keys page.
 7. Click "New SSH key."
 8. Paste the copied key into the "Key" field, give it a descriptive title, and click "Add SSH key."
+------------
+
+### 1. Clone the Repository on the EC2 Instance
+
+Navigate to the directory where you want to deploy the second Flask app and clone your repository:
+```bash
+cd ~
+git clone https://github.com/your-username/your-second-flask-app-repo.git
+cd your-second-flask-app-repo
+```
+
+Replace `https://github.com/your-username/your-second-flask-app-repo.git` with the URL of your Git repository.
+
+### 2. Set Up a Virtual Environment
+
+Create a virtual environment to keep your dependencies isolated:
+```bash
+python3 -m venv venv
+source venv/bin/activate
+```
+
+### 3. Install Dependencies
+
+Install the dependencies for the Flask app using the `requirements.txt` file from your repository:
+```bash
+pip install -r requirements.txt
+```
+
+This will install all the Python packages that your new Flask app requires.
+
+### 4. Configure the Flask App to Use a Different Port
+
+Ensure that your Flask app runs on a different port than your first app. Open the entry point file of your Flask app (usually something like `app.py` or `wsgi.py`) and make sure it's configured to run on a different port, for example:
+```python
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5001)  # Change port to 5001
+```
+
+### 5. Use a Process Manager (Recommended)
+
+Use a process manager like **Gunicorn** with **systemd** to manage the second Flask app, so it continues running even if the terminal session ends.
+
+#### Install Gunicorn if Needed
+```bash
+pip install gunicorn
+```
+
+#### Create a systemd Service File
+
+Create a new service file for your second Flask app:
+```bash
+sudo nano /etc/systemd/system/torrent.service
+```
+
+Add the following content to the file:
+```ini
+[Unit]
+Description=Torrent App
+After=network-online.target
+
+[Service]
+User=ubuntu  
+Group=www-data
+WorkingDirectory=/home/ubuntu/FlaskTorrentSearch
+Environment="PATH=/home/ubuntu/FlaskTorrentSearch/venv/bin"
+ExecStart=/home/ubuntu/FlaskTorrentSearch/venv/bin/gunicorn -w 4 -b 0.0.0.0:5001 --timeout 30 --access-logfile /var/log/gunicorn/access.log --error-logfile /var/log/gunicorn/error.log app:app
+Restart=always
+RestartSec=5
+LimitNOFILE=4096
+LimitNPROC=1024
+
+[Install]
+WantedBy=multi-user.target
+
+```
+
+Make sure to update the `WorkingDirectory` and `ExecStart` paths to match the location of your new Flask app.
+
+#### Enable and Start the Service
+
+Reload the systemd daemon, enable, and start your new service:
+```bash
+sudo systemctl daemon-reload
+sudo systemctl enable torrent
+sudo systemctl start torrent
+```
+
+Check the status of the service to make sure it's running:
+```bash
+sudo systemctl status torrent
+```
+
+### 6. Open the Port in the EC2 Security Group
+
+Ensure that the new port (e.g., `5001`) is open in your EC2 instance's security group:
+1. Open the AWS EC2 console.
+2. Select your instance and go to "Security" > "Security Groups."
+3. Edit the inbound rules and add a new rule:
+   - Type: Custom TCP
+   - Port range: `5001`
+   - Source: `0.0.0.0/0` (or limit to your IP for more security).
+
+### 7. Access the New Flask App
+
+Access your second Flask app using the EC2 public IP or domain name followed by the new port:
+```
+http://your-ec2-public-ip:5001
+```
+
+This process will deploy your second Flask app from Git and ensure that both applications run independently on different ports on the same EC2 instance.
+
+
+
+
+
+
+
+
+
+
+-----------
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 1. Clone the Flask App from a Git Repository using SSH
 1. Clone using ssh
